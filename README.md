@@ -1,9 +1,10 @@
-# mare-space
+# mare-space softcode
+
 TinyMARE II (MUD) Space-related softcode and documentation for the MARE-Space simulation engine used in MicroMARE.
 
 ## Contributors:
 
-- Aravali / Carrie Gram
+- Aravali / Carrie Gram 
 - Ardhen
 - Klynastor / Gandalf
 
@@ -22,7 +23,7 @@ The softcode runs inside a TinyMARE II server running and integrated with the MA
 
 ## Folder structure
 
-- `consoles/` - Spacecraft bridge consoles softcode
+- `consoles/` - Spacecraft bridge console softcode
 - `spacecraft/` - Spacecraft object and template softcode
 - `stations/` - Softcode used for landing and docking stations
 - `things/` - Item softcode

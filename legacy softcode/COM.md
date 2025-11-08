@@ -1,0 +1,135 @@
+# COM - Communications Console
+
+## Name
+
+COM - Communications Console
+
+## Purpose
+
+This is the COM legacy console object, used in older versions of the game to provide communication capabilities for spacecraft. It includes various communication functions such as sending and receiving messages, initiating voice communications, and managing communication channels.
+
+## Meta data
+
+```mush
+Name: COM
+Type: Thing
+```
+
+## Object Definition
+
+### Attribute definitions
+
+```mush
+channum(): inherit function
+invalidradio: inherit program
+compoweroff: inherit program
+compowerlow: inherit program
+com_power(): inherit function
+informmessage(): inherit function
+handlesentmsg: inherit program
+com_alarm_check: inherit program
+com_alarm: program
+com_indicator: inherit program
+msg_slots: inherit program
+com_log_cmd: inherit program
+com_msg10: inherit program
+com_msg9: inherit program
+com_msg8: inherit program
+com_msg7: inherit program
+com_msg6: inherit program
+com_msg5: inherit program
+com_msg4: inherit program
+com_msg3: inherit program
+com_msg2: inherit program
+com_msg1: inherit program
+com_info3: inherit program
+com_info2: inherit program
+com_transmit_cmd: inherit program
+com_channel_cmd: inherit program
+com_video_cmd: inherit program
+com_wordoff_cmd: inherit program
+com_word_cmd: inherit program
+com_range_cmd: inherit program
+com_id_cmd: inherit program
+com_carrier_cmd: inherit program
+com_power_cmd: inherit program
+_attrdef33(): inherit function
+com_status_cmd: inherit program
+com_word(): inherit function
+_attrdef36(): inherit function
+yesno(): inherit function
+com_status(): inherit function
+com_flag10: inherit program
+com_flag9: inherit program
+com_flag8: inherit program
+com_flag7: inherit program
+com_flag6: inherit program
+com_flag5: inherit program
+com_flag4: inherit program
+showmessage: inherit program
+com_header(): inherit function
+displaymessage(): inherit function
+_attrdef49(): inherit function
+com_flag3: inherit program
+com_flag2: inherit program
+com_flag1: inherit program
+com_video: program
+channels(): inherit function
+```
+
+### Attribute list
+
+```mush
+com_channel_cmd:	$com channel *=*:/[get(me/com_man)]/@swi land(range?(v(1),1,999),range?(v(0),1,wcount(channels(v(us)))))=0,{@pemit %#=v(invalidradio)},{@pemit %#=Channel set.;@channel v(us)=set_word(channels(v(us)),v(1),v(0));@swi land(match(channum(v(us),v(0)),strcat(v(0),v(1))),land(com_word(v(0),1),com_word(v(0),3)))=0,,{@tr me/com_carrier_change=[channum(v(us),v(0))],0;@tr me/com_carrier_change=%0%1,1}}
+showmessage:	@pemit get(me/com_man)={%[displaymessage(v(0),v(5),v(1),v(2),v(3),v(4))]};@com_msg[first(get(me/msg_slots))] me=join(time(),displaymessage(v(0),v(5),v(1),v(2),v(3),v(4)));@msg_slots me=join(rest(get(me/msg_slots)),first(get(me/msg_slots)));@swi get(me/com_man)=,{@emit v(com_indicator)}
+com_log_cmd:	$com log:@foreach get(me/msg_slots)=@pemit %#={%%%[get(me/com_msg%%0)]}
+channels():	[get(s(%0/channel))]
+channum():	[extract(channels(v(0)),v(1),1)]
+handlesentmsg:	@pwrcomm me=sub(get(me/pwrcomm),com_power(v(0)));@com_msg[first(get(me/msg_slots))] me=join(time(),informmessage(v(0),v(1),com_power(v(0))));@msg_slots me=join(rest(get(me/msg_slots)),first(get(me/msg_slots)))
+informmessage():	[s(Outgoing Signal Power Used: %2 Channel %0/[channum(v(us),v(0))]: [v(1)])]
+com_header():	[s(Incoming Signal: [fdiv(pow(v(4),2),pow(3d(v(5),v(us)),2))] Bearing:[velhdg(dx(v(5),v(us)),dy(v(5),v(us)),dz(v(5),v(us)))] Channel %0/[channum(v(us),v(0))])]
+com_status():	[ljust(s(%0/[channum(v(us),v(0))]),7)] | [rjust(yesno(com_word(v(0),1)),4)] % | [rjust(yesno(com_word(v(0),2)),3)] | [rjust(ifelse(comp(get(me/com_video),v(0)),OFF,ON),4)] % | [rjust(yesno(com_word(v(0),3)),5)] % % | [rjust(com_word(v(0),4),15)] | [ifelse(scomp(com_word(v(0),5),*),mid(com_word(v(0),5),1,strlen(com_word(v(0),5))),<None>)]
+com_status_cmd:	$com status:/[get(me/com_man)]/@pemit %#=Channel | Power | ID? | Video | Carrier | Broadcast Range | Encryption Word;@pemit %#=--------+-------+-----+-------+---------+-----------------+----------------;@foreach rest(lnum(add(1,wcount(channels(v(us))))))=@pemit %#=com_status(v(0))
+com_video_cmd:	$com video *:/[get(me/com_man)]/@pemit %#=Video mode is currently unavailable.
+com_wordoff_cmd:	$com noencrypt *:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),*,5);@pemit %#=Radio %0 is now using no encryption.}
+com_word_cmd:	$com encrypt *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@swi wcount(v(1))=1,{@com_flag%0 me=set_word(get(me/com_flag%0),strcat(*,v(1)),5);@pemit %#=Traffic on Radio %0 is now encrypted with keyword '%1'},{@pemit %#=Illegal Keyword. You need to use a one-word encryption keyword.}}
+com_range_cmd:	$com range *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),simp(fadd(0,v(1))),4);@pemit %#=Broadcast Range on Radio %0 is now set to %%%[simp(fadd(0,v(1)))]km's}
+com_carrier_cmd:	$com carrier *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),3);@pemit %#=Carrier Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))];@swi [com_word(v(0),3)]=[yesno?(v(1))],,{@tr me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]}
+com_id_cmd:	$com id *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),2);@pemit %#=ID Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))]}
+com_power_cmd:	$com power *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),1);@pemit %#=Power on Radio %0 is now turned %%%[yesno(yesno?(v(1)))];@swi land(com_word(v(0),3),lxor([yesno?(v(1))],[com_word(v(0),1)]))=0,,{@tr me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]}}}
+_attrdef33():	[ifelse(lor(match(v(0),y*),match(v(0),on)),1,0)]
+com_word():	[extract(get(s(me/com_flag%0)),v(1),1)]
+yesno():	[ifelse(v(0),ON,OFF)]
+_attrdef36():	[land(lt(v(0),add(1,v(2))),gt(v(0),sub(1,v(1))))]
+com_flag1:	0 0 0 100000 *
+com_flag2:	0 0 0 100000 *
+com_flag3:	0 0 0 100000 *
+com_flag4:	0 0 0 100000 *
+com_flag5:	0 0 0 100000 *
+com_flag6:	0 0 0 100000 *
+com_flag7:	0 0 0 100000 *
+com_flag8:	0 0 0 100000 *
+com_flag9:	0 0 0 100000 *
+com_flag10:	0 0 0 100000 *
+com_info2:	@pemit %0=com id <Radio#>=<on/off> : Turn identification signal on/off for radio;@pemit %0=com carrier <Radio#>=<on/off> : Turn carrier signal on/off for radio;@pemit %0=com encrypt <Radio#>=<codeword> : Set radio to encrypt/decrypt using the word;@pemit %0=com noencrypt <Radio#> : Turn off encryption of that radio;@pemit %0=com video <Radio#> : Set radio for video mode(viewscreen);@pemit %0=transmit <Radio#>=<Msg> : Transmit a message over the radio;@tr me/com_info3=%0
+msg_slots:	1 2 3 4 5 6 7 8 9 10
+com_msg1:	Empty Msg1
+com_msg2:	Empty Msg2
+com_msg3:	Empty Msg3
+com_msg4:	Empty Msg4
+com_msg5:	Empty Msg5
+com_msg6:	Empty Msg6
+com_msg7:	Empty Msg7
+com_msg8:	Empty Msg8
+com_msg9:	Empty Msg9
+com_msg10:	Empty Msg10
+com_indicator:	*BEEP* A red message indicator light blinks on the Communications Station, indicating a received message.
+com_info3:	@pemit %0=com log : Display a log of the last 10 received messages;@pemit %0=Current Radio Standards: Channel 911 is used for ships needing emergency assistance. Channel 555 is being considered the universal ship to ship chatter channel for normal use. Channel 200 will be used for communicating with automated landing, launching, and docking facilities.
+_attrdef49():	[if(add(0,com_flag(v(0),1)),ifelse(scomp(get(me/com_video),v(0)),1,2))
+displaymessage():	[ifelse(scomp(com_word(v(0),5),v(2)),join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),<Static>......<hiss>....),strcat(join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),if(v(3),strcat(name(v(5)),if(get(s(%5/shipname)),s({([get(s(%5/shipname))])}))))),join(:,v(1))))]
+compoweroff:	Power on Radio %0 is currently turned OFF. No message sent.
+invalidradio:	You must use a valid radio number. Valid #'s are from '1' to '[wcount(channels(v(us)))]'.
+compowerlow:	Not enough power allocated to communications to transmit.
+com_power():	[add(0,fdiv(com_word(v(0),4),100000000))]
+com_transmit_cmd:	$transmit *=*:/[get(me/com_man)]/@swi ifelse(range?(v(0),1,wcount(channels(v(us)))),ifelse(com_word(v(0),1),ifelse(hasenergy?(v(!),pwrcomm,com_power(v(0))),1,0),-1),-2)=-2,{@pemit %#=v(invalidradio)},-1,{@pemit %#=v(compoweroff)},0,{@pemit %#=v(compowerlow)},1,{@pemit %#=Message Transmitted: %[com_power(v(0))] power used.;[ifelse(inspace(v(us)),s({!comevent v(us)=[com_word(v(0),4)],[channum(v(us),v(0))],[com_word(v(0),5)],[com_word(v(0),2)],v(1)}),s({@tr [loc(v(us))]/Comm_Signal=Comm,[channum(v(us),v(0))],[com_word(v(0),4)],*,1,[v(us)],v(1)}))];@tr me/handlesentmsg=v(0),v(1)}
+```
