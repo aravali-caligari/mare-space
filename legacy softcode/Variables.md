@@ -12,7 +12,7 @@ This file contains the definitions for global variables used in the space simula
 
 ## Attribute definitions
 
-```mush
+```mud
 history_names: 
 sensor_memory: 
 memory: 
@@ -22,6 +22,6 @@ us:
 
 ### Attribute list
 
-```mush
+```mud
 None
 ```

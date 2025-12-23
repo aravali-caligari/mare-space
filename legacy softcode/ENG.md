@@ -14,7 +14,7 @@ This is the ENG legacy console object, used in older versions of the game to pro
 
 ### Attribute definitions
 
-```mush
+```mud
 initfuel_cmd: inherit program
 fuel_start: program
 fuel_date: program
@@ -81,7 +81,7 @@ Drain: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 Engine_cmd:	$engine:/[get(me/eng_man)]/@swi truth(get(me/engine))=1,{@pemit %#;@pemit %#=Type: [name(get(me/engine))];@pemit %#=Rated at: [get(s(%/us//rating))]:1;@npemit %#=Operating at: [add(get(s(%/us//efficiency)),1)]%%%% max eff.;@pemit %#=Thrust Range: [get(me/MinThr)]-[get(me/MaxThr)];@pemit %#},{@pemit %#=Engine is disengaged.}
 worm_cmd:	$wormjump:/[v(nav_man)]/@swi is_a(v(engine),#24225)=1,{[wormjump(first(foreach(indist(v(us),50000),[if(is_a(v(0),#23318),v(0))])))]},{@pe %#=How do you expect to use a worm hole without a worm drive engaged?}
 AllBatt:	@swi get(me/PwrBatt)=*Damaged*,{@pemit %0=Batteries are damaged.},*Destroyed*,{@pemit %0=Batteries are destroyed.},{@swi %[comp(sub(get(me/MaxBatt),1),add(get(me/PwrBatt),abs(%1)))%]=-1,{@pemit %0=Batteries cannot be charged to that potential.},{@pwrbatt me=add(get(me/pwrbatt),abs(%1));@pwrgen [get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated to Batteries.}

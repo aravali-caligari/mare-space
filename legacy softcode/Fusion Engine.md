@@ -14,7 +14,7 @@ This is the Fusion Engine legacy console object, used in older versions of the g
 
 ### Attribute definitions
 
-```mush
+```mud
 Hypertest: inherit program
 Helm: program
 Us: program
@@ -29,7 +29,7 @@ _IDesc: inherit
 
 ### Attribute list
 
-```mush
+```mud
 Hypertest:	@tr [get(me/helm)]/emote=nav,Engineering: You have to engage a Hyper Drive first.
 Disengage:	$disengage fusion:@swi [get(s(%/Helm//Engine))]=[num(me)],{@EngEff me=get(s(%/Us//Efficiency));@efficiency %/Us/;@engine %/Helm/;@thrust %/Us/;@wait 1=@pemit %#=Fusion Drive Disengaged.;@tr [get(me/helm)]/emote=eng,Engineering: Fusion Drive disengaged.},{@pemit %#=That engine is not currently engaged.}
 EngRat:	1000

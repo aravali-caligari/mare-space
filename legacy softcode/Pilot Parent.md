@@ -14,7 +14,7 @@ This is the Autopilot console object, used in the game to provide players with a
 
 ### Attribute definitions
 
-```mush
+```mud
 autohelp2: inherit program
 autohalt: inherit program
 train_Cmd: inherit program
@@ -77,7 +77,7 @@ _Startup: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 autohalt:	$autohalt:@emit [name(me)] has been halted.;@fo me=@halt
 _attrdef4():	[ifelse(wmatch(get(v(helm),man_list),v(!)),ifelse(match(get(v(helm),s(%1_man)),v(!)),2,-1),ifelse(get(v(helm),s(%1_man)),1,0))]
 train_Cmd:	$train autopilot:@helm me=;@foreach lcon(here)=@swi get(v(0),official_helm)=Yes,{@helm me=v(0)};@wait 10=@swi v(helm)=,{:does not recognize an official starship helm as being in this room to train on.},{:recognizes the starship helm.}

@@ -10,7 +10,7 @@ This is the SCI2 legacy console object, used in older versions of the game to pr
 
 ## Meta data
 
-```mush
+```mud
 Name: SCI2
 Type:	Thing
 ```
@@ -19,7 +19,7 @@ Type:	Thing
 
 ### Attribute definitions
 
-```mush
+```mud
 sciscan: inherit program
 sciscan_cmd: inherit program
 generalscan: inherit program
@@ -60,7 +60,7 @@ tacscan_cmd: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 scan_extra1():	<-------- Theta --------+--------- Phi -----------+--------- Psi --------->
 scan_extra2():	Pos Vel Acl | Pos Vel Acl | Pos Vel Acl
 navscan:	@tr me/scancost=%0,%1,%2;@pe %2=basic_readout(v(us),v(0),v(1));@pe %2;@pe %2=join(sense_header(),scan_relative(v(us),v(0),v(1)));@pe %2=sense_line1(v(us),v(0),v(1));@pe %2=join(sense_line2(v(us),v(0),v(1)),scan_velocity(v(us),v(0),v(1)));@pe %2=sense_line3(v(us),v(0),v(1));@pe %2=sense_line4(v(us),v(0),v(1));@pe %2=sense_line5(v(us),v(0),v(1));@pe %2=scan_extra1();@pe %2=scan_extra2(v(us),v(0),v(1));@pe %2=scan_extra3(v(us),v(0),v(1));@pe %2=scan_extra1()

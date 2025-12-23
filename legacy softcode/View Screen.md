@@ -14,7 +14,7 @@ This is the View Screen legacy console object, used in older versions of the gam
 
 ### Attribute definitions
 
-```mush
+```mud
 tYlin(): inherit function
 plotnum(): inherit function
 plotcoords(): inherit function
@@ -78,7 +78,7 @@ view: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 tYlin():	[strcat(td,add(Ypos(v(0)),8))]
 plotfac:	$plot *:@pemit %#=Scale factor for plot set to [v(0)]Mm.;@fac me=[v(0)]
 d0:	Scale Factor: [v(fac)]Mm

@@ -14,7 +14,7 @@ This is the Star Chart console object, used in the game to provide players with 
 
 ### Attribute Definitions
 
-```mush
+```mud
 dump_output: inherit program
 chart_cmd: inherit program
 format_output(): inherit function
@@ -23,7 +23,7 @@ Known_Stars: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 dump_output:	@swi [inspace(v(0))]=0,,1,@pemit %1=format_output(v(0))
 format_output():	Star: [ljust(name(v(0)),10)] Type: [ljust(get(s(%0/Star)),12)] Dist: [rjust(first(km2ly(3d(v(0),get(me/us)))),7)] ly % Head: [velhdg(dx(v(0),get(me/us)),dy(v(0),get(me/us)),dz(v(0),get(me/us)))]
 Known_Stars:	#51991 #40472 #40475 #43811 #11025 #11024 #11023 #11013 #11011 #11010 #11009 #11008 #10999 #10853 #9823 #41152 ||||

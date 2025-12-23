@@ -14,7 +14,7 @@ This is the NAV legacy console object, used in older versions of the game to pro
 
 ### Attribute definitions
 
-```mush
+```mud
 Attribute definitions:
 navdist(): inherit function
 navapproach(): inherit function
@@ -33,7 +33,7 @@ _attrdef12(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 orbitenergy():	[fsub(fdiv(pow(relvel(v(0),v(1)),2),2),fdiv(grav(v(1)),3d(v(0),v(1))))]
 _attrdef12():	[first(dist3d(get(s(%0/linposx)),get(s(%0/linposy)),get(s(%0/linposz)),get(s(%1/linposx)),get(s(%1/linposy)),get(s(%1/linposz))))]
 relang():	[relphi(fsub(get(s(%1/linposx)),get(s(%0/linposx))),fsub(get(s(%1/linposy)),get(s(%0/linposy))),fsub(get(s(%1/linposz)),get(s(%0/linposz))),fsub(get(s(%1/linvelx)),get(s(%0/linvelx))),fsub(get(s(%1/linvely)),get(s(%0/linvely))),fsub(get(s(%1/linvelz)),get(s(%0/linvelz))))]

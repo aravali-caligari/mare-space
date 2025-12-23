@@ -16,7 +16,7 @@ Parents:	Coords Parent(#1100h)
 
 ### Attribute definitions
 
-```mush
+```mud
 ship_obj: inherit program
 ship_speed(): inherit function
 set_speed: inherit program
@@ -59,7 +59,7 @@ Vt: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 notes:	All speeds are kmph for for shortness.
 cKMPH:	107900000
 KperSec():	[fdiv(kpermin(),60)]

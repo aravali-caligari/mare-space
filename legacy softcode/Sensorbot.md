@@ -14,7 +14,7 @@ This is the Sensor Bot console object, used in the game to provide players with 
 
 ### Attribute definitions
 
-```mush
+```mud
 maxone(): inherit function
 setlead: inherit program
 shipmass: inherit program
@@ -52,7 +52,7 @@ _Startup: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 absphi:	those unidentifieds and at what range?"
 abstheta:	are
 maxone():	[ifelse(add(1,fcomp(1,fabs(v(0)))),v(0),fsgn(v(0)))]

@@ -14,7 +14,7 @@ This is the Memory System legacy console object, used in older versions of the g
 
 ### Attribute definitions
 
-```mush
+```mud
 cube_attrnum(): inherit function
 cube_num(): inherit function
 detect_cube(): inherit function
@@ -26,7 +26,7 @@ read_memory(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 write_memory:	@swi detect_cube(v(3))=0,{@pemit %2=Memory Error: Memory Cube not present for recording data.},{@def [con(cube_num(v(3)))]/[if(lnot(scomp(get(s([cube_num(v(3))]/memory%0)),NO MATCH)),s(memory%0))];@memory%0 cube_num(v(3))=v(1);@swi wcount(lattrdef(con(cube_num(v(3)))))=>70,{@tr me/new_memory=%3}}
 cube_attrnum():	[first(foreach(parents(cube_num(v(0))),{[if(scomp(get(s(%0/%1)),NO MATCH),v(0))]}))]
 erase_memory:	@swi cube_num(v(2))=,{@pe %1=memory_error()},{@undefattr [cube_attrnum(v(2),v(0))]/%0}

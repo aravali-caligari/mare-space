@@ -14,7 +14,7 @@ This is the TAC legacy console object, used in older versions of the game to pro
 
 ## Attribute definitions
 
-```mush
+```mud
 tac_weaponlist6: inherit program
 shield_cmd2: inherit program
 shield_cmd: inherit program
@@ -44,7 +44,7 @@ aim: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 weapon_dies:	[if(1,!)]visevent Weapondie [v(!)]=v(sex),v(linposx),v(linposy),v(linposz);!explode me;@tel num(me);@destroy me
 take_damage:	@fore zwho(get(v(us),zone))={@npe %%0=[switch(v(0),{SHit},{The lights dim as the shields take a hit.},{LHit},{The ship shudders with an impact.},{HHit},{The ship rocks wildly! She's been hit hard!})]}
 destroyed:	@fore zwho(get(v(us),zone))={@npe %%0=The ship has sustained non-recoverable injuries! She's goin' down...! ****BOOOOOOOOOM**** (you're dead);@tel %%0=#50707}

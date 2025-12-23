@@ -14,7 +14,7 @@ This file contains a collection of global functions used throughout the MARE-Spa
 
 ### Attribute Definitions
 
-```mush
+```mud
 C(): inherit function
 shipzone: inherit program
 dec(): inherit function
@@ -35,7 +35,7 @@ Distx(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 dec():	[mid(v(ascii),sub(pos(v(0),v(ascii)),2),1)]
 inc():	[mid(v(ascii),pos(v(0),v(ascii)),1)]
 ascii:	!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}

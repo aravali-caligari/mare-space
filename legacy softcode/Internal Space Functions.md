@@ -14,7 +14,7 @@ This file contains a collection of internal functions used for spacecraft operat
 
 ### Attribute definitions
 
-```mush
+```mud
 takeenergy: inherit program
 _attrdef1(): inherit function
 set_word(): inherit function
@@ -35,7 +35,7 @@ histname(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 histname():	[extract(get(s([get(v(0),sensor_memory)]/memory%1)),14,1)]
 set_word():	[strcat(if(sub(v(2),1),strcat(extract(v(0),1,sub(v(2),1)),spc(1))),strcat(v(1),if(sub(v(2),wcount(v(0))),strcat(spc(1),extract(v(0),add(v(2),1),sub(wcount(v(0)),v(2)))))))]
 join():	[ifelse(strlen(v(1)),strcat(strcat(v(0),spc(1)),v(1)),v(0))]

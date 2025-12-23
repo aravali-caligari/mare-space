@@ -14,7 +14,7 @@ This is the SRP legacy console object, used in older versions of the game to pro
 
 ### Attribute definitions
 
-```mush
+```mud
 official_helm: inherit program
 setoffset_cmd: inherit program
 setoffset: inherit program
@@ -70,7 +70,7 @@ testcmd: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 official_helm:	Yes
 Nav_srp_6b:	Deacceleration: [fabs(get(s([get(me/us)]/mainburnacc)))]km/s^2 % Retro: [abs(get(s([get(me/us)]/mainburn)))]% N % Mass: [get(get(me/us),mass)]kg
 Nav_srp_6a:	Acceleration: [get(s([get(me/us)]/mainburnacc))]km/s^2 % Thrust: [abs(get(s([get(me/us)]/mainburn)))]N % Mass: [get(get(me/us),mass)]kg

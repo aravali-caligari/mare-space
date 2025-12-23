@@ -14,7 +14,7 @@ This is the Downloader legacy console object, used in older versions of the game
 
 ### Attribute Definitions
 
-```mush
+```mud
 divby: inherit program
 see_if(): inherit function
 get_obj_size(): inherit function
@@ -27,7 +27,7 @@ DownLoad: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 flte():	[lnot(match(fcomp(v(1),v(0)),-1))]
 get_obj_color():	[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),8,7),9),2),4),14)]
 get_obj_type():	[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),Ship,Station),Moon),Terran),Jovian),Star)]

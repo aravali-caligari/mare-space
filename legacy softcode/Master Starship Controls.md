@@ -14,7 +14,7 @@ This is the Master Starship Controls object, which serves as the central control
 
 ### Attribute Definitions
 
-```mush
+```mud
 mag: inherit program
 maxrange: inherit program
 Vt: inherit program
@@ -24,7 +24,7 @@ _IDesc: inherit
 
 ### Attribute list
 
-```mush
+```mud
 Vt:	$history list:@pemit %#=Temporarily not available.
 #43778.history:	#35832 Neptune #36802 Uranus #35725 Saturn #37478 Mars #37515 Venus #37141 Mercury #36855 Jupiter #37635 Luna #49127 Terra #36610 Pluto #44086 CCII #51991 Sol
 mag:	1

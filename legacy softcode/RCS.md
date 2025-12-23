@@ -14,7 +14,7 @@ This is the RCS legacy console object, used in older versions of the game to pro
 
 ### Attribute definitions
 
-```mush
+```mud
 rcscheck(): inherit function
 rcsfake: inherit program
 RCS: inherit program
@@ -23,7 +23,7 @@ MaxA: inherit program
 
 ### Attribute list
 
-```mush
+```mud
 MaxA:	30
 RCS:	$rcs *=*:/[v(Nav_man)]/@swi rcscheck(v(0),v(1))=0,{@pemit %#=The RCS for this ship cannot handle that quick of a turn.},!,{@pemit %#=Not a valid RCS.},X,{@emit Firing Theta RCS.;@angaccx v(us)=v(1)},Y,{@emit Firing Phi RCS.;@angaccy v(us)=v(1)},Z,{@emit Firing Psi RCS.;@angaccz v(us)=v(1)}
 rcscheck():	[ifelse(truth(fadd(fcomp(get(s(me/MaxA)),fabs(v(1))),1)),ifelse(match(v(0),X),X,ifelse(match(v(0),Y),Y,ifelse(match(v(0),Z),Z,!))),0)]

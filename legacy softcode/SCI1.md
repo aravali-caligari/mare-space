@@ -10,7 +10,7 @@ This is the SCI1 legacy console object, used in older versions of the game to pr
 
 ## Meta data
 
-```mush
+```mud
 Name: SCI1
 Type: Thing
 ```
@@ -21,7 +21,7 @@ Type: Thing
 
 ### Attribute definitions
 
-```mush
+```mud
 sense2(): inherit function
 check_history(): inherit function
 specificview: inherit program
@@ -62,7 +62,7 @@ NameList(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 sense_line5():	Rho [rjust(velhdg(dx(v(1),v(0)),dy(v(1),v(0)),dz(v(1),v(0))),15)] |[rjust(velhdg(dvx(v(0),v(1)),dvy(v(0),v(1)),dvz(v(0),v(1))),15)] | Tangent Velocity: [velmag(fmul(sin(dg2rd(approach(v(0),v(1)))),velmag(dvx(v(0),v(1)),dvy(v(0),v(1)),dvz(v(0),v(1)))),0,0)]kpu
 sense2():	[ifelse(wmatch(inrange(v(us)),v(0)),specificsense(v(0),histname(v(!),v(0)),v(#),v(us)),{@pe %#='%0' is currently out of sensor range.})]
 check_history():	[ifelse(scomp(get(v(sensor_memory),strcat(memory,v(0))),NO MATCH),generalsense(v(0),histname(v(!),v(0)),v(1)),s({@tr me/newname=%0,generalsense,%1}))]

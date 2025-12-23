@@ -14,7 +14,7 @@ This is the Telescope legacy console object, used in older versions of the game 
 
 ### Attribute definitions
 
-```mush
+```mud
 hs(): inherit function
 approach(): inherit function
 telescope_display(): inherit function
@@ -33,7 +33,7 @@ getname(): inherit function
 
 ### Attribute list
 
-```mush
+```mud
 hs():	[ifelse(wmatch(get(s(%/us//linvelx)),?),1,0)]
 peer:	$peer telescope:@pemit %#=You peer through the telescope and see visible...;@swi viewcheck(v(us),v(mag))=0,{@pemit %#=> %[ifelse(hs(),Hyper Space,Space)]},-1,{@pemit %#=name(loc(v(us)));@pemit %#=get([loc(v(us))]/desc)},1,{@pemit %#=> %[ifelse(hs(),Hyper Space,Space)];@foreach insight(v(us),v(mag))=@pemit %#=ifelse(getname(v(0)),{> %%%[getname(v(0))]},{> Unidentified Object})}
 getnum():	[ifelse(v(helm),if(wmatch(insight(v(us),v(mag)),histnum(v(helm),v(0))),histnum(v(helm),v(0))),global)]

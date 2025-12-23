@@ -14,7 +14,7 @@ This is the Info legacy console object, used in older versions of the game to pr
 
 ### Attribute List
 
-```mush
+```mud
 FYI2: program
 FYI: program
 tac_info: inherit program
@@ -27,7 +27,7 @@ nav_info: inherit program
 
 ### Attribute definitions
 
-```mush
+```mud
 eng_info:	$info:/[get(me/Eng_Man)]/@wait 1=@spittext %#=space=starship console eng
 sci_info:	$info:/[get(me/Sci_Man)]/@wait 1=@spittext %#=space=starship console sci
 com_info:	$info:/[get(me/com_man)]/@wait 1=@spittext %#=space=starship console com
