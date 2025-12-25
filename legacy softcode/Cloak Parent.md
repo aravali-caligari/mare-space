@@ -26,35 +26,198 @@ cloak_off: inherit program
 ### Attribute list
 
 ```mud
-cloak_on:	$cloak on passkey=*:/[v(eng_man)]/@swi [get(s([v(us)]/vismult))]=-1,{@pemit %#=Cloaking device already on.},{@swi [v(passkey)]=00[v(0)],{@vismult [v(us)]=-1;@emit Cloaking device engaged.},{@pemit %#=Invalid cloak passkey.}}
-set_passkey1:	$cloak passkey *=*:/[v(eng_man)]/@swi [v(passkey)]=00[v(0)],{@passkey me=00[v(1)];@pemit %#=Cloaking device passkey - Set.},{@pemit %#=Cloaking device passkey - Invalid.}
-set_passkey2:	$initial passkey=*:/[v(eng_man)]/@swi [v(passkey)]=,{@passkey me=00[v(0)];@pemit %#=Cloaking device passkey - Set.},{@pemit %#=Cloaking device passkey - Invalid.}
-cloak_off:	$cloak off:/[v(eng_man)]/@swi [get(s([v(us)]/vismult))]=1,{@pemit %#=Cloaking device already off.},{@vismult [v(us)]=1;@emit Cloaking device disengaged.}
-cloakhelp:	$cloakhelp:/[v(eng_man)]/@pemit %#=CLOAK ON PASSKEY=<passkey> : Activates the cloaking device.;@pemit %#=INITIAL PASSKEY=<passkey> : Set the initial cloaking device passkey.;@pemit %#=CLOAK PASSKEY <old passkey>=<new passkey> : Changes the passkey.;@pemit %#=CLOAK OFF : Turns the cloaking device off.;@pemit %#=WARNING: The cloaking device will consume power faster than the ship can produce it. If allowed to remain on it will drain the Life Support of its power and kill everyone on board.
+&cloak_on cloak parent=$cloak_on passkey=*:/[v(eng_man)]/@swi [get(s([v(us)]/vismult))]=-1,{@pemit %#=Cloaking device already on.},{@swi [v(passkey)]=00[v(0)],{@vismult [v(us)]=-1;@emit Cloaking device engaged.},{@pemit %#=Invalid cloak passkey.}}
+&set_passkey1 cloak parent=$cloak_change passkey=*:/[v(eng_man)]/@swi [v(passkey)]=00[v(0)],{@passkey me=00[v(1)];@pemit %#=Cloaking device passkey - Set.},{@pemit %#=Cloaking device passkey - Invalid.}
+&set_passkey2 cloak parent=$cloak_set passkey=*:/[v(eng_man)]/@swi [v(passkey)]=,{@passkey me=00[v(0)];@pemit %#=Cloaking device passkey - Set.},{@pemit %#=Cloaking device passkey - Invalid.}
+&cloak_off cloak parent=$cloak_off:/[v(eng_man)]/@swi [get(s([v(us)]/vismult))]=1,{@pemit %#=Cloaking device already off.},{@vismult [v(us)]=1;@emit Cloaking device disengaged.}
+&cloakhelp cloak parent=$cloak_help:/[v(eng_man)]/@pemit %#=CLOAK_ON PASSKEY=<passkey> : Activates the cloaking device.;@pemit %#=CLOAK_SET PASSKEY=<passkey> : Set the initial cloaking device passkey.;@pemit %#=CLOAK_CHANGE PASSKEY=<old passkey>,<new passkey> : Changes the passkey.;@pemit %#=CLOAK_OFF : Turns the cloaking device off.;@pemit %#=WARNING: The cloaking device will consume power faster than the ship can produce it. If allowed to remain on it will drain the Life Support of its power and kill everyone on board.
 ```
 
-## Logic Descriptions
+## English Logic Descriptions (Legacy) + Passkey Parameter Validation
 
-### cloak_on attribute on the Cloak Parent.md file that refers to the logic to activate the spacecraft's cloaking device.
+### `cloak_on` — English description
 
+```text
+Attribute: cloak_on
 
-**Command Pattern:** `cloak on passkey=<passkey>`
+Player command (legacy pattern):
+- cloak_on passkey=<passkey>
+- Access is lock-checked by :/[v(eng_man)]/ (must be the engineering console operator).
 
-**Access Control:** Requires a person object reference that is 'manning' the engineering console.( eng_man lock)
+Validation to add (MARE2-style; verifies the token before '=' is literally 'passkey'):
+- If v(0)=!passkey,: print an invalid syntax message and return early.
+(Example snippet)
+    if v(0)=!passkey,
+        print Invalid syntax. Use: cloak_help
+        return
+    endif
 
-**Logic Flow:**
-1. Check if the spacecraft's visibility multiplier (vismult) is already set to -1 (cloaked state)
-   - If already -1: Send message to player "Cloaking device already on."
-   - If not -1: Proceed to passkey validation
-2. Validate the provided passkey by comparing it with the stored passkey (prepended with "00")
-   - If passkey matches:
-     - Set the spacecraft's visibility multiplier to -1 (engage cloaking)
-     - Emit message to all in location "Cloaking device engaged."
-   - If passkey does not match:
-     - Send message to player "Invalid cloak passkey."
+Logic:
+1) Read the ship cloak visibility multiplier (ship is v(us); attribute is vismult).
+2) If ship vismult=-1:
+   - print Cloaking device already on.
+   - stop.
+3) Otherwise validate the supplied passkey:
+   - Compare this console’s stored passkey (v(passkey)) against 00<supplied_passkey>.
+4) If it matches:
+   - Set ship vismult=-1 (cloak engaged).
+   - @emit Cloaking device engaged.
+5) Else:
+   - print Invalid cloak passkey.
+```
 
-**References:**
-- `v(us)` - The spacecraft object associated with this console
-- `v(eng_man)` - Engineering console attribute with the object reference to the person or object manning the engineering console.
-- `v(passkey)` - Stored passkey attribute on this console
-- `v(0)` or `%0` - First parameter (the passkey entered by player)
+### `set_passkey1` — English description
+
+```text
+Attribute: set_passkey1
+
+Player command (per help intent):
+- cloak_change passkey=<oldpass>=<newpass>
+- Access is lock-checked by :/[v(eng_man)]/.
+
+Validation to add (MARE2-style; verifies the token before the first '=' is literally 'passkey'):
+    if v(0)=!passkey,
+        print Invalid syntax. Use: cloak_help
+        return
+    endif
+
+Logic:
+1) Treat the first provided passkey value as the “old passkey”, and the next as the “new passkey”.
+2) If current stored passkey (v(passkey)) equals 00<oldpass>:
+   - Set this console’s passkey attribute to 00<newpass>.
+   - print Cloaking device passkey - Set.
+3) Else:
+   - print Cloaking device passkey - Invalid.
+```
+
+### `set_passkey2` — English description
+
+```text
+Attribute: set_passkey2
+
+Player command (legacy pattern):
+- cloak_set passkey=<passkey>
+- Access is lock-checked by :/[v(eng_man)]/.
+
+Validation to add (MARE2-style; verifies the token before '=' is literally 'passkey'):
+    if v(0)=!passkey,
+        print Invalid syntax. Use: cloak_help
+        return
+    endif
+
+Logic:
+1) This is an “initial set” path: it only succeeds if no passkey is currently set.
+2) If the stored passkey value is empty/unset:
+   - Set this console’s passkey attribute to 00<supplied_passkey>.
+   - print Cloaking device passkey - Set.
+3) Else:
+   - print Cloaking device passkey - Invalid.
+```
+
+### `cloak_off` — English description
+
+```text
+Attribute: cloak_off
+
+Player command (legacy pattern):
+- cloak_off
+- Access is lock-checked by :/[v(eng_man)]/.
+
+Logic:
+1) Read ship vismult via v(us).
+2) If ship vismult=1:
+   - print Cloaking device already off.
+   - stop.
+3) Else:
+   - Set ship vismult=1 (cloak disengaged).
+   - @emit Cloaking device disengaged.
+```
+
+### `cloakhelp` — English description
+
+```text
+Attribute: cloakhelp
+
+Player command (legacy pattern):
+- cloak_help
+- Access is lock-checked by :/[v(eng_man)]/.
+
+Logic:
+1) print a series of usage/help lines to the invoking player describing:
+   - how to enable cloak with passkey
+   - how to set the initial passkey
+   - how to change the passkey
+   - how to disable cloak
+2) print a warning that leaving cloak on consumes power rapidly and can drain life support power.
+```
+
+## MARE 2.0 Converted Softcode (from Legacy Attribute list)
+
+```mud
+@@ cloak_on: cloak_on passkey=<passkey>
+&cloak_on cloak parent=:/[v(eng_man)]/2$cloak_on:
+@@ Validate the first parameter to be 'passkey'
+if v(0)=!passkey,
+    print Invalid syntax. Use: cloak_help
+    exit
+endif
+@@ Check if cloaking device is already on
+if get(v(us),vismult)=-1
+    print Cloaking device already on.
+    exit
+endif
+@@ Validate provided passkey and engage cloak
+if v(passkey)=00[v(1)]
+    @vismult v(us)=-1
+    @emit Cloaking device engaged.
+else
+    print Invalid cloak passkey.
+endif
+
+@@ set_passkey1: cloak_change passkey=<oldpass>,<newpass>
+&set_passkey1 cloak parent=:/[v(eng_man)]/3$cloak_change:
+@@ Validate the first parameter to be 'passkey'
+if v(0)=!passkey,
+    print Invalid syntax. Use: cloak_help
+    exit
+endif
+@@ v(1)=old passkey, v(2)=new passkey
+if v(passkey)=00[v(1)]
+    @passkey me=00[v(2)]
+    print Cloaking device passkey - Set.
+else
+    print Cloaking device passkey - Invalid.
+endif
+
+@@ set_passkey2: cloak_set passkey=<passkey> (only if currently unset)
+&set_passkey2 cloak parent=:/[v(eng_man)]/2$cloak_set:
+@@ Validate the first parameter to be 'passkey'
+if v(0)=!passkey,
+    print Invalid syntax. Use: cloak_help
+    exit
+endif
+if v(passkey)=
+    @passkey me=00[v(1)]
+    print Cloaking device passkey - Set.
+else
+    print Cloaking device passkey - Invalid.
+endif
+
+@@ cloak_off: cloak_off
+&cloak_off cloak parent=:/[v(eng_man)]/0$cloak_off:
+if get(v(us),vismult)=1
+    print Cloaking device already off.
+    exit
+endif
+@vismult v(us)=1
+@emit Cloaking device disengaged.
+
+@@ cloakhelp: cloak_help
+&cloakhelp cloak parent=:/[v(eng_man)]/0$cloak_help:
+print CLOAK_ON PASSKEY=<passkey> : Activates the cloaking device.
+print CLOAK_SET PASSKEY=<passkey> : Set the initial cloaking device passkey.
+print CLOAK_CHANGE PASSKEY=<old passkey>,<new passkey> : Changes the passkey.
+print CLOAK_OFF : Turns the cloaking device off.
+print WARNING: The cloaking device will consume power faster than the ship can produce it. If allowed to remain on it will drain the Life Support of its power and kill everyone on board.
+```
+

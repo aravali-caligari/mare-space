@@ -73,6 +73,7 @@ Vn: inherit program
 Vm: inherit program
 Vh: inherit program
 _Startup: inherit program
+cloak_on: inherit program
 ```
 
 ### Attribute list
@@ -126,4 +127,5 @@ hyperfinish:	clear nav;@wait 10=man nav;@wait 25={hyperjump;@wait 10=unman};@fo 
 hyperformula:	$hyperset *ly with *kpu:@hypertemp me=simp(fdiv(ly2km(v(0)),fmul(365,v(1))));@pemit %#=Hyperspace computation complete, 'START HYPERSPACE PROCESS' to activate.
 autohelp:	$autohelp:@pemit %#=NavBot-1 list of commands:;@pemit %#=SETTARGET <name>: Set autopilot turnarounds to watch <name> on sensors;@pemit %#=DELAYED BURN <thrust> AT <updates>;@pemit %#=AUTOTURN <direction> TO <angle>:Direction being theta, phi, or psi.;@pemit %#=PLOTTIME <distance> ACC <accel> WITH <approach velocity>: Plot time in turnarounds until a turnaround needs to be performed to arrive at destination.;@pemit %#=REMAN AUTOPILOT:Make it man navigation again after being booted;@pemit %#=BURNRATE <thrust level>:Set the burn rate the autopilot will use after performing any turnarounds. Default is 1000000.;@pemit %#=TURNAROUND AT <updates>:Set autopilot to perform turnaround at a certain time;@pemit %#=TIMELEFT:Shows time left to either turnaround or shutoff.;@pemit %#=ZEROBURN:Inoperational;@pemit %#=HYPERSET <dist>LY WITH <velocity>KPU:Dist in light years and velocity is pre-jump speed.;@pemit %#=CHECK HS TIME:Show time to hyperdrive shutdown. ;@tr me/autohelp2=%#
 autohelp2:	@pemit %0=AUTOHALT:Emergency halt of autopilot functions.
+cloak_on:	$cloak_on PASSKEY=*:@ifelse(eq(v(eng_man),name()),@ifelse(eq(get(v(us),vismult),-1),emit(Cloaking device already on.),@ifelse(eq(v(passkey),concat(00,%0)),set(get(v(us),vismult),-1);emit(Cloaking device engaged.),emit(Invalid cloak passkey.)),emit(You are not the current engineering console operator.))
 ```
