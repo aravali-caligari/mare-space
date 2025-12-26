@@ -201,15 +201,15 @@ Side effects:
 ## MARE 2.0 Converted Softcode (from Legacy Attribute list)
 
 ```mud
-&flte() Downloader=[lnot(match(fcomp(v(1),v(0)),-1))]
+&flte Downloader=[lnot(match(fcomp(v(1),v(0)),-1))]
 
-&get_obj_color() Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),8,7),9),2),4),14)]
+&get_obj_color Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),8,7),9),2),4),14)]
 
-&get_obj_type() Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),Ship,Station),Moon),Terran),Jovian),Star)]
+&get_obj_type Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),Ship,Station),Moon),Terran),Jovian),Star)]
 
-&get_obj_size() Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),1,2),4),8),16),32)]
+&get_obj_size Downloader=[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),1,2),4),8),16),32)]
 
-&see_if() Downloader=
+&see_if Downloader=
 @@ Legacy: @swi [scomp(get(v(sensor_memory),strcat(memory,v(0))),NO MATCH)]=1,{},{@pem [v(2)]=[spit_data(v(0),v(1))]}
 switch scomp(get(v(sensor_memory),strcat(memory,v(0))),NO MATCH)
     case 1
@@ -218,20 +218,22 @@ switch scomp(get(v(sensor_memory),strcat(memory,v(0))),NO MATCH)
         @pem [v(2)]=[spit_data(v(0),v(1))]
 endswitch
 
-&spit_data() Downloader=[histname(v(!),v(0))]|[fdiv(dx(v(us),v(0)),v(divby))]|[fdiv(dy(v(us),v(0)),v(divby))]|[fdiv(dz(v(us),v(0)),v(divby))]|[get_obj_type(get(v(0),mass))]|[get_obj_color(get(v(0),mass))]|[get_obj_size(get(v(0),mass))]|
+&spit_data Downloader=[histname(v(!),v(0))]|[fdiv(dx(v(us),v(0)),v(divby))]|[fdiv(dy(v(us),v(0)),v(divby))]|[fdiv(dz(v(us),v(0)),v(divby))]|[get_obj_type(get(v(0),mass))]|[get_obj_color(get(v(0),mass))]|[get_obj_size(get(v(0),mass))]|
 
 &divby Downloader=1000000
 
-&DownLoad Downloader=0$download:
+&DownLoad Downloader=:0$download:
 @@ Legacy: @foreach [inrange(v(us))] #=...
-foreach [inrange(v(us))] #
-    switch v(0)
-        case #
-            @pem %#=[name(v(us))]|0.00|0.00|0.00|Ship|8|1
+for word_=[sensorlist(v(us))] xx
+    @@ print [name(v(us))]
+    switch [v(word_)]
+        case xx
+            print [name(v(us))]|0.00|0.00|0.00|Ship|8|1
+            break
         default
-            call me/see_if=v(0),v(1),v(#)
+            call me/see_if=[v(word_)],[v(us)],[v(#)]
     endswitch
-endforeach
+done
 ```
 
 

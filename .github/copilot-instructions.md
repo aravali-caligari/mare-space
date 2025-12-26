@@ -42,7 +42,6 @@ applyTo: "*.md"
   - The 'first()', 'rest()', and 'mid()' functions are used for string manipulation, extracting specific parts of a string based on position.
   - Anything function that looks like a color name (Red, Green, Blue, Yellow, Cyan, Magenta, White, Black) is returning the corresponding ANSI color code for that color.
   - The '@tr' command is used to trigger another attribute or program on the object referrenced (example: @tr me/doneturn means to trigger the 'doneturn' attribute on the current object (me)).
-  - The '@foreach' command is used to iterate over a list of objects or values, executing a block of code for each item in the list.
   - The space-sim function that looks like 'dg2rd()' is converting degrees to radians.
   - Any string of text that is not bracketed and not '$' and not '!' and not starting with '@' is treated as literal text to be emitted or displayed to the player.
   - Any command named '@fo' or '@force' is a force command that forces the execution of the following commands on another object regardless of locking or conditions.
@@ -92,14 +91,15 @@ endswitch
 - Any mention of @wait in the legacy code is converted to 'wait' in the new MARE2 code style - Example: @wait 10=code block becomes: 
   wait 10
   codeblock
-- Any mentions of @foreach in the legacy code is converted to 'foreach' in the new MARE2 code style - Example: @foreach v(0)=code block becomes:
-  foreach v(0)
-    code block
-  endforeach
+- Any mentions of @foreach in the legacy code is converted to 'for _word=' in the new MARE2 code style - Example: @foreach v(args)=codeblock becomes:
+  for _word=v(args)
+    set v(0)=[_word]
+    codeblock
+  done
 - In the converted MARE2 code, a comparision of two values (e.g., v(us) and 5) is spelled as v(us)=5 and not v(us)==5. Spaces are ommited around the '=' symbol.
 - In the converted MARE2 code, the $command at the beginning of the attribute value is re-arranged to be after the locking test and the number of star wildcards in the original parameter match pattern. Example:
     $cloak *=*:/[v(us)]/@echo Cloak activated. , becomes: :/[v(us)]/2$cloak:@echo Cloak activated.    Because there are 2 star wildcards in the original parameter match pattern.
-- In the new MARE2 code style, the $command definition was changed to now have a number before the '$'. This number before the $ controls the pattern of parameters allowed and the meaning of the v(0) through v(9) functions. The number has these allowed values and their meaning: 0=no parameters, 1=exactly one parameter, 2=one parameter with an equal sign followed by exactly one more parameter, 3=One parameter with an equal sign following by 2 or more parameters (upto 9) sperated by commas. Examples of $ patterns then is: 1$command_name:@echo First parameter [v(0)]. 2$command_name:@echo Param1 is [v(0)] and Param2 is [v(1)]; 3$command_name:@echo Param1 is [v(0)], Param2 is [v(1)], Param3 is [v(2)], and optionally more params allowed up to v(9). The user would be allowed to type commands like: 1=command_name *, 2=command_name *=*, 3=command_name *=*,*,etc. A more detailed example then is: 1 could mean: cloakon status, 2 could mean: cloakon passkey=1234, 3 could mean: cloakon setpasskey=oldpass,newpass.
+- In the new MARE2 code style, the $command definition was changed to now have a number before the '$'. This number before the $ controls the pattern of parameters allowed and the meaning of the v(0) through v(9) functions. The number has these allowed values and their meaning: 1=no parameters or exactly one parameter, 2=one parameter with an equal sign followed by exactly one more parameter, 3=One parameter with an equal sign following by 2 or more parameters (upto 9) sperated by commas. Examples of $ patterns then is: 1$command_name:print xyz; 1$command_name:@echo First parameter [v(0)]; 2$command_name:@echo Param1 is [v(0)] and Param2 is [v(1)]; 3$command_name:@echo Param1 is [v(0)], Param2 is [v(1)], Param3 is [v(2)], and optionally more params allowed up to v(9). The user would be allowed to type commands like: 1=command_name, 1=command_name *, 2=command_name *=*, 3=command_name *=*,*,etc. A more detailed example then is: 1 could mean: cloakon status, 1 could mean: cloakhelp, 2 could mean: cloakon passkey=1234, 3 could mean: cloakon setpasskey=oldpass,newpass.
 - The new MARE2 code style uses the 'exit' keyword to exit a command early.
 - The new code style must include the locking test at the beginning of the command after the $command definition and before the carriage return and rest of the code.
 - In the converted code, when a parameter is a literal (e.g., passkey), make sure new code is inserted to validate the first parameter after the command is the expected word, else emit an error message and return.
