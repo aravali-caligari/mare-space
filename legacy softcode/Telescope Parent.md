@@ -10,6 +10,17 @@ This is the Telescope legacy console object, used in older versions of the game 
 
 ## Meta data
 
+```mud
+Telescope Parent(#12126)
+Type:	Thing
+Owner:	Ptah
+Bytes:	3784
+Parents:	Internal Space Functions(#52323)
+Children:	27
+Location:	Misc Room(#10558R)
+Home:	Bridge ... ISA Softwind(#43152R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

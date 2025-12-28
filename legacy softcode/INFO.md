@@ -10,6 +10,18 @@ This is the Info legacy console object, used in older versions of the game to pr
 
 ## Meta data
 
+```mud
+INFO(#25387h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1788
+Children:	1
+Modified:	Fri Nov 25 23:32:47 1994
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute List

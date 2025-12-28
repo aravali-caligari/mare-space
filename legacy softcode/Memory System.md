@@ -10,6 +10,18 @@ This is the Memory System legacy console object, used in older versions of the g
 
 ## Meta data
 
+```mud
+Memory System(#13943h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1452
+Children:	1
+Modified:	Fri Nov 25 23:33:01 1994
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

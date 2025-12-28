@@ -10,13 +10,23 @@ This file contains a collection of internal functions used for spacecraft operat
 
 ## Meta data
 
+```mud
+Internal Space Functions(#52323)
+Type:	Thing
+Owner:	Ptah
+Bytes:	2400
+Children:	10
+Location:	Helm Equipment Room(#11848R)
+Home:	Old Space Stuff box(#3210)
+```
+
 ## Object Definition
 
 ### Attribute definitions
 
 ```mud
 takeenergy: inherit program
-_attrdef1(): inherit function
+_attrdef9(): inherit function  ## SUPPOSED TO BE 3D() BUT NAME CONFLICTS WITH GLOBAL SPACE FUNCTIONS and is INVALID
 set_word(): inherit function
 join(): inherit function
 grav(): inherit function
@@ -24,7 +34,7 @@ dvx(): inherit function
 dvy(): inherit function
 dvz(): inherit function
 dist(): inherit function
-_attrdef9(): inherit function
+hasenergy?(): inherit function
 dy(): inherit function
 dx(): inherit function
 dz(): inherit function
@@ -49,6 +59,6 @@ dvy():	[fsub(get(s(%0/linvely)),get(s(%1/linvely)))]
 dvx():	[fsub(get(s(%0/linvelx)),get(s(%1/linvelx)))]
 word():	[extract(v(0),v(1),1)]
 histnum():	[extract(get(s([get(v(0),sensor_memory)]/name%1)),1,1)]
-_attrdef1():	[truth(add(1,comp(get(s(%0/%1)),v(2))))]
+hasenergy?():	[truth(add(1,comp(get(s(%0/%1)),v(2))))]
 takeenergy:	@%1 %0=sub(get(%0/%1),v(2))
 ```

@@ -10,6 +10,17 @@ This is the Ion Engine legacy console object, used in older versions of the game
 
 ## Meta data
 
+```mud
+Ion Drive Parent(#50529h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1932
+Children:	13
+Location:	Engine Equipment Room(#53396R)
+Home:	Engine Equipment Room(#53396R)
+```
+
 ## Object Definition
 
 ### Attribute Definitions

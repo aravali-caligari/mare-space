@@ -10,6 +10,18 @@ This is the TAC legacy console object, used in older versions of the game to pro
 
 ## Meta data
 
+```mud
+TAC(#15511h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	7520
+Children:	2
+Modified:	Tue Mar 25 22:05:08 1997
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ## Attribute definitions

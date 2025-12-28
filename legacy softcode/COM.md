@@ -11,8 +11,15 @@ This is the COM legacy console object, used in older versions of the game to pro
 ## Meta data
 
 ```mud
-Name: COM
-Type: Thing
+COM(#2409h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	10860
+Children:	1
+Modified:	Sun Dec 28 01:15:36 2025
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
 ```
 
 ## Object Definition
@@ -53,10 +60,10 @@ com_range_cmd: inherit program
 com_id_cmd: inherit program
 com_carrier_cmd: inherit program
 com_power_cmd: inherit program
-_attrdef33(): inherit function
+yesno?(): inherit function
 com_status_cmd: inherit program
 com_word(): inherit function
-_attrdef36(): inherit function
+range?(): inherit function
 yesno(): inherit function
 com_status(): inherit function
 com_flag10: inherit program
@@ -69,7 +76,7 @@ com_flag4: inherit program
 showmessage: inherit program
 com_header(): inherit function
 displaymessage(): inherit function
-_attrdef49(): inherit function
+receivemessage?(): inherit function
 com_flag3: inherit program
 com_flag2: inherit program
 com_flag1: inherit program
@@ -109,10 +116,10 @@ channum() com=[extract(channels(v(0)),v(1),1)]
 &com_carrier_cmd com=$com carrier *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),3);@pemit %#=Carrier Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))];@swi [com_word(v(0),3)]=[yesno?(v(1))],,{@tr me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]}
 &com_id_cmd com=$com id *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),2);@pemit %#=ID Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))]}
 &com_power_cmd com=$com power *=*:/[get(me/com_man)]/@swi range?(v(0),1,wcount(channels(v(us))))=0,{@pemit %#=v(invalidradio)},{@com_flag%0 me=set_word(get(me/com_flag%0),yesno?(v(1)),1);@pemit %#=Power on Radio %0 is now turned %%%[yesno(yesno?(v(1)))];@swi land(com_word(v(0),3),lxor([yesno?(v(1))],[com_word(v(0),1)]))=0,,{@tr me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]}}}
-&_attrdef33() com=[ifelse(lor(match(v(0),y*),match(v(0),on)),1,0)]
+&yesno?() com=[ifelse(lor(match(v(0),y*),match(v(0),on)),1,0)]
 &com_word() com=[extract(get(s(me/com_flag%0)),v(1),1)]
 &yesno():	[ifelse(v(0),ON,OFF)]
-&_attrdef36() com=[land(lt(v(0),add(1,v(2))),gt(v(0),sub(1,v(1))))]
+&range?() com=[land(lt(v(0),add(1,v(2))),gt(v(0),sub(1,v(1))))]
 com_flag1:	0 0 0 100000 *
 com_flag2:	0 0 0 100000 *
 com_flag3:	0 0 0 100000 *
@@ -137,498 +144,495 @@ com_msg9:	Empty Msg9
 com_msg10: Empty Msg10
 &com_indicator com=*BEEP* A red message indicator light blinks on the Communications Station, indicating a received message.
 &com_info3 com=@pemit %0=com log : Display a log of the last 10 received messages;@pemit %0=Current Radio Standards: Channel 911 is used for ships needing emergency assistance. Channel 555 is being considered the universal ship to ship chatter channel for normal use. Channel 200 will be used for communicating with automated landing, launching, and docking facilities.
-&_attrdef49() com=[if(add(0,com_flag(v(0),1)),ifelse(scomp(get(me/com_video),v(0)),1,2))]
+&receivemessage?() com=[if(add(0,com_flag(v(0),1)),ifelse(scomp(get(me/com_video),v(0)),1,2))]
 displaymessage():	[ifelse(scomp(com_word(v(0),5),v(2)),join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),<Static>......<hiss>....),strcat(join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),if(v(3),strcat(name(v(5)),if(get(s(%5/shipname)),s({([get(s(%5/shipname))])}))))),join(:,v(1))))]
 &compoweroff com=Power on Radio %0 is currently turned OFF. No message sent.
 &invalidradio com=You must use a valid radio number. Valid #'s are from '1' to '[wcount(channels(v(us)))]'.
 &compowerlow com=Not enough power allocated to communications to transmit.
 &com_power() com=[add(0,fdiv(com_word(v(0),4),100000000))]
 &com_transmit_cmd com=$transmit *=*:/[get(me/com_man)]/@swi ifelse(range?(v(0),1,wcount(channels(v(us)))),ifelse(com_word(v(0),1),ifelse(hasenergy?(v(!),pwrcomm,com_power(v(0))),1,0),-1),-2)=-2,{@pemit %#=v(invalidradio)},-1,{@pemit %#=v(compoweroff)},0,{@pemit %#=v(compowerlow)},1,{@pemit %#=Message Transmitted: %[com_power(v(0))] power used.;[ifelse(inspace(v(us)),s({!comevent v(us)=[com_word(v(0),4)],[channum(v(us),v(0))],[com_word(v(0),5)],[com_word(v(0),2)],v(1)}),s({@tr [loc(v(us))]/Comm_Signal=Comm,[channum(v(us),v(0))],[com_word(v(0),4)],*,1,[v(us)],v(1)}))];@tr me/handlesentmsg=v(0),v(1)}
-````
-
-## English Logic Descriptions (Legacy Attribute List)
-
-### `com_channel_cmd` — English description
-
-```text
-Attribute: com_channel_cmd
-
-Player command (legacy pattern):
-- com channel <radio#>=<channel#>
-- Access lock: /[get(me/com_man)]/ (must be manning the COM console)
-
-Logic:
-1) Validate inputs:
-   - Channel number v(1) must be in 1..999
-   - Radio number v(0) must be in 1..wcount(channels(v(us)))
-   - If invalid: print v(invalidradio) and stop.
-2) If valid:
-   - Tell player: "Channel set."
-   - Update the ship’s channel list: set the radio slot (v(0)) to the channel value (v(1)).
-3) If the effective tuned channel identity changed OR the radio’s power/carrier flags imply a broadcast state change:
-   - Trigger me/com_carrier_change with the new channel info and a mode flag (0/1) to update carrier/broadcast state externally.
-Notes:
-- Uses helper functions: channels(v(us)), channum(v(us),radio), com_word(radio,<field>).
 ```
 
-### `showmessage` — English description
+## Attribute list (English description)
 
-```text
-Attribute: showmessage
+```markdown
+### &com_channel_cmd
+- Command: `com channel <radio#>=<channel#>` (locked to whoever is in `me/com_man`).
+- Validates both:
+  - `<channel#>` is 1..999
+  - `<radio#>` is within 1..number of available channels on the ship (`wcount(channels(v(us)))`)
+- On invalid input: prints `invalidradio`.
+- On success:
+  - Prints “Channel set.”
+  - Updates the ship’s channel list (`@channel v(us)=set_word(...)`) so the selected radio index maps to the new channel number.
+  - If the new channel implies carrier behavior changes (based on `channum(...)` and `com_word(...,1)` / `com_word(...,3)`), triggers `me/com_carrier_change` with different parameters to inform the rest of the system.
 
-Invocation context:
-- Not a direct player $command; called when an incoming message should be displayed/logged.
+### &showmessage
+- Delivers an incoming message to the current comms operator (`get(me/com_man)`):
+  - Emits the rendered message text produced by `displaymessage(...)`.
+- Logs the message into a rotating “last 10 messages” ring buffer:
+  - Stores `time()` + the rendered display text into `com_msg<N>` where `<N>` is the first slot in `msg_slots`.
+  - Rotates `msg_slots` by moving the used slot id to the end.
+- If the console is currently unmanned (`me/com_man` is empty), it emits the `com_indicator` attention message (beep/light) instead.
 
-Logic:
-1) pemit to the current console operator (get(me/com_man)) a formatted message:
-   - displaymessage(...) renders header + optional ship ID + message body, with encryption/static handling.
-2) Store the formatted message into the next rotating message slot:
-   - Writes into com_msg<N> where N=first(msg_slots)
-   - Prefixes with time()
-   - Rotates msg_slots so the next incoming message uses the next slot.
-3) If nobody is manning the console (get(me/com_man)= empty):
-   - emit the com_indicator text to the room to indicate a pending message.
+### &com_log_cmd
+- Command: `com log` (locked to `me/com_man`).
+- Iterates over `msg_slots` and prints each stored `com_msg<N>` entry to the caller, showing the last 10 received messages.
+
+### &channels()
+- Function: given an object `%0` (typically a ship), returns the contents of that object’s `channel` attribute (`get(s(%0/channel))`), which is treated as a “list of channel numbers by radio index”.
+
+### channum()
+- Function: given a ship (v(0)) and a radio index (v(1)), extracts the channel number from the ship’s channel list (`extract(channels(v(0)),v(1),1)`).
+
+### &handlesentmsg
+- Post-transmit bookkeeping after a successful send:
+  - Deducts comms power from this console (`@pwrcomm me=sub(get(me/pwrcomm),com_power(v(0)))`), where `v(0)` is the radio index used.
+  - Logs an outgoing message record into the rotating `com_msg<N>` ring buffer (same slot rotation approach as inbound logging), using `informmessage(...)` to format the log entry.
+
+### &informmessage()
+- Function: formats an outgoing log line including:
+  - Power used (`%2`)
+  - Radio index and actual channel number (`%0/[channum(...)]`)
+  - Message body (`%1`)
+
+### &com_header()
+- Function: formats an incoming message header including:
+  - Computed “signal strength” term (uses transmitted power squared divided by distance squared: `pow(v(4),2) / pow(3d(...),2)`)
+  - Bearing from ship to sender (via `velhdg(dx,dy,dz)`)
+  - Radio index and channel number
+
+### &com_status()
+- Function: returns a single formatted status line for one radio index (`v(0)`), including:
+  - `radio#/channel#`
+  - Power state (ON/OFF) from `com_word(v(0),1)`
+  - ID signal enabled from `com_word(v(0),2)`
+  - Video mode ON/OFF if `me/com_video` matches this radio index
+  - Carrier enabled from `com_word(v(0),3)`
+  - Broadcast range from `com_word(v(0),4)`
+  - Encryption keyword display from `com_word(v(0),5)` (shows `<None>` if `*`)
+
+### &com_status_cmd
+- Command: `com status` (locked to `me/com_man`).
+- Prints a table header, then loops over all radios and prints `com_status(radioIndex)` for each.
+
+### &com_video_cmd
+- Command: `com video <radio#>` (locked to `me/com_man`).
+- Currently does not implement video; always prints “Video mode is currently unavailable.”
+
+### &com_wordoff_cmd
+- Command: `com noencrypt <radio#>` (locked to `me/com_man`).
+- Validates radio index.
+- Sets word #5 (encryption keyword) in `com_flag<radio#>` to `*` (meaning “no encryption”).
+- Prints confirmation.
+
+### &com_word_cmd
+- Command: `com encrypt <radio#>=<keyword>` (locked to `me/com_man`).
+- Validates radio index.
+- Enforces keyword must be exactly one word (`wcount(v(1))=1`).
+- On success: sets word #5 in `com_flag<radio#>` to `*<keyword>` and prints confirmation.
+- On failure: prints “Illegal Keyword...” message.
+
+### &com_range_cmd
+- Command: `com range <radio#>=<rangeKm>` (locked to `me/com_man`).
+- Validates radio index.
+- Sets word #4 in `com_flag<radio#>` to the numeric range value (normalized via `simp(fadd(0,v(1)))`).
+- Prints confirmation showing the new range in km.
+
+### &com_carrier_cmd
+- Command: `com carrier <radio#>=<on/off>` (locked to `me/com_man`).
+- Validates radio index.
+- Sets word #3 in `com_flag<radio#>` to boolean on/off (`yesno?(v(1))`).
+- Prints confirmation.
+- If the carrier state actually changes compared to current, triggers `me/com_carrier_change` for the underlying channel.
+
+### &com_id_cmd
+- Command: `com id <radio#>=<on/off>` (locked to `me/com_man`).
+- Validates radio index.
+- Sets word #2 in `com_flag<radio#>` (ID signal on/off).
+- Prints confirmation.
+
+### &com_power_cmd
+- Command: `com power <radio#>=<on/off>` (locked to `me/com_man`).
+- Validates radio index.
+- Sets word #1 in `com_flag<radio#>` (radio power on/off).
+- Prints confirmation.
+- If carrier behavior should be updated due to power toggling (in combination with carrier flag), triggers `me/com_carrier_change` for the channel.
+
+### &yesno?()
+- Helper function: converts textual on/off-ish inputs into boolean:
+  - Returns 1 if input matches `y*` or `on`, else 0.
+
+### &com_word()
+- Function: for a radio index `%0`, returns the Nth word (`v(1)`) from that radio’s `com_flag%0` string.
+
+### &yesno()
+- Function: maps boolean to `ON`/`OFF`.
+
+### &range?()
+- Helper function: range check used elsewhere:
+  - True if `v(0)` is strictly within `v(1)`..`v(2)` bounds (implemented via `lt`/`gt` around `add(1,...)` / `sub(1,...)`).
+
+### com_flag1 .. com_flag10
+- Default per-radio configuration records, each encoded as 5 words:
+  1) power flag (0/1)
+  2) ID flag (0/1)
+  3) carrier flag (0/1)
+  4) broadcast range (default `100000`)
+  5) encryption keyword (default `*` meaning none)
+
+### &com_info2
+- Help text emitter (prints to `%0`), describing available COM commands, then triggers `me/com_info3` to print additional info.
+
+### msg_slots
+- Ring buffer slot order for message log storage (defaults `1 2 3 4 5 6 7 8 9 10`).
+
+### com_msg1 .. com_msg10
+- Stored message log entries for the last 10 received/sent messages (defaults “Empty MsgN”).
+
+### &com_indicator
+- Notification text emitted when a message arrives and the station is unmanned.
+
+### &com_info3
+- Additional help text: `com log` and current “radio standards” channel guidance.
+
+### &receivemessage?()
+- Appears to compute a mode/flag value based on:
+  - Whether the radio is powered (`com_flag(v(0),1)`), and
+  - Whether video mode is set for that radio (`scomp(get(me/com_video),v(0))`)
+- Returns 1 or 2 depending on video match when powered; returns nothing/falsey when not powered (used as a derived indicator elsewhere).
+
+### displaymessage()
+- Function: renders the final display line for an incoming transmission.
+- If the incoming message’s encryption key (`v(2)`) does not match the radio’s configured key (`com_word(v(0),5)`), it outputs header + “<Static>......<hiss>....”.
+- If it matches:
+  - Outputs header + (optional sender name / shipname details if broadcast flags allow) + `: <message text>`.
+
+### &compoweroff
+- Static message: radio is OFF, so no message sent.
+
+### &invalidradio
+- Static message: radio number invalid; prints valid range based on channel count.
+
+### &compowerlow
+- Static message: insufficient allocated comms power to transmit.
+
+### &com_power()
+- Function: computes comms power cost for a radio based on its configured range value:
+  - `com_word(v(0),4) / 100000000` (numeric).
+
+### &com_transmit_cmd
+- Command: `transmit <radio#>=<msg>` (locked to `me/com_man`).
+- Validates:
+  - radio index in range
+  - radio power is ON (`com_word(...,1)`)
+  - ship has enough comms energy for the calculated cost (`hasenergy?(...,pwrcomm,com_power(...))`)
+- Failure cases:
+  - invalid radio -> prints `invalidradio`
+  - powered off -> prints `compoweroff`
+  - not enough power -> prints `compowerlow`
+- Success path:
+  - Prints “Message Transmitted” including power used.
+  - If ship is in space: emits a space-sim `!comevent` with range, channel, encryption key, ID flag, and message.
+  - If not in space: triggers a local `Comm_Signal` handler on the ship’s location with similar parameters.
+  - Triggers `me/handlesentmsg` to deduct power and log the outgoing message.
 ```
 
-### `com_log_cmd` — English description
-
-```text
-Attribute: com_log_cmd
-
-Player command (legacy pattern):
-- com log
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Iterate over msg_slots (list of slot numbers 1..10).
-2) For each slot number N:
-   - pemit to the player the stored log line from attribute com_msgN.
-Result:
-- Displays the last ~10 received (or stored) messages in rotation order.
-```
-
-### `channels()` / `channum()` — English description
-
-```text
-Attribute: channels()
-
-Logic:
-- Returns the channel list from the target object’s /channel attribute:
-  channels(obj) == get(s(obj/channel))
-
-Attribute: channum()
-
-Logic:
-- Given a ship (v(0)) and a radio index (v(1)):
-  returns the channel number at that index from channels(ship).
-```
-
-### `handlesentmsg` — English description
-
-```text
-Attribute: handlesentmsg
-
-Invocation context:
-- Triggered after a successful transmit to account/log usage.
-
-Logic:
-1) Subtract the computed transmission power cost from this console's pwrcomm:
-   - @pwrcomm me=sub(get(me/pwrcomm),com_power(radio))
-2) Log an outgoing info line into the next rotating com_msg slot:
-   - informmessage(radio,msg,cost) produces "Outgoing Signal Power Used: ..."
-   - Rotate msg_slots similarly to showmessage.
-```
-
-### `informmessage()` — English description
-
-```text
-Attribute: informmessage()
-
-Logic:
-- Formats an outgoing transmit log line including:
-  - power used
-  - radio number and derived channel display (radio/channum)
-  - the message text
-```
-
-### `com_header()` — English description
-
-```text
-Attribute: com_header()
-
-Logic:
-- Builds the "Incoming Signal" header line, including:
-  - a derived signal strength term based on power and distance (3d(...))
-  - bearing computed from relative vector (dx/dy/dz + velhdg)
-  - radio number and derived channel label (radio/channum)
-```
-
-### `displaymessage()` — English description
-
-```text
-Attribute: displaymessage()
-
-Inputs (by position usage):
-- radio index, message text, encryption word, ID flag, power, sender object (v(5))
-
-Logic:
-1) If the radio's configured encryption keyword (com_word(radio,5)) does NOT match the message’s encryption word:
-   - Return header + "<Static>......<hiss>...." (scrambled).
-2) Else:
-   - Return header + optional sender identification:
-     - If ID flag is on, include sender name and optionally sender shipname
-   - Append ":" + message text.
-```
-
-### `com_status()` / `com_status_cmd` — English description
-
-```text
-Attribute: com_status()
-
-Logic:
-- Produces a formatted per-radio status line showing fields for a given radio:
-  - channel label
-  - power on/off
-  - ID on/off
-  - video on/off (based on com_video match)
-  - carrier on/off
-  - broadcast range
-  - encryption keyword (or <None>)
-
-Attribute: com_status_cmd
-
-Player command (legacy pattern):
-- com status
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Print a header row and separator row.
-2) For each radio index from 1..wcount(channels(v(us))):
-   - Print com_status(radio).
-```
-
-### `com_video_cmd` — English description
-
-```text
-Attribute: com_video_cmd
-
-Player command (legacy pattern):
-- com video <radio#>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-- Always informs the player that video mode is currently unavailable.
-```
-
-### `com_wordoff_cmd` / `com_word_cmd` — English description
-
-```text
-Attribute: com_wordoff_cmd
-
-Player command (legacy pattern):
-- com noencrypt <radio#>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index is in range; else print v(invalidradio).
-2) Set encryption word field (word 5) on com_flag<radio#> to '*' (no encryption).
-3) Tell player: "Radio <n> is now using no encryption."
-
-Attribute: com_word_cmd
-
-Player command (legacy pattern):
-- com encrypt <radio#>=<keyword>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index; else print v(invalidradio).
-2) Validate keyword is a single word (wcount(v(1))=1); else print an error.
-3) Store encryption keyword into com_flag<radio#> field 5, formatted as "*<keyword>".
-4) Tell player which keyword is now in use.
-```
-
-### `com_range_cmd` — English description
-
-```text
-Attribute: com_range_cmd
-
-Player command (legacy pattern):
-- com range <radio#>=<range_km>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index; else print v(invalidradio).
-2) Store broadcast range (field 4) on com_flag<radio#> as a sanitized numeric (simp(fadd(0,v(1)))).
-3) Tell player the new broadcast range in km.
-```
-
-### `com_carrier_cmd` / `com_id_cmd` / `com_power_cmd` — English description
-
-```text
-Attribute: com_carrier_cmd
-
-Player command (legacy pattern):
-- com carrier <radio#>=<on/off>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index; else print v(invalidradio).
-2) Store carrier enable flag (field 3) on com_flag<radio#>.
-3) Tell player carrier is now ON/OFF.
-4) If carrier state changed compared to previous com_word(radio,3):
-   - Trigger me/com_carrier_change with channel identity and new carrier state.
-
-Attribute: com_id_cmd
-
-Player command (legacy pattern):
-- com id <radio#>=<on/off>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index; else print v(invalidradio).
-2) Store ID enable flag (field 2) on com_flag<radio#>.
-3) Tell player ID is now ON/OFF.
-
-Attribute: com_power_cmd
-
-Player command (legacy pattern):
-- com power <radio#>=<on/off>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index; else print v(invalidradio).
-2) Store power enable flag (field 1) on com_flag<radio#>.
-3) Tell player power is now ON/OFF.
-4) If the power toggle implies the carrier/broadcast state must be updated:
-   - Trigger me/com_carrier_change with channel identity and new state.
-```
-
-### `invalidradio` / `compoweroff` / `compowerlow` / `com_power()` — English description
-
-```text
-Attribute: invalidradio
-- Error string telling user valid radio numbers are 1..wcount(channels(v(us))).
-
-Attribute: compoweroff
-- Error string: radio power is OFF, so no message is sent.
-
-Attribute: compowerlow
-- Error string: not enough allocated comm power to transmit.
-
-Attribute: com_power()
-Logic:
-- Converts the configured numeric range/power field (com_word(radio,4)) into a power cost scalar:
-  com_power(radio) == fdiv(com_word(radio,4),100000000) (then add(0,...) to coerce numeric).
-```
-
-### `com_transmit_cmd` — English description
-
-```text
-Attribute: com_transmit_cmd
-
-Player command (legacy pattern):
-- transmit <radio#>=<message>
-- Access lock: /[get(me/com_man)]/
-
-Logic:
-1) Validate radio index is in range; if not: print v(invalidradio).
-2) Validate the radio power flag com_word(radio,1) is ON; if not: print v(compoweroff).
-3) Validate the ship has enough comm energy to pay com_power(radio):
-   - hasenergy?(v(!),pwrcomm,com_power(radio))
-   - if not enough: print v(compowerlow).
-4) On success:
-   - Tell player "Message Transmitted: <cost> power used."
-   - If ship is in space:
-       invoke a space-sim event to propagate the comm signal (!comevent) with:
-       configured range/power, derived channel number, encryption word, ID flag, and message text.
-     Else (not in space):
-       trigger a room/area Comm_Signal handler on the ship's location with similar parameters.
-   - Trigger me/handlesentmsg=radio,message to subtract power and log the outgoing message locally.
-````
-
-## MARE 2.0 Converted Softcode (from Legacy Attribute List)
+## Attribute list (MARE2 conversion)
 
 ```mud
-@@ --------------------
-@@ Commands (player-invoked)
-@@ --------------------
+@@ Converted from legacy Attribute list to MARE2 style.
+@@ Notes:
+@@ - 'com <subcommand>' is routed through a single-word 'com' command.
+@@ - Legacy '@pemit %#=' is now 'print'.
+@@ - Legacy '@tr' is now 'call'.
 
-@@ legacy: $com channel *=*:/[get(me/com_man)]/...
-&com_channel_cmd com=:/[get(me,com_man)]/2$com channel:
-switch land(range?(v(1),1,999),range?(v(0),1,wcount(channels(v(us)))))=0
-    print v(invalidradio)
-else
-    print Channel set.
-    @@ Preserve legacy argument ordering to avoid behavior changes
-    @channel v(us)=set_word(channels(v(us)),v(1),v(0))
-
-    @@ legacy: @swi land(...)=0,,{...triggers...}
-    switch land(match(channum(v(us),v(0)),strcat(v(0),v(1))),land(com_word(v(0),1),com_word(v(0),3)))=0
-        @@ no-op
-    else
-        call me/com_carrier_change=[channum(v(us),v(0))],0
-        @@ legacy used %0%1 concatenation; keep as-is
-        call me/com_carrier_change=%0%1,1
-    endswitch
+&com_cmd COM=:/[get(v(me),com_man)]/3$com:
+@@ Route COM subcommands (channel,log,status,video,noencrypt,encrypt,range,carrier,id,power)
+switch first(v(0))
+  case channel
+    set 0=[rest(v(0))]
+    call me/com_channel_cmd=v(0),v(1)
+    break
+  case log
+    call me/com_log_cmd
+    break
+  case status
+    call me/com_status_cmd
+    break
+  case video
+    set 0=[rest(v(0))]
+    call me/com_video_cmd=v(0)
+    break
+  case noencrypt
+    set 0=[rest(v(0))]
+    call me/com_wordoff_cmd=v(0)
+    break
+  case encrypt
+    set 0=[rest(v(0))]
+    call me/com_word_cmd=v(0),v(1)
+    break
+  case range
+    set 0=[rest(v(0))]
+    call me/com_range_cmd=v(0),v(1)
+    break
+  case carrier
+    set 0=[rest(v(0))]
+    call me/com_carrier_cmd=v(0),v(1)
+    break
+  case id
+    set 0=[rest(v(0))]
+    call me/com_id_cmd=v(0),v(1)
+    break
+  case power
+    set 0=[rest(v(0))]
+    call me/com_power_cmd=v(0),v(1)
+    break
+  default
+    print Invalid COM command. Try: com status,com log,com channel <radio>=<chan>,com power <radio>=<on/off>
 endswitch
 
-@@ legacy: $com log:/[get(me/com_man)]/@foreach ...
-&com_log_cmd com=:/[get(me,com_man)]/0$com log:
-foreach get(me,msg_slots)
-    @@ NOTE: keep legacy dynamic get() form for com_msg%N
-    @pemit %#={%%%[get(me/com_msg%%0)]}
-endfor
 
-@@ legacy: $com status:/[get(me/com_man)]/...
-&com_status_cmd com=:/[get(me,com_man)]/0$com status:
+&com_channel_cmd COM=
+@@ v(0)=radio#,v(1)=channel#
+if land(range?(v(1),1,999),range?(v(0),1,wcount(channels(v(us)))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+print Channel set.
+@channel v(us)=set_word(channels(v(us)),v(1),v(0))
+
+@@ Preserve legacy carrier-change side effects
+if land(match(channum(v(us),v(0)),strcat(v(0),v(1))),land(com_word(v(0),1),com_word(v(0),3)))!=0
+  call me/com_carrier_change=[channum(v(us),v(0))],0
+  call me/com_carrier_change=%0%1,1
+endif
+
+
+&showmessage COM=
+@@ v(0)=radio#,v(1)=msg,v(2)=encKey,v(3)=broadcastFlag?,v(4)=txPower,v(5)=senderObj
+@pemit get(v(me),com_man)={%[displaymessage(v(0),v(5),v(1),v(2),v(3),v(4))]}
+@com_msg[first(get(v(me),msg_slots))] me=join(time(),displaymessage(v(0),v(5),v(1),v(2),v(3),v(4)))
+@msg_slots me=join(rest(get(v(me),msg_slots)),first(get(v(me),msg_slots)))
+
+if get(v(me),com_man)=
+  @emit v(com_indicator)
+endif
+
+
+&com_log_cmd COM=
+for word__=get(v(me),msg_slots)
+  set 0=[v(word__)]
+  print {%%%[get(v(me),com_msg%0)]}
+done
+
+
+&channels() COM=[get(v(0),channel)]
+
+&channum() COM=[extract(channels(v(0)),v(1),1)]
+
+
+&handlesentmsg COM=
+@@ v(0)=radio#,v(1)=msg
+@pwrcomm me=sub(get(v(me),pwrcomm),com_power(v(0)))
+@com_msg[first(get(v(me),msg_slots))] me=join(time(),informmessage(v(0),v(1),com_power(v(0))))
+@msg_slots me=join(rest(get(v(me),msg_slots)),first(get(v(me),msg_slots)))
+
+
+&informmessage() COM=[s(Outgoing Signal Power Used: %2 Channel %0/[channum(v(us),v(0))]: [v(1)])]
+
+&com_header() COM=[s(Incoming Signal: [fdiv(pow(v(4),2),pow(3d(v(5),v(us)),2))] Bearing:[velhdg(dx(v(5),v(us)),dy(v(5),v(us)),dz(v(5),v(us)))] Channel %0/[channum(v(us),v(0))])]
+
+&com_status() COM=[ljust(s(%0/[channum(v(us),v(0))]),7)] | [rjust(yesno(com_word(v(0),1)),4)] % | [rjust(yesno(com_word(v(0),2)),3)] | [rjust(ifelse(comp(get(v(me),com_video),v(0)),OFF,ON),4)] % | [rjust(yesno(com_word(v(0),3)),5)] % % | [rjust(com_word(v(0),4),15)] | [ifelse(scomp(com_word(v(0),5),*),mid(com_word(v(0),5),1,strlen(com_word(v(0),5))),<None>)]
+
+&com_status_cmd COM=
 print Channel | Power | ID? | Video | Carrier | Broadcast Range | Encryption Word
 print --------+-------+-----+-------+---------+-----------------+----------------
-foreach rest(lnum(add(1,wcount(channels(v(us))))))
-    print com_status(v(0))
-endfor
+for word__=rest(lnum(add(1,wcount(channels(v(us))))))
+  set 0=[v(word__)]
+  print [com_status(v(0))]
+done
 
-@@ legacy: $com video *:/[get(me/com_man)]/...
-&com_video_cmd com=:/[get(me,com_man)]/1$com video:
+
+&com_video_cmd COM=
 print Video mode is currently unavailable.
 
-@@ legacy: $com noencrypt *:/[get(me/com_man)]/...
-&com_wordoff_cmd com=:/[get(me,com_man)]/1$com noencrypt:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
+
+&com_wordoff_cmd COM=
+@@ v(0)=radio#
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+@com_flag%0 me=set_word(get(v(me),com_flag%0),*,5)
+print Radio %0 is now using no encryption.
+
+
+&com_word_cmd COM=
+@@ v(0)=radio#,v(1)=keyword
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+if wcount(v(1))=1
+  @com_flag%0 me=set_word(get(v(me),com_flag%0),strcat(*,v(1)),5)
+  print Traffic on Radio %0 is now encrypted with keyword '%1'
 else
-    @com_flag%0 me=set_word(get(me,com_flag%0),*,5)
-    print Radio %0 is now using no encryption.
-endswitch
+  print Illegal Keyword. You need to use a one-word encryption keyword.
+endif
 
-@@ legacy: $com encrypt *=*:/[get(me/com_man)]/...
-&com_word_cmd com=:/[get(me,com_man)]/2$com encrypt:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
+
+&com_range_cmd COM=
+@@ v(0)=radio#,v(1)=rangeKm
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+@com_flag%0 me=set_word(get(v(me),com_flag%0),simp(fadd(0,v(1))),4)
+print Broadcast Range on Radio %0 is now set to %%%[simp(fadd(0,v(1)))]km's
+
+
+&com_carrier_cmd COM=
+@@ v(0)=radio#,v(1)=on/off
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+@@ Capture prior state so the "changed?" test is meaningful
+set 9=[com_word(v(0),3)]
+
+@com_flag%0 me=set_word(get(v(me),com_flag%0),yesno?(v(1)),3)
+print Carrier Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))]
+
+if v(9)!=yesno?(v(1))
+  call me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]
+endif
+
+
+&com_id_cmd COM=
+@@ v(0)=radio#,v(1)=on/off
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+@com_flag%0 me=set_word(get(v(me),com_flag%0),yesno?(v(1)),2)
+print ID Signal on Radio %0 is now turned %%%[yesno(yesno?(v(1)))]
+
+
+&com_power_cmd COM=
+@@ v(0)=radio#,v(1)=on/off
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+@@ Capture prior power state for carrier-change detection
+set 9=[com_word(v(0),1)]
+
+@com_flag%0 me=set_word(get(v(me),com_flag%0),yesno?(v(1)),1)
+print Power on Radio %0 is now turned %%%[yesno(yesno?(v(1)))]
+
+@@ If carrier is enabled and power toggled, notify channel carrier state
+if land(com_word(v(0),3),lxor(yesno?(v(1)),v(9)))!=0
+  call me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]
+endif
+
+
+&yesno?() COM=[ifelse(lor(match(v(0),y*),match(v(0),on)),1,0)]
+
+&com_word() COM=[extract(get(v(me),com_flag%0),v(1),1)]
+
+&yesno() COM=[ifelse(v(0),ON,OFF)]
+
+&range?() COM=[land(lt(v(0),add(1,v(2))),gt(v(0),sub(1,v(1))))]
+
+
+&com_flag1 COM=0 0 0 100000 *
+&com_flag2 COM=0 0 0 100000 *
+&com_flag3 COM=0 0 0 100000 *
+&com_flag4 COM=0 0 0 100000 *
+&com_flag5 COM=0 0 0 100000 *
+&com_flag6 COM=0 0 0 100000 *
+&com_flag7 COM=0 0 0 100000 *
+&com_flag8 COM=0 0 0 100000 *
+&com_flag9 COM=0 0 0 100000 *
+&com_flag10 COM=0 0 0 100000 *
+
+
+&com_info2 COM=
+@pemit %0=com id <Radio#>=<on/off> : Turn identification signal on/off for radio
+@pemit %0=com carrier <Radio#>=<on/off> : Turn carrier signal on/off for radio
+@pemit %0=com encrypt <Radio#>=<codeword> : Set radio to encrypt/decrypt using the word
+@pemit %0=com noencrypt <Radio#> : Turn off encryption of that radio
+@pemit %0=com video <Radio#> : Set radio for video mode(viewscreen)
+@pemit %0=transmit <Radio#>=<Msg> : Transmit a message over the radio
+call me/com_info3=%0
+
+
+&msg_slots COM=1 2 3 4 5 6 7 8 9 10
+
+&com_msg1 COM=Empty Msg1
+&com_msg2 COM=Empty Msg2
+&com_msg3 COM=Empty Msg3
+&com_msg4 COM=Empty Msg4
+&com_msg5 COM=Empty Msg5
+&com_msg6 COM=Empty Msg6
+&com_msg7 COM=Empty Msg7
+&com_msg8 COM=Empty Msg8
+&com_msg9 COM=Empty Msg9
+&com_msg10 COM=Empty Msg10
+
+
+&com_indicator COM=*BEEP* A red message indicator light blinks on the Communications Station, indicating a received message.
+
+&com_info3 COM=
+@pemit %0=com log : Display a log of the last 10 received messages
+@pemit %0=Current Radio Standards: Channel 911 is used for ships needing emergency assistance. Channel 555 is being considered the universal ship to ship chatter channel for normal use. Channel 200 will be used for communicating with automated landing, launching, and docking facilities.
+
+
+&receivemessage?() COM=[if(add(0,com_flag(v(0),1)),ifelse(scomp(get(v(me),com_video),v(0)),1,2))]
+
+&displaymessage() COM=[ifelse(scomp(com_word(v(0),5),v(2)),join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),<Static>......<hiss>....),strcat(join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),if(v(3),strcat(name(v(5)),if(get(v(5),shipname),s({([get(v(5),shipname)])}))))),join(:,v(1))))]
+
+
+&compoweroff COM=Power on Radio %0 is currently turned OFF. No message sent.
+&invalidradio COM=You must use a valid radio number. Valid #'s are from '1' to '[wcount(channels(v(us)))]'.
+&compowerlow COM=Not enough power allocated to communications to transmit.
+
+&com_power() COM=[add(0,fdiv(com_word(v(0),4),100000000))]
+
+
+&com_transmit_cmd COM=:/[get(v(me),com_man)]/2$transmit:
+@@ v(0)=radio#,v(1)=msg
+if range?(v(0),1,wcount(channels(v(us))))=0
+  print [v(invalidradio)]
+  exit
+endif
+
+if com_word(v(0),1)=0
+  print [v(compoweroff)]
+  exit
+endif
+
+if hasenergy?(v(!),pwrcomm,com_power(v(0)))=0
+  print [v(compowerlow)]
+  exit
+endif
+
+print Message Transmitted: %[com_power(v(0))] power used.
+
+if inspace(v(us))
+  !comevent v(us)=[com_word(v(0),4)],[channum(v(us),v(0))],[com_word(v(0),5)],[com_word(v(0),2)],v(1)
 else
-    switch wcount(v(1))=1
-        @com_flag%0 me=set_word(get(me,com_flag%0),strcat(*,v(1)),5)
-        print Traffic on Radio %0 is now encrypted with keyword '%1'
-    else
-        print Illegal Keyword. You need to use a one-word encryption keyword.
-    endswitch
-endswitch
+  call [loc(v(us))]/Comm_Signal=Comm,[channum(v(us),v(0))],[com_word(v(0),4)],*,1,[v(us)],v(1)
+endif
 
-@@ legacy: $com range *=*:/[get(me/com_man)]/...
-&com_range_cmd com=:/[get(me,com_man)]/2$com range:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
-else
-    @com_flag%0 me=set_word(get(me,com_flag%0),simp(fadd(0,v(1))),4)
-    print Broadcast Range on Radio %0 is now set to %[simp(fadd(0,v(1)))]km's
-endswitch
-
-@@ legacy: $com carrier *=*:/[get(me/com_man)]/...
-&com_carrier_cmd com=:/[get(me,com_man)]/2$com carrier:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
-else
-    @com_flag%0 me=set_word(get(me,com_flag%0),yesno?(v(1)),3)
-    print Carrier Signal on Radio %0 is now turned %[yesno(yesno?(v(1)))]
-
-    @@ legacy: @swi [com_word()]=[yesno?()],,{@tr ...}
-    switch com_word(v(0),3)=[yesno?(v(1))]
-        @@ no-op
-    else
-        call me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]
-    endswitch
-endswitch
-
-@@ legacy: $com id *=*:/[get(me/com_man)]/...
-&com_id_cmd com=:/[get(me,com_man)]/2$com id:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
-else
-    @com_flag%0 me=set_word(get(me,com_flag%0),yesno?(v(1)),2)
-    print ID Signal on Radio %0 is now turned %[yesno(yesno?(v(1)))]
-endswitch
-
-@@ legacy: $com power *=*:/[get(me/com_man)]/...
-&com_power_cmd com=:/[get(me,com_man)]/2$com power:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
-else
-    @com_flag%0 me=set_word(get(me,com_flag%0),yesno?(v(1)),1)
-    print Power on Radio %0 is now turned %[yesno(yesno?(v(1)))]
-
-    @@ legacy: @swi land(com_word(...),lxor(...))=0,,{@tr ...}
-    switch land(com_word(v(0),3),lxor([yesno?(v(1))],[com_word(v(0),1)]))=0
-        @@ no-op
-    else
-        call me/com_carrier_change=[channum(v(us),v(0))],[yesno?(v(1))]
-    endswitch
-endswitch
-
-@@ legacy: $transmit *=*:/[get(me/com_man)]/@swi ifelse(...)=-2,{...},-1,{...},0,{...},1,{...}
-&com_transmit_cmd com=:/[get(me,com_man)]/2$transmit:
-switch range?(v(0),1,wcount(channels(v(us))))=0
-    print v(invalidradio)
-else
-    switch com_word(v(0),1)=0
-        print v(compoweroff)
-    else
-        switch hasenergy?(v(!),pwrcomm,com_power(v(0)))=0
-            print v(compowerlow)
-        else
-            print Message Transmitted: [com_power(v(0))] power used.
-
-            if inspace(v(us))
-                !comevent v(us)=[com_word(v(0),4)],[channum(v(us),v(0))],[com_word(v(0),5)],[com_word(v(0),2)],v(1)
-            else
-                call [loc(v(us))]/Comm_Signal=Comm,[channum(v(us),v(0))],[com_word(v(0),4)],*,1,[v(us)],v(1)
-            endif
-
-            call me/handlesentmsg=v(0),v(1)
-        endswitch
-    endswitch
-endswitch
-
-
-@@ --------------------
-@@ Message receive/log helpers (programs)
-@@ --------------------
-
-&showmessage com=
-@pemit get(me,com_man)={%[displaymessage(v(0),v(5),v(1),v(2),v(3),v(4))]}
-@@ NOTE: keep legacy dynamic attribute write shape (com_msg%N)
-@com_msg[first(get(me/msg_slots))] me=join(time(),displaymessage(v(0),v(5),v(1),v(2),v(3),v(4)))
-@msg_slots me=join(rest(get(me/msg_slots)),first(get(me/msg_slots)))
-switch get(me,com_man)=
-    @emit v(com_indicator)
-else
-    @@ no-op
-endswitch
-
-&handlesentmsg com=
-@pwrcomm me=sub(get(me,pwrcomm),com_power(v(0)))
-@com_msg[first(get(me/msg_slots))] me=join(time(),informmessage(v(0),v(1),com_power(v(0))))
-@msg_slots me=join(rest(get(me/msg_slots)),first(get(me/msg_slots)))
-
-
-@@ --------------------
-@@ Functions / formatting helpers
-@@ --------------------
-
-&channels() com=[get(s(%0),channel)]
-channum() com=[extract(channels(v(0)),v(1),1)]
-
-&informmessage() com=[s(Outgoing Signal Power Used: %2 Channel %0/[channum(v(us),v(0))]: [v(1)])]
-&com_header() com=[s(Incoming Signal: [fdiv(pow(v(4),2),pow(3d(v(5),v(us)),2))] Bearing:[velhdg(dx(v(5),v(us)),dy(v(5),v(us)),dz(v(5),v(us)))] Channel %0/[channum(v(us),v(0))])]
-
-&com_status() com=[ljust(s(%0/[channum(v(us),v(0))]),7)] | [rjust(yesno(com_word(v(0),1)),4)] % | [rjust(yesno(com_word(v(0),2)),3)] | [rjust(ifelse(comp(get(me,com_video),v(0)),OFF,ON),4)] % | [rjust(yesno(com_word(v(0),3)),5)] % % | [rjust(com_word(v(0),4),15)] | [ifelse(scomp(com_word(v(0),5),*),mid(com_word(v(0),5),1,strlen(com_word(v(0),5))),<None>)]
-
-&_attrdef33() com=[ifelse(lor(match(v(0),y*),match(v(0),on)),1,0)]
-&com_word() com=[extract(get(s(me),com_flag%0),v(1),1)]
-&yesno() com=[ifelse(v(0),ON,OFF)]
-&_attrdef36() com=[land(lt(v(0),add(1,v(2))),gt(v(0),sub(1,v(1))))]
-&_attrdef49() com=[if(add(0,com_flag(v(0),1)),ifelse(scomp(get(me,com_video),v(0)),1,2))]
-
-displaymessage() com=[ifelse(scomp(com_word(v(0),5),v(2)),join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),<Static>......<hiss>....),strcat(join(com_header(v(0),v(1),v(2),v(3),v(4),v(5)),if(v(3),strcat(name(v(5)),if(get(s(%5),shipname),s({([get(s(%5),shipname)])}))))),join(:,v(1))))]
-
-&com_power() com=[add(0,fdiv(com_word(v(0),4),100000000))]
+call me/handlesentmsg=v(0),v(1)
 ```
 

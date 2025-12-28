@@ -10,6 +10,19 @@ This is the Downloader legacy console object, used in older versions of the game
 
 ## Meta data
 
+```mud
+Downloader(#459h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted
+Bytes:	2128
+Children:	2
+Created:	Mon Dec 5 03:57:57 1994
+Modified:	Thu Dec 25 18:14:52 2025
+Location:	Helm Equipment Room(#11848R)
+Home:	Ptah's Chambers(#10586R)
+```
+
 ## Object Definition
 
 ### Attribute Definitions
@@ -224,7 +237,7 @@ endswitch
 
 &DownLoad Downloader=:0$download:
 @@ Legacy: @foreach [inrange(v(us))] #=...
-for word_=[sensorlist(v(us))] xx
+for =[sensorlist(v(us))] xx
     @@ print [name(v(us))]
     switch [v(word_)]
         case xx

@@ -2,13 +2,25 @@
 
 ## Name
 
-Fusion Engine
+Fusion Drive Parent
 
 ## Purpose
 
 This is the Fusion Engine legacy console object, used in older versions of the game to provide propulsion capabilities for spacecraft. It allows players to engage and disengage the fusion drive, adjusting its efficiency and rating.
 
 ## Meta data
+
+```mud
+Fusion Drive Parent(#45850h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	2516
+Children:	11
+Modified:	Mon Sep 26 21:34:54 1994
+Location:	Engine Equipment Room(#53396R)
+Home:	Engine Equipment Room(#53396R)
+```
 
 ## Object Definition
 

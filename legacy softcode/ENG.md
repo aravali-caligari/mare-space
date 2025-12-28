@@ -10,6 +10,18 @@ This is the ENG legacy console object, used in older versions of the game to pro
 
 ## Meta data
 
+```mud
+ENG(#31236h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	15212
+Children:	1
+Modified:	Wed May 29 00:56:37 1996
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

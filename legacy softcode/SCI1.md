@@ -11,8 +11,16 @@ This is the SCI1 legacy console object, used in older versions of the game to pr
 ## Meta data
 
 ```mud
-Name: SCI1
-Type: Thing
+SCI1(#469h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	9836
+Children:	1
+Created:	Fri Nov 25 22:27:57 1994
+Modified:	Fri Jun 30 22:38:45 1995
+Location: Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
 ```
 
 ## Commands

@@ -10,6 +10,18 @@ This is the Star Chart console object, used in the game to provide players with 
 
 ## Meta data
 
+```mud
+Star Chart(#9382h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1148
+Children:	1
+Modified:	Fri Nov 25 23:32:32 1994
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute Definitions

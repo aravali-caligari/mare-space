@@ -10,6 +10,16 @@ This file contains the softcode for launching probes at targets detected in sens
 
 ## Meta data
 
+```mud
+Probe Launcher(#46410)
+Type:	Thing
+Owner:	Ptah
+Bytes:	972
+Children:	1
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute Definitions

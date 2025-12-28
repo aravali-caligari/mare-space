@@ -10,6 +10,18 @@ This is the Autopilot console object, used in the game to provide players with a
 
 ## Meta data
 
+```mud
+Pilot Parent(#39951V)
+Type:	Thing
+Owner:	Carrie_Gram
+Flags:	Visible[0]
+Bytes:	11504
+Children:	14
+Modified:	Sun Oct 31 17:17:56 2004
+Location:	Captain's Safe(#43072)
+Home:	ISA Frontier Storm - Command Bridge(#18117R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

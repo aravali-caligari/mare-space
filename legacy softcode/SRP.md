@@ -10,6 +10,18 @@ This is the SRP legacy console object, used in older versions of the game to pro
 
 ## Meta data
 
+```mud
+SRP(#33502h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Verbose Halted[0]
+Bytes:	11292
+Children:	1
+Modified:	Wed Oct 22 09:36:52 2025
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

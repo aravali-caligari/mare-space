@@ -10,6 +10,18 @@ This file contains a collection of global functions used throughout the MARE-Spa
 
 ## Meta data
 
+```mud
+Global Space Functions(#35492hV)
+Type:	Thing
+Owner:	Priam_Agrivar
+Flags:	Halted[0] Visible[0]
+Bytes:	3308
+Children:	1
+Modified:	Mon May 16 08:16:45 2022
+Location:	Helm Equipment Room(#11848R)
+Home:	Old Space Stuff box(#3210)
+```
+
 ## Object Definition
 
 ### Attribute Definitions

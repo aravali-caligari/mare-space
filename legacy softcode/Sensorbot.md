@@ -10,6 +10,17 @@ This is the Sensor Bot console object, used in the game to provide players with 
 
 ## Meta data
 
+```mud
+Sensorbot(#15249)
+Type:	Thing
+Owner:	Carrie_Gram
+Bytes:	4780
+Children:	1
+Modified:	Fri Jun 23 02:49:05 1995
+Location:	ISA Frontier Storm - Command Bridge(#18117R)
+Home:	ISA Frontier Storm - Command Bridge(#18117R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

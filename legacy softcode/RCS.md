@@ -10,6 +10,19 @@ This is the RCS legacy console object, used in older versions of the game to pro
 
 ## Meta data
 
+```mud
+RCS(#33976h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1360
+Parents:	TRCS System(#38914h)
+Children:	1
+Modified:	Fri Nov 25 23:33:09 1994
+Location:	Engine Equipment Room(#53396R)
+Home:	Engine Equipment Room(#53396R)
+```
+
 ## Object Definition
 
 ### Attribute definitions

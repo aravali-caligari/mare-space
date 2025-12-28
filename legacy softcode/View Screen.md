@@ -8,9 +8,21 @@ View Screen - 3D Viewscreen Console
 
 This is the View Screen legacy console object, used in older versions of the game to provide a 3D viewscreen for spacecraft. It allows players to visualize their surroundings in space, including other ships and celestial objects, with adjustable magnification and aspect ratios.
 
-## Object Definition
+## Meta data
 
-### Meta data
+```mud
+View Screen(#3490hV)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0] Visible[0]
+Bytes:	7596
+Children:	1
+Modified:	Thu Mar 9 02:37:35 2006
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+```
+
+## Object Definition
 
 ### Attribute definitions
 
@@ -118,4 +130,5 @@ d15:	7 . . . . . . . +Y . . . . . . .
 d1:	7 . . . . . . . -Y . . . . . . .
 plotpos():	[change(v(tYlin(v(0))),v(1),Xlin(v(0)))]
 ```
+
 
