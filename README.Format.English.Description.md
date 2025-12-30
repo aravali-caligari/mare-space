@@ -6,9 +6,12 @@
 
 ## English Logic Descriptions (Legacy Attribute List)
 
-### `<name of attribute>` — English description
+## OBJECT: `<Object Name>`
+
+### ATTRIBUTE: `<name of attribute>` — English description
 
 ```text
+Object: <Object Name>
 Attribute: <attribute name>
 
 Purpose:
@@ -23,7 +26,7 @@ Logic:
 - ...
 ```
 
-### `<another attribute name>` — English description
+### ATTRIBUTE: `<another attribute name>` — English description
 
 ...
 
@@ -37,9 +40,12 @@ Logic:
 
 ## English Logic Descriptions (Legacy Attribute List)
 
-### `get_obj_size()` — English description
+## OBJECT: `Downloader`
+
+### ATTRIBUTE: `get_obj_size()` — English description
 
 ```text
+Object: Downloader
 Attribute: get_obj_size()
 
 Purpose:
@@ -53,9 +59,10 @@ Logic:
 - Returns one of: 1,2,4,8,16,32 (bigger mass => bigger size class).
 ```
 
-### `spit_data()` — English description
+### ATTRIBUTE: `spit_data()` — English description
 
 ```text
+Object: Downloader
 Attribute: spit_data()
 
 Purpose:

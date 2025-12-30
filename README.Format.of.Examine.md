@@ -1,4 +1,5 @@
 # Purpose of this README: Shows an example of 'examine' output from MARE before its converted to Legacy Markdown format
+# Some attributes may be 'built-in' and missing from the Attribute definitions section but still present in the Attribute list.
 
 #
 # Example of the 'examine' output structure follows here
@@ -16,7 +17,7 @@ Attribute definitions:
   <attribute name without flags>
   ... more attributes ...
 Attribute list:
-  <attribute name>:<attribute value on a single line>
+<attribute name>:<attribute value on a single line>
 Location: <location object>
 Home: <home object>
 
@@ -32,12 +33,12 @@ Plane: 0
 Created: Sun Nov 27 05:53:55 1994
 Modified: Sun Dec 11 18:01:51 1994
 Attribute definitions:
-  cloakhelp: inherit
+  cloakhelp: inherit program
   passkey
-  set_passkey1: inherit
-  set_passkey2: inherit
-  cloak_on: inherit
-  cloak_off: inherit
+  set_passkey1: inherit program
+  set_passkey2: inherit program
+  cloak_on: inherit program
+  cloak_off: inherit program
 Attribute list:
 cloak_on:$cloak on passkey=*:/[v(eng_man)]/@swi
 [get(s([v(us)]/vismult))]=-1,{@pemit %#=Cloaking device already on.},{@swi

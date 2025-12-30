@@ -8,7 +8,7 @@
   - ... more legacy examine dump files ...
 
 - `object_artifacts/`: Folder for parsed objects from the legacy examine dumps.
-  - `Object.<Object_Name>/`: folder for each object being converted
+  - `object.<Object_Name>/`: folder for each object being converted
     - `examine.<object_name>.txt`: incoming object 'examine' structure before converting the object to legacy markdown format (see `README.Format.of.Examine.md` for structure + example)
     - `metadata.<object_name>.md`: legacy object in metadata markdown format (see `README.Format.Legacy.Markdown.md` for template + example)
     - `analysis.<object_name>.md`: English logic description of the legacy attribute list (see `README.Format.English.Description.md` for template + example)

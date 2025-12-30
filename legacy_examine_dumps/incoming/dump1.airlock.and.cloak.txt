@@ -1,0 +1,62 @@
+Airlock Exterior Hatch Parent(#52044h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted
+Bytes:	2160
+Parents:	Space Projection Functions(#46101)
+Children:	1
+Attribute definitions:
+ejectobject: inherit program
+launchsuit: inherit program
+Attribute list:
+OLook:	looks out the exterior airlock hatch porthole.
+OnFail:	@swi get([link(me)]/airlock)=#-1*,{@fo get([link(me)]/helm)=@emit {The [name(get(s([link(me)]/helm)))] reports the attempted egress of '%N' through the sealed airlock.};@pemit %#=The exterior airlock door is sealed.},{@tr me/ejectobject=%#;@tr me/[if(land(isship(v(#)),hasflag(loc(link(me)),Z)),launchsuit)]=%#}
+launchsuit:	@thrust %0=0;@linposx %0=xpos([link(me)],%0,1.0);@linposy %0=ypos([link(me)],%0,1.0);@linposz %0=zpos([link(me)],%0,1.0);@linvelx %0=xvel([link(me)],0.0);@linvely %0=yvel([link(me)],0.0);@linvelz %0=zvel([link(me)],0.0);@angposx %0=get(s([link(me)]/angposx));@angposy %0=get(s([link(me)]/angposy));@angposz %0=get(s([link(me)]/angposz));@angvelz %0=get(s([link(me)]/angvelz));!enter %0;@pemit %0=The all-encompasing darkness engulfs you as you leave [name(link(me))] behind.
+ejectobject:	@pemit %0=You cycle out through the external airlock hatch.;@oemit %0={%[name(v(0))] cycles out through the external airlock hatch.};@fo link(me)=@emit {%%%[name(v(0))] cycles out from the airlock of the [name(link(me))].};@fo get([link(me)]/helm)=@emit {The [name(get(s([link(me)]/helm)))] reports the egress of '%%%[name(v(0))]' through the airlock.};@fo me=@tel %0=loc(link(me))
+Fail:	You press the open patch on the external airlock hatch.
+OFail:	presses the open patch on the external airlock hatch.
+Desc:	This is a heavy duty exterior hatch designed to protect the ship from the vacuum of space. The light above the hatch is [ifelse(lnot(first(get(s([link(me)]/airlock)))),red,green)]. Looking through the hatch's porthole you see '[name(loc(link(me)))]'.
+Location:	Door Equipment Room(#28607R)
+Home:	Door Equipment Room(#28607R)
+
+-----------------------------------------
+
+Cloak Parent(#54808h)
+Owner: Ptah
+Type: Thing
+Flags: Halted
+Bytes: 1500
+Children: 1
+Created: Sun Nov 27 05:53:55 1994
+Modified: Sun Dec 11 18:01:51 1994
+Attribute definitions:
+  cloakhelp: inherit program
+  passkey
+  set_passkey1: inherit program
+  set_passkey2: inherit program
+  cloak_on: inherit program
+  cloak_off: inherit program
+Attribute list:
+cloak_on:$cloak on passkey=*:/[v(eng_man)]/@swi
+[get(s([v(us)]/vismult))]=-1,{@pemit %#=Cloaking device already on.},{@swi
+[v(passkey)]=00[v(0)],{@vismult [v(us)]=-1;@emit Cloaking device
+engaged.},{@pemit %#=Invalid cloak passkey.}}
+set_passkey1:$cloak passkey *=*:/[v(eng_man)]/@swi
+[v(passkey)]=00[v(0)],{@passkey me=00[v(1)];@pemit %#=Cloaking device passkey -
+Set.},{@pemit %#=Cloaking device passkey - Invalid.}
+set_passkey2:$initial passkey=*:/[v(eng_man)]/@swi [v(passkey)]=,{@passkey
+me=00[v(0)];@pemit %#=Cloaking device passkey - Set.},{@pemit %#=Cloaking
+device passkey - Invalid.}
+cloak_off:$cloak off:/[v(eng_man)]/@swi [get(s([v(us)]/vismult))]=1,{@pemit
+%#=Cloaking device already off.},{@vismult [v(us)]=1;@emit Cloaking device
+disengaged.}
+cloakhelp:$cloakhelp:/[v(eng_man)]/@pemit %#=CLOAK ON PASSKEY=<passkey> :
+Activates the cloaking device.;@pemit %#=INITIAL PASSKEY=<passkey> : Set the
+initial cloaking device passkey.;@pemit %#=CLOAK PASSKEY <old passkey>=<new
+passkey> : Changes the passkey.;@pemit %#=CLOAK OFF : Turns the cloaking device
+off.;@pemit %#=WARNING: The cloaking device will consume power faster than the
+ship can produce it. If allowed to remain on it will drain the Life Support of
+its power and kill everyone on board.
+Location: PCS Equipment Room(#50723R)
+Home: Helm Equipment Room(#11848R)
+

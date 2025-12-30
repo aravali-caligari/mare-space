@@ -1,68 +1,121 @@
 # Purpose of this README:
 # A general format template for legacy softcode that has converted to MARE2
+# Some attributes may be 'built-in' and not need to be defined with @defattr, if it is missing from the legacy metadata attribute definitions section.
 
-Use the format examples below for writing converted MARE2 code when asked to 'Convert' legacy softcode attribute lists.
-
+#
 # MARE2 Conversion Template follows here
+#
 
 ## Attribute list (MARE2 conversion template)
 
 ```mud
-@@@@@@@@ Teleport to <Location Name> @@@@@@@@
-@teleport me=#<dbref>
 
-@@@@@@@@ Converted <Object Name>/<attribute name> @@@@@@@@
+@@ -----------------------------
+@@ OBJECT: <Object Name>
+@@ LOCATION: <Location Name>
+@@ -----------------------------
 
-@defattr <Object Name>/<attribute name>=<flags>
+---cut---
+@teleport me=<location dbref>
+---cut---
 
+@@ ATTRIBUTE: <Object Name>/<attribute name>
+@@ -----------------------------
+
+---cut---
+( @defattr <Object Name>/<attribute name>=<flags> )
+or 
+( @@ Built-in attribute, no need to define ) if the attribute is built-in and has no flags.
+---cut---
 &<attribute name> <Object Name>=<converted attribute value>
+---cut---
 
-@@@@@@@@ Converted <Object Name>/<next attribute name> @@@@@@@@
-@defattr <Object Name>/<next attribute name>=<flags>
+@@ ATTRIBUTE: <Object Name>/<next attribute name>
+@@ -----------------------------
 
+---cut---
+( @defattr <Object Name>/<next attribute name>=<flags> )
+or 
+( @@ Built-in attribute, no need to define ) if the attribute is built-in and has no flags.
+---cut---
 &<next attribute name> <Object Name>=<converted attribute value>
+---cut---
 
 ... additional converted attributes ...
 ```
 
+#
 # End of MARE2 conversion template
+#
 
+#
 # Example of a completed MARE2 conversion follows here
+#
 
 ## Attribute list (MARE2 conversion example)
 
 ```mud
-@@@@@@@@ Teleport to Space Exit Parent location @@@@@@@@
+@@ -----------------------------
+@@ OBJECT: Space Exit Parent
+@@ LOCATION: Door Equipment Room
+@@ -----------------------------
+
+---cut---
 @teleport me=#28607
 
-@@@@@@@@ Converted Space Exit Parent/OSucc @@@@@@@@
+---cut---
 
-@defattr Space Exit Parent/OSucc=inherit program
+@@ ATTRIBUTE: Space Exit Parent/OSucc
+@@ ----------------------------------
 
+---cut---
+@@ Built-in attribute, no need to define
+---cut---
 &OSucc Space Exit Parent=fires up %p engines and blasts out into the void with a tremendous roar.
+---cut---
 
-@@@@@@@@ Converted Space Exit Parent/OFail @@@@@@@@
+@@ ATTRIBUTE: Space Exit Parent/eject
+@@ ----------------------------------
 
-@defattr Space Exit Parent/OFail=inherit program
+---cut---
+@defattr Space Exit Parent/eject=inherit program
+---cut---
+&eject Space Exit Parent=call me/OnSucc
+---cut---
 
+@@ ATTRIBUTE: Space Exit Parent/OFail
+@@ ----------------------------------
+
+---cut---
+@@ Built-in attribute, no need to define
+---cut---
 &OFail Space Exit Parent=contemplates suicide by stepping into the void,but then %s decides not to.
+---cut---
 
-@@@@@@@@ Converted Space Exit Parent/Fail @@@@@@@@
+@@ ATTRIBUTE: Space Exit Parent/Fail 
+@@ ---------------------------------
 
-@defattr Space Exit Parent/Fail
-
+---cut---
+@@ Built-in attribute, no need to define
+---cut---
 &Fail Space Exit Parent=You would die if you stepped out there,you decide not to.
+---cut---
 
-@@@@@@@@ Converted Space Exit Parent/Desc @@@@@@@@
+@@ ATTRIBUTE: Space Exit Parent/desc
+@@ ---------------------------------
 
-@defattr Space Exit Parent/desc
-
+---cut---
+@@ Built-in attribute, no need to define
+---cut---
 &Desc Space Exit Parent=You see a hangar door that leads out into Space.
+---cut---
 
-@@@@@@@@ Converted Space Exit Parent/OnSucc @@@@@@@@
+@@ ATTRIBUTE: Space Exit Parent/OnSucc
+@@ -----------------------------------
 
-@defattr Space Exit Parent/OnSucc=program
-
+---cut---
+@@ Built-in attribute, no need to define
+---cut---
 &OnSucc Space Exit Parent=
 @thrust %#=0
 @linposx %#=xpos([link(me)],%#,5)
@@ -82,8 +135,11 @@ Use the format examples below for writing converted MARE2 code when asked to 'Co
 @remit loc(get(%#,#44444.Helm))=The all-encompasing darkness engulfs your ship as you leave [name(link(me))] behind.
 @remit loc(get(link(me),helm))=Ship '%n' has just departed the Ship Bay.
 call here/del_docked_ship=v(#)
+---cut---
 
-... more attributes ...
+... additional converted attributes ...
 ```
 
+#
 # End of MARE2 conversion example
+#
