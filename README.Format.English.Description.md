@@ -4,6 +4,8 @@
 # Template for English Logic Descriptions follows here
 #
 
+# `<Object Name>`
+
 ## English Logic Descriptions (Legacy Attribute List)
 
 ## OBJECT: `<Object Name>`
@@ -37,6 +39,8 @@ Logic:
 #
 # Example of a completed English Logic Description follows here
 #
+
+# Downloader
 
 ## English Logic Descriptions (Legacy Attribute List)
 

@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TinyMARE II Helptext - Programming</title>
+  <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+  <link rel=stylesheet href=help.css>
+</head>
+
+<body>
+
+<!-- Programs, Programming -->
+<a name="programs"></a>
+<a name="programming">
+Programming
+</a>
+<p>TinyMARE features its own built-in programming language that lets objects run commands in
+response to events in the virtual environment.</p>
+
+<i>List of Program Commands:</i>
+
+<table class=list>
+  <tr class=space><td><a href="#print">print</a> &lt;message&gt;</td><td>–</td>
+    <td>Print a message.</td></tr>
+  <tr><td><a href="#set">set</a> &lt;var&gt;=&lt;value&gt;</td><td>–</td>
+    <td>Set a variable to a value.</td></tr>
+  <tr class=space><td><a href="#unset">unset</a> &lt;var&gt;</td><td>–</td>
+    <td>Clear a variable.</td></tr>
+  <tr><td><a href="#if">if</a> &lt;expr&gt;[=&lt;match&gt;,…]</td><td>–</td>
+    <td>Run commands if the expression is true.</td></tr>
+  <tr><td><a href="#switch">switch</a> &lt;expr&gt;</td><td>–</td>
+    <td>Run different commands based on &lt;expr&gt;.</td></tr>
+  <tr><td><a href="#while">while</a> &lt;expr&gt;[=&lt;match&gt;,…]</td><td>–</td>
+    <td>Run commands in a loop as long as the expression is true.</td></tr>
+  <tr><td><a href="#until">until</a> &lt;expr&gt;[=&lt;match&gt;,…]</td><td>–</td>
+    <td>Run commands in a loop as long as the expression is false.</td></tr>
+  <tr class=space><td><a href="#for">for</a> &lt;var&gt;=&lt;word list&gt;</td><td>–</td>
+    <td>Run a block of commands for each word in &lt;word list&gt;.</td></tr>
+  <tr><td><a href="#continue">continue</a></td><td>–</td>
+    <td>Jump back to the beginning of a <b>while</b>/<b>until</b>/<b>for</b> loop.</td></tr>
+  <tr><td><a href="#break">break</a></td><td>–</td>
+    <td>Break out of a <b>switch</b> block or <b>while</b>/<b>until</b>/<b>for</b> loop.</td></tr>
+  <tr><td><a href="#return">return</a></td><td>–</td>
+    <td>Return from a function call.</td></tr>
+  <tr class=space><td><a href="#exit">exit</a></td><td>–</td>
+    <td>Exit the program.</td></tr>
+  <tr><td><a href="#sleep">sleep</a> &lt;secs&gt;</td><td>–</td>
+    <td>Pause program for a number of seconds.</td></tr>
+  <tr><td><a href="#alarm">alarm</a> &lt;secs&gt;</td><td>–</td>
+    <td>Set a timer for a number of seconds.</td></tr>
+  <tr><td><a href="#wait">wait</a> &lt;expr&gt;[=&lt;match&gt;,…]</td><td>–</td>
+    <td>Pause program until the expression is true.</td></tr>
+  <tr class=space><td><a href="#yield">yield</a> [&lt;#cmds&gt;]</td><td>–</td>
+    <td>Pause program until the next timeslice.</td></tr>
+  <tr><td><a href="#call">call</a> [&lt;obj/attr&gt;:][&lt;func&gt;][=&lt;arg&gt;,…]</td>
+    <td>–</td><td>Call a function or another attribute.</td></tr>
+  <tr><td><a href="#label">label</a> &lt;name&gt;</td><td>–</td>
+    <td>Declare a label called &lt;name&gt;.</td></tr>
+  <tr class=space><td><a href="#goto">goto</a> &lt;name&gt;</td><td>–</td>
+    <td>Jump to label &lt;name&gt;.</td></tr>
+  <tr><td><a href="#function">function</a> &lt;name&gt;</td><td>–</td>
+    <td>Declare a function block called &lt;name&gt;.</td></tr>
+  <tr class=space><td><a href="#signal">signal</a> &lt;name&gt;</td><td>–</td>
+    <td>Declare a signal handler block called &lt;name&gt;.</td></tr>
+  <tr><td><a href="#input">input</a> &lt;var&gt;[:&lt;type&gt;]</td><td>–</td>
+    <td>Wait for input from the player.</td></tr>
+  <tr class=space><td><a href="#system">system</a> &lt;call&gt;[=&lt;value&gt;]</td><td>–</td>
+    <td>Execute a system call.</td></tr>
+  <tr><td><a href="#@@">@@</a> &lt;comment&gt;</td><td>–</td>
+    <td>Specify a comment.</td></tr>
+</table>
+
+<i>Program Example:</i>
+
+<p>A TinyMARE program is a series of commands—each placed on its own line or separated by
+semicolons—that run one by one until finished. Extra spaces around commands are ignored, but
+spacing can be used to indent some lines to reflect that they are part of a loop or function
+block.</p>
+
+<p>Here is an example program that calculates the first 8 numbers of the Fibonacci sequence:</p>
+
+<p class=indent2>
+<span style=color:#ffff80>print</span> Calculating the Fibonacci sequence:<br>
+<span style=color:#ffff80>set</span> a=0;
+  <span style=color:#ffff80>print</span> Number 1: <b>[v(a)]</b><br>
+<span style=color:#ffff80>set</span> b=1;
+  <span style=color:#ffff80>print</span> Number 2: <b>[v(b)]</b><br>
+<span style=color:#ffff80>set</span> count=2<br>
+<br>
+<span style=color:#80ffff>@@ Loop until the counter reaches 8</span><br>
+<span style=color:#ffff80>until</span> <b>[v(count)]</b>=8<br>
+ <span style=color:#ffff80>set</span> count=<b>[inc(<span
+   style=color:#ff6060>v(count)</span>)]</b><br>
+ <span style=color:#ffff80>set</span> c=<b>[add(<span
+   style=color:#ff6060>v(a)</span>,<span style=color:#ff6060>v(b)</span>)]</b><br>
+ <span style=color:#ffff80>print</span> Number <b>[v(count)]</b>:
+   <b>[v(a)]</b> + <b>[v(b)]</b> = <b>[v(c)]</b><br>
+ <span style=color:#ffff80>set</span> a=<b>[v(b)]</b><br>
+ <span style=color:#ffff80>set</span> b=<b>[v(c)]</b><br>
+<span style=color:#ffff80>done</span><br>
+<span style=color:#ffff80>print</span> Done!
+</p>
+
+<p>When triggered, it produces the following output in the game window:</p>
+
+<p class=indent2>
+  Calculating the Fibonacci sequence:<br>
+  Number 1: 0<br>
+  Number 2: 1<br>
+  Number 3: 0 + 1 = 1<br>
+  Number 4: 1 + 1 = 2<br>
+  Number 5: 1 + 2 = 3<br>
+  Number 6: 2 + 3 = 5<br>
+  Number 7: 3 + 5 = 8<br>
+  Number 8: 5 + 8 = 13<br>
+  Done!<br>
+</p>
+
+<p>To run this program yourself, you must first create a user-defined program attribute on an
+object. Any room, thing, exit, or even your own player character can be used as the object. To make
+this simple, use the following command to define a new attribute called "fib" on your own
+character:</p>
+
+<p><b>@defattr me/fib=program</b></p>
+
+<p>Next, run this command to open the visual editor on the attribute:</p>
+
+<p><b>/vedit me/fib</b></p>
+
+<p>Cut and paste all of the program from above into the main editor window, then click Save. The
+editor will close, and your new program will be stored. You can type <b>ex me/fib</b> to examine
+the "fib" attribute to verify the program was stored correctly. Last, trigger the program using
+this command:</p>
+
+<p><b>@trig me/fib</b></p>
+
+<p>If done correctly (and your player character has enough energy to run the program—see "Program
+Energy" below), the game should print the first 8 numbers of the Fibonacci sequence to the
+screen.</p>
+
+<i>Event Attributes:</i>
+
+<p>Normally, programs are executed in response to several game events that can occur in the virtual
+world. Every game object has a list of predefined event attributes that can each store a program.
+See <a href="#event attributes">Event Attributes</a> for the complete list.</p>
+
+<p>Events are triggered with the cause of the event stored in the <b>%#</b> or <b>[v(#)]</b>
+variables. For example, a particularly aggressive monster can be programmed to attack whoever looks
+at it by setting this attribute:</p>
+
+<p><b>@OnLook &lt;object&gt;=fight %#</b></p>
+
+<p>Or, perhaps a fearful animal might run away whenever someone enters the same room it is in, by
+using:</p>
+
+<p><b>@OnEnterRoom &lt;object&gt;=run</b></p>
+
+<i>Program Execution:</i>
+
+<p>At the start of program execution, a copy of that program's attribute text is stored in game
+memory. Making any changes to the attribute while the program is running will only affect future
+triggering of that program—not already-running programs.</p>
+
+<p>Commands in a program execute one by one: in order from top to bottom and left to right. Each
+line in the program is first divided at every semicolon into separate commands (a semicolon can be
+part of a command if it is surrounded by { }). Next, each command undergoes variable and function
+substitution (see <a href="#variable substitution">Variable Substitution</a> for more information).
+Last, the resulting command gets executed directly by the object running the program.</p>
+
+<p>It is important to note that functions that insert a semicolon into the string cannot divide up
+a single command into two. Also, it is important to write functions in a way such that any function
+does not insert any of the characters { } = , as that could change the syntax of the command.</p>
+
+<p>Be aware of the following programming mistakes when using functions (see <a
+href="#functions">Functions</a> for more information):</p>
+
+<p>
+<b>call subroutine=[get(v(#),desc)]</b><br>
+The arguments passed to the function "subroutine" can change based on how many commas are in the
+cause's description. To avoid this problem, use direct functions instead, like this:<br>
+<b>call subroutine=get(v(#),desc)</b><br>
+Or put { } around the function, like this:<br>
+<b>call subroutine={[get(v(#),desc)]}</b><br>
+</p>
+
+<p>
+<b>say [italic(I have a meeting; it starts at noon)]</b><br>
+This line is broken into two commands at the semicolon. This would result in saying the first part
+separately as "[italic(I have a meeting", and then the program would terminate on the second part
+due to the word "it" not being a valid command. To avoid this problem, use { } around the function
+argument, like this:<br>
+<b>say [italic({I have a meeting; it starts at noon})]</b><br>
+</p>
+
+<i>The Stack:</i>
+
+<p>Each running program has a stack. Every time a function is called, a loop is entered, or the
+<b>switch</b> command is used, the program remembers the current line number and/or environment
+before entering the new command block. This allows for using the <b>return</b> command when in a
+function, or the <b>break</b>/<b>continue</b>/<b>done</b> commands when in a loop, to jump back to
+the original line in the program that called the function or started the loop.</p>
+
+<p>The stack is 20 entries deep, with one extra entry allowed for calling signal handlers
+(see below). If the stack is exceeded, the program will terminate with an error.</p>
+
+<i>Program Variables:</i>
+
+<p>There are three sets of variables available to each program: Local Variables, Environment
+Variables, and the Accumulator. Each of these can be set or cleared using the <b>set</b> or
+<b>unset</b> commands, respectively.</p>
+
+<p><b>Local Variables</b> are named variables created using the <b>set</b> command. Variable names
+must start with a letter and can contain any letter, digit or special character - and _ in them.
+However, variables cannot be named "L", "N", and "U"—these are reserved and always refer to the
+cause's location, cause's name, or one's own name, respectively. Local Variables have program
+scope—that is, there is only one value for each variable name no matter what stack frame the
+program is in or what function is being executed when the variable is set. Local variables can be
+retrieved using <b>[v(&lt;name&gt;)]</b>.</p>
+
+<p>This example creates a new variable called "color" and sets it to the value "green":</p>
+
+<p class=indent2>
+  <span style=color:#ffff80>set</span> color=green
+</p>
+
+<p>Once set, <b>[v(color)]</b> can no longer be used to retrieve the object's @Color attribute. In
+other words, when a Local Variable is set with the same name as an object variable or attribute,
+the Local Variable takes priority in the <b>[v()]</b> function. The object's @Color attribute can
+still be retrieved other ways, such as by using <b>[get(me,color)]</b> instead.</p>
+
+<p>Note: The <b>set</b> command always creates and sets the value of a Local Variable, even if the
+value being set is a blank string. Use <b>unset</b> to delete a variable.</p>
+
+<p><b>Environment Variables</b>, numbered 0 through 9, correspond to arguments initially specified
+when triggering a program, or specified by function arguments during a function call. Environment
+variables are saved on the stack prior to calling a function or signal handler, and they are
+restored when that function returns. They can be used to provide a holding space for temporary
+values during a function call. Environment Variables can be retrieved using <b>%0</b> through
+<b>%9</b> or <b>[v(0)]</b> through <b>[v(9)]</b>.</p>
+
+<p>The <b>Accumulator</b> is a special variable that is referenced by the $ symbol. It represents
+the return value of the last game command executed. For instance, when using the <b>@create</b>
+command to create an object, the Accumulator will be set to either a valid dbref# (indicating
+@create has successfully created an object), or to the value #-1 (indicating failure). It can be
+retrieved using <b>%$</b> or <b>[v($)]</b>.</p>
+
+<i>Attribute Locks:</i>
+
+<p>Any program attribute (including event and user-defined attributes) can be set with an Attribute
+Lock. The lock consists of a boolean expression that, when evaluated against the cause, returns a
+true or false value (see <a href="#locks">Locks</a> for more information). A function evaluates to
+false if it expands to a blank string, the number <b>0</b>, or starts with <b>#-1</b>—otherwise it
+is true. The easiest way to set an attribute lock is to use the <b>/vedit</b> command to open the
+attribute in the visual editor, check the checkbox for <b>Attribute lock</b>, and type an
+expression into the field.</p>
+
+<p>For instance, to restrict an object's @OnEnterRoom attribute to only be triggered by things that
+have the same owner as the object, enter the command <b>/vedit &lt;object&gt;/OnEnterRoom</b> and
+type in the following Attribute Lock:</p>
+
+<p><b>[match(type(v(#)),thing)] &amp; [match(owner(v(#)),owner(me))]</b></p>
+
+<p>Also in the visual editor, the checkbox for <b>Player-only trigger</b> is an additional lock
+that only allows the attribute to execute if the cause is a player character. This lock is applied
+in addition to whatever Attribute Lock is defined on the attribute (i.e. both must return
+true).</p>
+
+<i>User-defined Commands:</i>
+
+<p>Programs can be optionally triggered by a user-defined command. To create a user-defined
+command, open the attribute in the visual editor and check the checkbox for <b>User-defined
+command</b>. Fill in a command word in the <b>Command</b> field, then select the argument format it
+should use.</p>
+
+<p>All commands in TinyMARE accept arguments in one of three patterns, listed below:</p>
+
+<p class=indent2>
+  <b>command &lt;arg0&gt;</b><br>
+  <b>command &lt;arg0&gt;=&lt;arg1&gt;</b><br>
+  <b>command &lt;arg0&gt;=&lt;arg1&gt;,&lt;arg2&gt;,…</b><br>
+</p>
+
+<p>All arguments are optional. If filled in by the player running the command, they will appear in
+the program as environment variables <b>%0</b>, <b>%1</b>, and so on up to <b>%9</b>.</p>
+
+<p>User-defined commands cannot have the same name as built-in TinyMARE game commands. They also
+cannot be any of the following common exit aliases: n e s w ne se sw nw u d in out home.</p>
+
+<p>It is possible to give a command the same name as an exit in a room. In this case, the command
+will win over the exit name. Players are still able to use the exit by typing <b>go
+&lt;exit&gt;</b>.</p>
+
+<p>When a player types in a command that doesn't match any built-in game command, the game looks
+for user-defined commands on nearby objects in the following order: Universal Zones, zones in the
+room (in order of hierarchy), the room itself, the player's contents (all slots one level deep),
+the player, the player's immediate location, the location's contents (one level deep), and the
+location's exits. Other players in the room are skipped over; thus, any user-defined commands set
+on your own player character can only be executed by you.</p>
+
+<p>To block a user-defined command from being executed by certain objects or players, set the
+Attribute Lock appropriately.</p>
+
+<p>Note: Only user-defined program attributes (and not built-in event attributes such as @OnLook)
+can have a user-defined command applied.</p>
+
+<i>Timeslices:</i>
+
+<p>TinyMARE queues up all player actions, object events, and combat moves to all run on the next
+game tick. The game server operates at 10 ticks per second. In turn, each running program gets a
+small timeslice after the start of each tick with which to execute commands.</p>
+
+<p>During a timeslice, the game server gives full attention to the running program, allowing it to
+execute a set number of commands uninterrupted by other objects or events happening on the server.
+Though configurable, the game defaults to running 25 commands at once for non-administrator objects
+and 250 commands at once for administrator objects. Program commands (i.e. those listed above like
+<b>set</b>, <b>print</b>, and <b>if</b>), except for those that jump to a different place in the
+program, do not count towards the 25 or 250 limit.</p>
+
+<i>Diagnosing Running Programs:</i>
+
+<p>Type <a href="#@ps">@ps</a> to display the list of all active programs. Each program is
+referenced by a unique Program ID (PID). Also shown is the object dbref# and attribute (if any)
+that is running the program, along with the cause (the object that triggered the event). The
+<b>Next</b> column shows what line in the program is next to be executed. In the case where
+multiple commands (separated by semicolons) exist on a single line, the column will read e.g. "Line
+1" for the first command, "Line 1b" for the second, "Line 1c" for the third, and so on.</p>
+
+<p>To terminate a running program, type <b><a href="#@halt">@halt</a> &lt;PID&gt;</b>—or simply
+type <b>@halt</b> by itself to terminate all programs.</p>
+
+<p>It is possible to watch commands being executed by a program by setting the object Verbose. Set
+this flag by typing <b>@set &lt;object&gt;=verbose</b>, and unset it via <b>@set
+&lt;object&gt;=!verbose</b>. Commands are shown prefixed with the name of the object and the line
+number where it is located in the program. Each command is shown after variable and function
+substitution is applied, allowing programmers to see the values of variables and functions as
+commands are passed to the game.</p>
+
+<i>Program Energy:</i>
+
+<p>Each program command costs a small fraction of energy to execute. This can be thought of as
+electricity to run robots, or mana to operate magical devices, depending on the type of game
+world you're playing in. The amount of energy available to objects is sourced from the player
+character that owns the object. When this energy is depleted, any active programs will terminate
+and any future event attributes will fail to execute.</p>
+
+<p>It is possible to write a program that runs in an infinite loop. Depending on the <b>print</b>
+commands, Verbose flag, or other game commands used, such a program could potentially spam too many
+messages to the player, causing their screen to hang and be unable to run game commands or
+otherwise <b>@halt</b> the program. In time, such programs will exhaust all available energy, thus
+rogue objects are kept in check without administrative intervention.</p>
+
+<i>Signal Handlers:</i>
+
+<p>TinyMARE programs terminate whenever the player or object who triggered the program abandons
+their action. For instance, if a player triggered an @OnEnter event upon entering a room, the
+program will automatically stop (if it's still running) the moment the player leaves the room. The
+same is true if the player disconnects from the game or dies in combat. This feature allows the
+programmer to not have to constantly check if the player is still present in the room, alive, or
+even still connected to the game before continuing to send messages or run other commands that
+might affect the player's state.</p>
+
+<p>But what if the programmer wants to disable this feature? Or what if the program must execute
+some clean-up code if the player prematurely quits the action before the event is finished? This is
+where <b>Signals</b> come in. A signal is one of several methods the game server can use to
+interrupt a program due to an unexpected action taken by the program's cause.</p>
+
+<p>The list of signals are as follows:</p>
+
+<table class=list>
+  <tr><td>Alarm</td><td>–</td>
+    <td>Triggered when the alarm timer elapses.</td></tr>
+  <tr><td>Death</td><td>–</td>
+    <td>Triggered when the cause dies (e.g. in combat).</td></tr>
+  <tr><td>Destroy</td><td>–</td>
+    <td>Triggered when the cause is @destroyed.</td></tr>
+  <tr><td>Disconnect</td><td>–</td>
+    <td>Triggered when the cause disconnects from the game.</td></tr>
+  <tr><td>Leave</td><td>–</td>
+    <td>Triggered when the cause leaves the room the object is in.</td></tr>
+</table>
+
+<p>By default, a program terminates whenever it receives a signal. However, a program can instead
+execute commands if a handler for that signal is declared somewhere in the program. To declare a
+signal handler, specify a <b>signal</b> block somewhere in the top level of the program (outside of
+a <b>function</b> block).</p>
+
+<p>Here is an example program that uses the <b>Alarm</b> signal as a way to demonstrate catching a
+signal:</p>
+
+<p class=indent2>
+<span style=color:#80ffff>@@ Set the alarm timer to fire off in 0.5 seconds</span><br>
+<span style=color:#ffff80>alarm</span> 0.5<br>
+<br>
+<span style=color:#80ffff>@@ Start an infinite loop</span><br>
+<span style=color:#ffff80>while</span> 1<br>
+ <span style=color:#ffff80>set</span> count=<b>[inc(<span
+   style=color:#ff6060>v(count)</span>)]</b><br>
+ <span style=color:#ffff80>print</span> Count <b>[v(count)]</b><br>
+ <span style=color:#ffff80>sleep</span> 0.1<br>
+<span style=color:#ffff80>done</span><br>
+<br>
+<span style=color:#ffff80>signal</span> <span style=color:#80ff80>alarm</span><br>
+ <span style=color:#ffff80>print</span> Alarm signal received!<br>
+ <span style=color:#ffff80>exit</span><br>
+<span style=color:#ffff80>endsig</span><br>
+</p>
+
+<p>When the program is run, it will start counting from 1 in an infinite loop. However, after 0.5
+seconds elapse, the alarm timer triggers, causing the <b>Alarm</b> signal to be received. This
+immediately executes the <b>signal alarm</b> handler block, which prints "Alarm signal received!"
+and then exits the program. The program output is as follows:</p>
+
+<p class=indent2>
+  Count 1<br>
+  Count 2<br>
+  Count 3<br>
+  Count 4<br>
+  Count 5<br>
+  Alarm signal received!<br>
+</p>
+
+<p>If the <b>exit</b> command in the signal block was changed to <b>return</b> (or left out
+altogether), the program would continue counting after printing "Alarm signal received!"—right
+where it left off, endlessly.</p>
+
+<p>Sometimes the programmer doesn't want their program to stop if any signal is received, and they
+do not want to bother declaring a handler for every signal. There is a checkbox in the visual
+editor called <b>Ignore unhandled signals</b> that, if checked, allows the program to continue
+instead of terminate whenever an unhandled signal is received. This must be set on a per-attribute
+basis.</p>
+
+<p>Note: The program will never call a signal handler if it is currently executing in one. In the
+case multiple signals are received at once, the game will queue them up. As soon as the program
+returns from the current signal handler, the program will immediately call the handler for the next
+signal on the queue.</p>
+
+<i>Subroutine Libraries:</i>
+
+<p>The <b>call</b> command allows programs to execute function blocks that are defined in another
+program attribute or on another object entirely. This enables the creation of subroutine libraries,
+which help eliminate the need for duplicating function blocks across multiple programs. This can be
+done using the syntax:</p>
+
+<p><b>call &lt;object&gt;/&lt;attribute&gt;:&lt;function name&gt;[=&lt;argument&gt;,…]</b></p>
+
+<p>When this is used, the entire attribute text of &lt;object&gt;/&lt;attribute&gt; is loaded into
+game memory at the stack level of the <b>call</b> command, and this becomes the new active program
+scope. Until the called function returns, any function calls will only look in the new program text
+for function declarations instead of the original program. However, signal handlers will still
+perform lookups in the original program scope. To change this behavior, the command <b>system
++sig</b> can be run somewhere in the called function. This changes processing to search for signal
+handlers in the new program scope (and not the old) until that function call returns.</p>
+
+<p>It is important to note that the original object (where the attribute was triggered) continues
+to be the object that executes all commands during any subroutine call. Thus, it is a security
+violation for an administrator-owned object to call a subroutine on another object that does not
+have Modify permissions over that administrator.</p>
+
+<i>Destroyed Objects:</i>
+
+<p>When an object is destroyed, all programs running on that object are immediately terminated.
+However, If the destroyed object is the cause of another program, and that program has not exited
+upon receiving the Destroy signal, the destroyed object will continue to exist in the game (but be
+unlinked from the grid) until the last program triggered by that object has terminated.</p>
+
+<p>An object destroyed in this way can continue to be examined by dbref# or have its attributes
+modified, but it can no longer execute commands or respond to events.</p>
+
+<hr>
+
+<!-- Event Attributes -->
+<a name="event attributes">
+Event Attributes
+</a>
+<p>The following event attributes are available for storing programs:</p>
+
+<div class=grid>
+  <a href="#@onblock">@OnBlock</a><br>
+  <a href="#@onclone">@OnClone</a><br>
+  <a href="#@onconnect">@OnConnect</a><br>
+  <a href="#@onday">@OnDay</a><br>
+  <a href="#@ondisconnect">@OnDisconnect</a><br>
+  <a href="#@ondrop">@OnDrop</a><br>
+  <a href="#@ondropfail">@OnDropFail</a><br>
+  <a href="#@ondropin">@OnDropIn</a><br>
+  <a href="#@onenter">@OnEnter</a><br>
+  <a href="#@onenterfail">@OnEnterFail</a><br>
+  <a href="#@onenterroom">@OnEnterRoom</a><br>
+  <a href="#@onfail">@OnFail</a><br>
+  <a href="#@onfightfail">@OnFightFail</a><br>
+  <a href="#@ongive">@OnGive</a><br>
+  <a href="#@ongiveaway">@OnGiveAway</a><br>
+  <a href="#@ongiveawayfail">@OnGiveAwayFail</a><br>
+  <a href="#@ongivefail">@OnGiveFail</a><br>
+  <a href="#@ongrab">@OnGrab</a><br>
+  <a href="#@ongrabfail">@OnGrabFail</a><br>
+  <a href="#@ongrabup">@OnGrabUp</a><br>
+  <a href="#@ongrabupfail">@OnGrabUpFail</a><br>
+  <a href="#@onhour">@OnHour</a><br>
+  <a href="#@onkill">@OnKill</a><br>
+  <a href="#@onleave">@OnLeave</a><br>
+  <a href="#@onleavefail">@OnLeaveFail</a><br>
+  <a href="#@onleaveroom">@OnLeaveRoom</a><br>
+  <a href="#@onlogin">@OnLogin</a><br>
+  <a href="#@onlook">@OnLook</a><br>
+  <a href="#@onminute">@OnMinute</a><br>
+  <a href="#@onopen">@OnOpen</a><br>
+  <a href="#@onpay">@OnPay</a><br>
+  <a href="#@onpayfail">@OnPayFail</a><br>
+  <a href="#@onsearch">@OnSearch</a><br>
+  <a href="#@onsearchfail">@OnSearchFail</a><br>
+  <a href="#@onsucc">@OnSucc</a><br>
+  <a href="#@onsunrise">@OnSunrise</a><br>
+  <a href="#@onsunset">@OnSunset</a><br>
+  <a href="#@ontalk">@OnTalk</a><br>
+  <a href="#@ontalkfail">@OnTalkFail</a><br>
+  <a href="#@ontimeslice">@OnTimeslice</a><br>
+  <a href="#@onunidle">@OnUnidle</a><br>
+  <a href="#@onuse">@OnUse</a><br>
+  <a href="#@onusefail">@OnUseFail</a><br>
+</div>
+
+<hr>
+
+<!-- print -->
+<a name="print">
+print &lt;message&gt;
+</a>
+
+<p>Send &lt;message&gt; to the cause (<b>%#</b>) of the program. The message succeeds even if the
+cause moves out of range of the normal <a href="#@pemit">@pemit</a> command.</p>
+
+<p>Note: Unlike the <a href="#say">say</a> or <a href="#@emit">@emit</a> family of commands, the
+&lt;message&gt; in <b>print</b> is not parsed separately. Therefore, functions and %-variables do
+not need escaping.</p>
+
+<i>Example:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>print</span> The %U slides away to reveal a secret passage.<br>
+</p>
+
+<p>Assuming the object executing the program is named Bookshelf, this displays:<br>
+The Bookshelf slides away to reveal a secret passage.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#@pemit">@pemit</a>
+</mark>
+
+<hr>
+
+<!-- set -->
+<a name="set">
+set &lt;variable&gt;=&lt;value&gt;
+</a>
+
+<p>Set the value of a program variable to &lt;value&gt;.</p>
+
+<p>&lt;variable&gt; can either be a named Local Variable, an Environment Variable (0 through 9), or
+the Accumulator ($). See section <b>Program Variables</b> in <a href="#programming">Programming</a>
+for more information.</p>
+
+<p>Note: Local Variables override the retrieval of other variables and attributes when using the
+<b>[v()]</b> function. See <a href="#v()">v()</a> for more details.</p>
+
+<p>Note: The <b>set</b> command always creates and sets the value of a Local Variable, even if the
+value being set is a blank string. Use <a href="#unset">unset</a> to delete a variable.</p>
+
+<i>Example 1:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>set</span> color=green<br>
+  <span style=color:#ffff80>print</span> The selected color is [v(color)].<br>
+</p>
+
+<p>This displays:<br>
+The selected color is green.</p>
+
+<i>Example 2:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>set</span> 0=10; <span style=color:#ffff80>set</span> 1=20<br>
+  <span style=color:#ffff80>print</span> Line 1: Environment 0="<b>%0</b>", 1="<b>%1</b>"<br>
+  <span style=color:#ffff80>call</span> subroutine=30<br>
+  <span style=color:#ffff80>print</span> Line 2: Environment 0="<b>%0</b>", 1="<b>%1</b>"<br>
+  <br>
+  <span style=color:#ffff80>function</span> <span style=color:#80ff80>subroutine</span><br>
+   <span style=color:#ffff80>print</span> Line 3: Environment 0="<b>%0</b>", 1="<b>%1</b>"<br>
+  <span style=color:#ffff80>endfunc</span><br>
+</p>
+
+<p>This displays:<br>
+Line 1: Environment 0="10", 1="20"<br>
+Line 3: Environment 0="30", 1=""<br>
+Line 2: Environment 0="10", 1="20"<br>
+</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#unset">unset</a>,
+<a href="#v()">v()</a>
+</mark>
+
+<hr>
+
+<!-- unset -->
+<a name="unset">
+unset &lt;variable&gt;
+</a>
+
+<p>Clear the value of &lt;variable&gt; to a blank string.</p>
+
+<p>&lt;variable&gt; can either be a named Local Variable, Environment Variable (0 through 9), or
+the Accumulator ($). If &lt;variable&gt; refers to a Local Variable, then that variable is
+deleted.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#set">set</a>
+</mark>
+
+<hr>
+
+<!-- if, elseif, else, endif -->
+<a name="if"></a>
+<a name="elseif"></a>
+<a name="else"></a>
+<a name="endif">
+if &lt;expression&gt;<br>
+ &lt;commands&gt;<br>
+endif<br>
+<br>
+if &lt;expression&gt;=&lt;match&gt;,…<br>
+ &lt;commands&gt;<br>
+elseif &lt;expression&gt;=&lt;match&gt;,…<br>
+ &lt;commands&gt;<br>
+else<br>
+ &lt;commands&gt;<br>
+endif<br>
+</a>
+
+<p>The <b>if</b> command runs a set of commands only if the condition in &lt;expression&gt; is
+true—then the program jumps to the line following the <b>endif</b> command. Otherwise, it skips
+those commands and jumps to the next <b>elseif</b>, <b>else</b>, or <b>endif</b> command. If none
+of the <b>if</b> and <b>elseif</b> expressions are true, then the commands in the <b>else</b> block
+are executed (if present). Any number of <b>elseif</b> statements can be specified.</p>
+
+<p>When &lt;expression&gt; is by itself, &lt;expression&gt; takes the form of a boolean expression
+that can contain literals or functions separated by any of the symbols ! ( ) | &amp; (see <a
+href="#locks">Locks</a> for more information).</p>
+
+<p>Otherwise, the &lt;expression&gt; to the left of the
+equals sign is compared to one or more comma-separated &lt;match&gt; strings to the right of the
+equals sign, and if <b>any</b> of the strings match, then the expression is considered true. Each
+&lt;match&gt; is a wildcard match that can take special symbols—see
+<a href="#wildcard matching">Wildcard Matching</a> for more information.
+
+<p>Note: Only 100 arguments to the right of the equals sign can be specified.</p>
+
+<i>Example 1:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>if</span> <b>[strlen(<span style=color:#ff6060>v(0)</span>)]</b><br>
+   <span style=color:#ffff80>print</span> Argument <b>%%</b>0 is specified.<br>
+   <span style=color:#ffff80>set</span> start=<b>%0</b><br>
+  <span style=color:#ffff80>else</span><br>
+   <span style=color:#ffff80>set</span> start=10<br>
+  <span style=color:#ffff80>endif</span><br>
+</p>
+
+<p>The above <b>if</b> statement is a common way to determine if argument 0 (<b>%0</b>) in a
+function call or user-defined command is specified. In this case, it sets the Local Variable
+<b>start</b> to <b>%0</b> if <b>[strlen(v(0))]</b> returns true (i.e. not zero) and prints a
+message saying as such, otherwise it sets <b>start</b> to 10.</p>
+
+<i>Example 2:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>if</span> <b>[int(<span style=color:#ff6060>v(input)</span>)]</b>=0<br>
+   <span style=color:#ffff80>print</span> Exiting the program.<br>
+   <span style=color:#ffff80>exit</span><br>
+  <span style=color:#ffff80>elseif</span>
+    <b>[int(<span style=color:#ff6060>v(input)</span>)]</b>=&lt;1,&gt;10<br>
+   <span style=color:#ffff80>print</span> Invalid choice!<br>
+   <span style=color:#ffff80>exit</span><br>
+  <span style=color:#ffff80>endif</span><br>
+</p>
+
+<p>This statement shows an example of input validation from a player. The program exits if the
+player enters a 0. Similarly, the program exits with a different message if the player inputs any
+value outside of the range 1 to 10.</p>
+
+<p>The <b>[int()]</b> function is used to sanitize the input (this converts <b>[v(input)]</b> to an
+integer regardless of its contents) so that the player cannot modify the behavior of the program by
+typing any of the special characters { } = , into the input string.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#switch">switch</a>,
+<a href="#until">until</a>,
+<a href="#wait">wait</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- switch, case, default, endswitch -->
+<a name="switch"></a>
+<a name="case"></a>
+<a name="default"></a>
+<a name="endswitch">
+switch &lt;expression&gt;<br>
+ case &lt;match&gt;<br>
+  &lt;commands&gt;<br>
+ case &lt;match&gt;<br>
+  &lt;commands&gt;<br>
+ default<br>
+  &lt;commands&gt;<br>
+endswitch<br>
+</a>
+
+<p>The <b>switch</b> command evaluates &lt;expression&gt;, then looks for the first <b>case</b>
+command where &lt;match&gt; matches the expression. If it matches, the following &lt;commands&gt;
+are executed—including across subsequent <b>case</b> and <b>default</b> commands—until the
+<b>endswitch</b> command is reached. The <b>default</b> command (if present) matches any
+&lt;expression&gt; and should be placed after the last <b>case</b> command in the list.</p>
+
+<p>Any number of <b>case</b> or <b>default</b> commands can be specified between <b>switch</b>
+and <b>endswitch</b>, but only the first match gets executed. Since the program continues executing
+across subsequent <b>case</b> and <b>default</b> commands, the <a href="#break">break</a> command
+can be used to jump out to the <b>endswitch</b> command.
+
+<p>Each &lt;match&gt; is a wildcard match that can take special symbols—see
+<a href="#wildcard matching">Wildcard Matching</a> for more information.</p>
+
+<p><b>switch</b> blocks may be nested for a total of 20 blocks deep (the stack limit).</p>
+
+<i>Example:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>switch</span> <b>%0</b><br>
+   <span style=color:#ffff80>case</span> *e*<br>
+    <span style=color:#ffff80>print</span> Reached section A.<br>
+    <span style=color:#ffff80>break</span><br>
+   <span style=color:#ffff80>case</span> &gt;paper<br>
+    <span style=color:#ffff80>print</span> Reached section B.<br>
+   <span style=color:#ffff80>case</span> &gt;14<br>
+    <span style=color:#ffff80>print</span> Reached section C.<br>
+    <span style=color:#ffff80>break</span><br>
+   <span style=color:#ffff80>default</span><br>
+    <span style=color:#ffff80>print</span> Reached section D.<br>
+  <span style=color:#ffff80>endswitch</span><br>
+</p>
+
+<p>This example depends on the environment variable <b>%0</b>, triggered as such:</p>
+
+<p>
+  <b>@trig me/example=rock</b><br>
+  Reached section B.<br>
+  Reached section C.<br>
+  <b>@trig me/example=paper</b><br>
+  Reached section A.<br>
+  <b>@trig me/example=scissors</b><br>
+  Reached section B.<br>
+  Reached section C.<br>
+  <b>@trig me/example=lizard</b><br>
+  Reached section D.<br>
+</p>
+
+<p>Because no <b>break</b> command is specified before <b>case &gt;14</b>, any time the program
+reaches section B, it continues on to section C.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#break">break</a>,
+<a href="#if">if</a>
+</mark>
+
+<hr>
+
+<!-- while -->
+<a name="while">
+while &lt;expression&gt;<br>
+ &lt;commands&gt;<br>
+done<br>
+<br>
+while &lt;expression&gt;=&lt;match&gt;,…<br>
+ &lt;commands&gt;<br>
+done<br>
+</a>
+
+<p>The <b>while</b> command runs a set of commands in a loop as long as the condition in
+&lt;expression&gt; remains true. Otherwise, the program jumps to the line following the <b>done</b>
+command.</p>
+
+<p>When &lt;expression&gt; is by itself, &lt;expression&gt; takes the form of a boolean expression
+that can contain literals or functions separated by any of the symbols ! ( ) | &amp; (see <a
+href="#locks">Locks</a> for more information).</p>
+
+<p>Otherwise, the &lt;expression&gt; to the left of the
+equals sign is compared to one or more comma-separated &lt;match&gt; strings to the right of the
+equals sign, and if <b>any</b> of the strings match, then the expression is considered true. Each
+&lt;match&gt; is a wildcard match that can take special symbols—see
+<a href="#wildcard matching">Wildcard Matching</a> for more information.
+
+<p>At any time in the loop, executing <a href="#continue">continue</a> will jump back to the top of
+the loop and reevaluate the &lt;expression&gt;. The <a href="#break">break</a> command can be used
+to stop the loop and jump to the command following <b>done</b>.</p>
+
+<p><b>while</b> loops may be nested for a total of 20 loops deep (the stack limit).</p>
+
+<p>Note: Only 100 arguments to the right of the equals sign can be specified.</p>
+
+<p>Note: It is possible to enter an infinite loop if the &lt;expression&gt; always returns true. Be
+careful, as this can cause the program to run out of energy very quickly (and possibly cause a lot
+of spam in the meantime). To wait for an event instead, use the <a href="#wait">wait</a>
+command.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#break">break</a>,
+<a href="#continue">continue</a>,
+<a href="#for">for</a>,
+<a href="#if">if</a>,
+<a href="#until">until</a>,
+<a href="#wait">wait</a>
+</mark>
+
+<hr>
+
+<!-- until -->
+<a name="until">
+until &lt;expression&gt;<br>
+ &lt;commands&gt;<br>
+done<br>
+<br>
+until &lt;expression&gt;=&lt;match&gt;,…<br>
+ &lt;commands&gt;<br>
+done<br>
+</a>
+
+<p>The <b>until</b> command runs a set of commands in a loop as long as the condition in
+&lt;expression&gt; remains false (i.e. until the &lt;expression&gt; returns true). Otherwise, the
+program jumps to the line following the <b>done</b> command.</p>
+
+<p>When &lt;expression&gt; is by itself, &lt;expression&gt; takes the form of a boolean expression
+that can contain literals or functions separated by any of the symbols ! ( ) | &amp; (see <a
+href="#locks">Locks</a> for more information).</p>
+
+<p>Otherwise, the &lt;expression&gt; to the left of the
+equals sign is compared to one or more comma-separated &lt;match&gt; strings to the right of the
+equals sign, and if <b>any</b> of the strings match, then the expression is considered true. Each
+&lt;match&gt; is a wildcard match that can take special symbols—see
+<a href="#wildcard matching">Wildcard Matching</a> for more information.
+
+<p>At any time in the loop, executing <a href="#continue">continue</a> will jump back to the top of
+the loop and reevaluate the &lt;expression&gt;. The <a href="#break">break</a> command can be used
+to stop the loop and jump to the command following <b>done</b>.</p>
+
+<p><b>until</b> loops may be nested for a total of 20 loops deep (the stack limit).</p>
+
+<p>Note: Only 100 arguments to the right of the equals sign can be specified.</p>
+
+<p>Note: It is possible to enter an infinite loop if the &lt;expression&gt; never returns true. Be
+careful, as this can cause the program to run out of energy very quickly (and possibly cause a lot
+of spam in the meantime). To wait for an event instead, use the <a href="#wait">wait</a>
+command.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#break">break</a>,
+<a href="#continue">continue</a>,
+<a href="#for">for</a>,
+<a href="#if">if</a>,
+<a href="#wait">wait</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- for -->
+<a name="for">
+for &lt;variable&gt;=&lt;word list&gt;<br>
+ &lt;commands&gt;<br>
+done<br>
+</a>
+
+<p>The <b>for</b> command runs a set of commands in a loop until the <b>done</b> command is
+reached. Then, program execution continues on with the command following <b>done</b>.</p>
+
+<p>For each iteration of the loop, &lt;variable&gt; gets set with the next word in &lt;word
+list&gt;. This &lt;variable&gt; can either be a named Local Variable, an Environment Variable (0
+through 9), or the Accumulator ($). See section <b>Program Variables</b> in <a
+href="#programming">Programming</a> for more information.</p>
+
+<p>At any time in the loop, executing <a href="#continue">continue</a> will jump back to the top of
+the loop and fetch the next word. The <a href="#break">break</a> command can be used to stop the
+loop and jump to the command following <b>done</b>.</p>
+
+<p><b>for</b> loops may be nested for a total of 20 loops deep (the stack limit).</p>
+
+<i>Example 1:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>for</span> animal=ant bear cat dog elephant fox<br>
+   <span style=color:#ffff80>if</span> <b>[v(animal)]</b>=c*<br>
+    <span style=color:#ffff80>continue</span><br>
+   <span style=color:#ffff80>endif</span><br>
+   <span style=color:#ffff80>print</span> <b>[v(animal)]</b> begins with <b>[ucstr(<span
+    style=color:#ff6060>mid(<span style=color:#ffff80>v(animal)</span>,0,1)</span>)]</b>.<br>
+   <span style=color:#ffff80>if</span> <b>[strlen(<span
+    style=color:#ff6060>v(animal)</span>)]</b>=&gt;4<br>
+    <span style=color:#ffff80>break</span><br>
+   <span style=color:#ffff80>endif</span><br>
+  <span style=color:#ffff80>done</span><br>
+</p>
+
+<p>This displays:<br>
+  ant begins with A.<br>
+  bear begins with B.<br>
+  dog begins with D.<br>
+  elephant begins with E.<br>
+</p>
+
+<p>This example runs commands in a loop, setting <b>animal</b> to one of six animals in order,
+until the <b>done</b> command is reached. In this example, the <b>continue</b> command is executed
+if <b>[v(animal)]</b> starts with "c", skipping over the print command. In the second <b>if</b>
+statement, if the number of letters in <b>[v(animal)]</b> is greater than 4, the loop stops with
+the <b>break</b> command. Thus, the loop stops after reaching "elephant".</p>
+
+<i>Example 2:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>for</span> x=2 7<br>
+   <span style=color:#ffff80>for</span> y=3 5 10<br>
+    <span style=color:#ffff80>print</span> X=<b>[v(x)]</b>, Y=<b>[v(y)]</b>, Sum=<b>[add(<span
+     style=color:#ff6060>v(x)</span>,<span style=color:#ff6060>v(y)</span>)]</b>,
+     Product=<b>[mul(<span style=color:#ff6060>v(x)</span>,<span
+     style=color:#ff6060>v(y)</span>)]</b><br>
+   <span style=color:#ffff80>done</span><br>
+  <span style=color:#ffff80>done</span><br>
+</p>
+
+<p>This displays:<br>
+  X=2, Y=3, Sum=5, Product=6<br>
+  X=2, Y=5, Sum=7, Product=10<br>
+  X=2, Y=10, Sum=12, Product=20<br>
+  X=7, Y=3, Sum=10, Product=21<br>
+  X=7, Y=5, Sum=12, Product=35<br>
+  X=7, Y=10, Sum=17, Product=70<br>
+</p>
+
+<p>In the above example, two <b>for</b> loops are nested, each setting a different variable.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#break">break</a>,
+<a href="#continue">continue</a>,
+<a href="#set">set</a>,
+<a href="#until">until</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- continue -->
+<a name="continue">
+continue
+</a>
+
+<p>The <b>continue</b> command can only be used inside <a href="#while">while</a>/<a
+href="#until">until</a>/<a href="#for">for</a> loops. It causes the program to immediately jump
+back to the top of the loop and reevaluate the &lt;expression&gt; (for <b>while</b> and
+<b>until</b>) or fetch the next word from the &lt;word list&gt; (for <b>for</b>).</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#break">break</a>,
+<a href="#for">for</a>,
+<a href="#until">until</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- break -->
+<a name="break">
+break
+</a>
+
+<p>The <b>break</b> command can only be used inside a <a href="#switch">switch</a> block, or inside
+<a href="#while">while</a>/<a href="#until">until</a>/<a href="#for">for</a> loops. It causes the
+program to immediately jump to the line following the <b>endswitch</b> command (when inside a
+<b>switch</b> block) or <b>done</b> command (when inside a loop).</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#continue">continue</a>,
+<a href="#for">for</a>,
+<a href="#switch">switch</a>,
+<a href="#until">until</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- return -->
+<a name="return">
+return &lt;value&gt;
+</a>
+
+<p>The <b>return</b> command can only be used inside <a href="#function">function</a> and <a
+href="#signal">signal</a> blocks. It causes the program to immediately leave the called function
+or signal handler and return to the line following the original <a href="#call">call</a>
+command.</p>
+
+<p>The &lt;value&gt; argument sets the value of the Accumulator ($) upon return from the function
+call—even if &lt;value&gt; is blank.</p>
+
+<p>The &lt;value&gt; argument does nothing when executed inside a signal handler. Upon return from
+the handler, the accumulator will be set to its original value from before the signal was
+received.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#call">call</a>,
+<a href="#exit">exit</a>,
+<a href="#function">function</a>,
+<a href="#signal">signal</a>
+</mark>
+
+<hr>
+
+<!-- exit -->
+<a name="exit">
+exit &lt;value&gt;
+</a>
+
+<p>The <b>exit</b> command immediately terminates the running program, unless the current program
+is executed via a whole-attribute <a href="#call">call</a> command. In that case, the
+&lt;value&gt; argument sets the value of the Accumulator ($) and returns program execution to the
+line following the <b>call</b> command.</p>
+
+<p>No <b>exit</b> command is needed at the end of a program. If the program execution reaches the
+end, the program automatically terminates. In the case of a whole-attribute call, the Accumulator
+($) is cleared.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#call">call</a>,
+<a href="#return">return</a>
+</mark>
+
+<hr>
+
+<!-- sleep -->
+<a name="sleep">
+sleep &lt;seconds&gt;
+</a>
+
+<p>Pause program execution for a number of &lt;seconds&gt;. TinyMARE processes programs once every
+tick (1/10th of a second). Therefore, the &lt;seconds&gt; value can only be specified in multiples
+of 0.1 seconds.</p>
+
+<p>Programs in sleep mode will be listed separately in <a href="#@ps">@ps</a> compared to other
+running programs. Use the <a href="#@halt">@halt</a> command to terminate one or more programs by
+Program ID (PID).</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#wait">wait</a>,
+<a href="#yield">yield</a>
+</mark>
+
+<hr>
+
+<!-- alarm -->
+<a name="alarm">
+alarm &lt;seconds&gt;
+</a>
+
+<p>This command sets (or resets) a background alarm timer for a number of &lt;seconds&gt; in the
+future. After the time elapses, the game sends the <b>Alarm</b> signal to the program. A <a
+href="#signal">signal</a> handler block for the <b>Alarm</b> signal must exist in the program
+(which will be called upon completion of the timer), or else the program will terminate (if signals
+are not ignored).</p>
+
+<p>TinyMARE processes programs once every tick (1/10th of a second). Therefore, the &lt;seconds&gt;
+value can only be specified in multiples of 0.1 seconds.</p>
+
+<p>Use <b>alarm 0</b> to disable a currently-running alarm.</p>
+
+<p>See section <b>Signal Handlers</b> in <a href="#programming">Programming</a> for an example
+using <b>alarm</b>.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#signal">signal</a>
+</mark>
+
+<hr>
+
+<!-- wait -->
+<a name="wait">
+wait &lt;expression&gt;<br>
+<br>
+wait &lt;expression&gt;=&lt;match&gt;,…<br>
+</a>
+
+<p>The <b>wait</b> command pauses program execution until &lt;expression&gt; returns true. The game
+evaluates waiting programs once every tick (1/10th of a second). Once &lt;expression&gt; returns
+true, the program will continue on to the next command. Programs consume no energy while paused;
+thus, it is possible to run many long-lived programs (up to a configured limit) all waiting for
+different expressions to return true.</p>
+
+<p>When &lt;expression&gt; is by itself, &lt;expression&gt; takes the form of a boolean expression
+that can contain literals or functions separated by any of the symbols ! ( ) | &amp; (see <a
+href="#locks">Locks</a> for more information).</p>
+
+<p>Otherwise, the &lt;expression&gt; to the left of the
+equals sign is compared to one or more comma-separated &lt;match&gt; strings to the right of the
+equals sign, and if <b>any</b> of the strings match, then the expression is considered true. Each
+&lt;match&gt; is a wildcard match that can take special symbols—see
+<a href="#wildcard matching">Wildcard Matching</a> for more information.
+
+<p>At any time in the loop, executing <a href="#continue">continue</a> will jump back to the top of
+the loop and reevaluate the &lt;expression&gt;. The <a href="#break">break</a> command can be used
+to stop the loop and jump to the command following <b>done</b>.</p>
+
+<p>Use the <a href="#@ps">@ps</a> command to list waiting programs. Use the <a
+href="#@halt">@halt</a> command to terminate one or more programs by Program ID (PID).</p>
+
+<p>Note: Only 100 arguments to the right of the equals sign can be specified.</p>
+
+<i>Example:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>wait</span> <b>[v(health)]</b>=&lt;100<br>
+  use medical herb<br>
+</p>
+
+<p>The above example pauses program execution until the object's current Health falls below 100.
+Once it does, the game command <b>use medical herb</b> is executed, and the program continues
+on.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#if">if</a>,
+<a href="#sleep">sleep</a>,
+<a href="#until">until</a>,
+<a href="#while">while</a>
+</mark>
+
+<hr>
+
+<!-- yield -->
+<a name="yield">
+yield<br>
+<br>
+yield &lt;#commands&gt;<br>
+</a>
+
+<p>Pause program execution until the next timeslice. If &lt;#commands&gt; is specified, then the
+<b>yield</b> command pauses execution only if that number of commands cannot be run as a group
+in the remaining timeslice. Thus, this command can be used to enforce execution of a series of
+commands together so that other players have no opportunity to execute their own commands
+in-between.</p>
+
+<p>TinyMARE processes programs once every tick (1/10th of a second). This command will therefore
+only give up program execution until the next tick.</p>
+
+<p>The <b>yield</b> command cannot be used to run more commands per tick than what is allowed. By
+default, the game runs at most 25 commands for non-administrator objects and 250 commands for
+administrator objects. Program commands (such as <b>set</b>, <b>print</b>, and <b>if</b>), except
+for those that jump to a different place in the program, do not count towards the 25 or 250
+limit.</p>
+
+<i>Example:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>yield</span> 3<br>
+  @create Macguffin<br>
+  @addparent <b>%$</b>=Macguffin Parent<br>
+  @teleport <b>%$</b>=here<br>
+</p>
+
+<p>This example executes 3 commands back-to-back while creating and configuring an object. The
+<b>yield</b> command ensures that all 3 commands can run together. If they cannot during the
+current timeslice, the program is paused for one tick.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#sleep">sleep</a>
+</mark>
+
+<hr>
+
+<!-- call -->
+<a name="call">
+call &lt;function&gt;<br>
+<br>
+call &lt;function&gt;=&lt;argument&gt;,…<br>
+<br>
+call &lt;object&gt;/&lt;attribute&gt;=&lt;argument&gt;,…<br>
+<br>
+call &lt;object&gt;/&lt;attribute&gt;:&lt;function&gt;=&lt;argument&gt;,…<br>
+</a>
+
+<p>Jump to a subroutine or execute another object's attribute directly from within the current
+running program. After the subroutine ends, the program jumps back to the line following the
+<b>call</b> command, and the Accumulator ($) is set with the return value of the subroutine.</p>
+
+<p>Up to 10 comma-separated &lt;argument&gt; strings may optionally be specified (in any form of
+the <b>call</b> command), each of which are passed to the subroutine as Environment Variables
+<b>%0</b> through <b>%9</b>. These variables are restored to their original values after the
+subroutine exits. Environment Variables can be set freely and used as temporary variables within
+the subroutine.</p>
+
+<p>In its basic form, <b>call &lt;function&gt;</b>, the game searches for a function block in the
+current program scope called &lt;function&gt;. This function block can be located anywhere in the
+program—before or after the current command being executed—but it must be declared at the top level
+and not within another function block or loop. The program jumps to the first line in the function
+block, then executes commands there until it reaches either a <a href="#return">return</a> or the
+<a href="#endfunc">endfunc</a> command marking the end of the function block.</p>
+
+<p>When calling another object's attribute using <b>call &lt;object&gt;/&lt;attribute&gt;</b> or
+<b>call &lt;object&gt;/&lt;attribute&gt;:&lt;function&gt;</b>, that attribute's program text is
+loaded into the current program memory. If a &lt;function&gt; is specified, the game then looks for
+that function block somewhere in the new program. Otherwise, the new program is executed starting
+from line 1 and runs until it either reaches an <a href="#exit">exit</a> command or the last line
+in the program. In this case, the <b>exit</b> command can be used to return a value in the
+Accumulator ($) for a whole-attribute call.</p>
+
+<p>Using the <b>call</b> command pushes an entry onto the program stack. The stack is at most 20
+entries deep—exceeding this will cause an error and the program will terminate. Be careful when
+calling functions from within a signal handler, as the stack level at that time could be near the
+limit.</p>
+
+<p>Note: When calling another object's attribute, only that attribute's text is loaded into the
+current program. The original object (where the original program started) continues to be the one
+that executes the commands in the subroutine.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#function">function</a>,
+<a href="#return">return</a>
+</mark>
+
+<hr>
+
+<!-- label -->
+<a name="label">
+label &lt;name&gt;
+</a>
+
+<p>Declare a label called &lt;name&gt; at the current location in the program. This label can be
+referenced by a <a href="#goto">goto</a> command to jump to this location in the program.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#goto">goto</a>
+</mark>
+
+<hr>
+
+<!-- goto -->
+<a name="goto">
+goto &lt;name&gt;
+</a>
+
+<p>Jump to the first line in the current program or function scope where <b>label &lt;name&gt;</b>
+is declared, and continue executing commands from that spot.</p>
+
+<p><b>goto</b> can be used to jump either backward or forward in the current program, with some
+restrictions. First, if the program is currently executing in a <a href="#function">function</a> or
+<a href="#signal">signal</a> handler block, the game will only look for matching labels inside that
+block. Second, <b>goto</b> can only jump out of <a href="#switch">switch</a> blocks or <a
+href="#while">while</a>/<a href="#until">until</a>/<a href="#for">for</a> loops, not into them.</p>
+
+<p>Note: <b>goto</b> does not use the stack. This allows for making loops without pushing any
+entries onto the stack.</p>
+
+<i>Example 1:</i>
+
+<p class=indent2>
+  <span style=color:#80ffff>@@ Clear Environment %0</span><br>
+  <span style=color:#ffff80>unset</span> 0<br>
+  <br>
+  <span style=color:#ffff80>for</span> room=<b>[inzone(#200)]</b><br>
+   <span style=color:#ffff80>for</span> obj=<b>[lcon(<span
+    style=color:#ff6060>v(room)</span>)]</b><br>
+    <span style=color:#ffff80>if</span> <b>[is_a(<span
+      style=color:#ff6060>v(obj)</span>,#50)]</b><br>
+     <span style=color:#ffff80>set</span> 0=<b>[v(obj)]</b><br>
+     <span style=color:#ffff80>goto</span> out; <span style=color:#80ffff>@@ Exit loop</span><br>
+    <span style=color:#ffff80>endif</span><br>
+   <span style=color:#ffff80>done</span><br>
+  <span style=color:#ffff80>done</span><br>
+  <br>
+  <span style=color:#ffff80>label</span> out<br>
+  <span style=color:#ffff80>print</span> Object found = <b>%0</b><br>
+</p>
+
+<p>The above example searches through all rooms in zone #200, then all objects located in those
+rooms, for the first object that has #50 as its parent. Once found, it sets %0 to that object and
+then jumps out of the loop. This allows the program to immediately stop the loop from inside the
+nested <b>for</b> command (using <b>break</b> would only stop the inner loop, not the outer
+one).</p>
+
+<i>Example 2:</i>
+
+<p class=indent2>
+  <span style=color:#ffff80>label</span> retry<br>
+  <span style=color:#ffff80>set</span> count=<b>[inc(<span
+    style=color:#ff6060>v(count)</span>)]</b><br>
+  <span style=color:#ffff80>print</span> Count <b>[v(count)]</b><br>
+  <span style=color:#ffff80>if</span> <b>[v(count)]</b>=&lt;5<br>
+   <span style=color:#ffff80>goto</span> retry<br>
+  <span style=color:#ffff80>endif</span><br>
+</p>
+
+<p>
+  Without using a loop (or stack entry), this displays:<br>
+  Count 1<br>
+  Count 2<br>
+  Count 3<br>
+  Count 4<br>
+  Count 5<br>
+</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#label">label</a>
+</mark>
+
+<hr>
+
+<!-- function, endfunc -->
+<a name="function"></a>
+<a name="endfunc">
+function &lt;name&gt;<br>
+ &lt;commands&gt;<br>
+endfunc<br>
+</a>
+
+<p>This command declares a function block named &lt;name&gt; that holds a set of commands. The
+function can be executed using the <a href="#call">call</a> command.</p>
+
+<p>A function block can be located anywhere in the program, as long as it is at the top level of
+the program scope (and not inside another function block or loop). It is an error if the
+<b>endfunc</b> command is missing at the end of the block.</p>
+
+<p>The following example shows how to declare a function block:</p>
+
+<p class=indent2>
+  <span style=color:#ffff80>function</span> <span style=color:#80ff80>name</span><br>
+   …<br>
+  <span style=color:#ffff80>endfunc</span><br>
+</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#call">call</a>,
+<a href="#signal">signal</a>
+</mark>
+
+<hr>
+
+<!-- signal, endsig -->
+<a name="signal"></a>
+<a name="endsig">
+signal &lt;name&gt;<br>
+ &lt;commands&gt;<br>
+endsig<br>
+</a>
+
+<p>This command declares a signal handler block named &lt;name&gt; that holds a set of commands.
+Whenever the program receives a signal, the first signal handler block found whose &lt;name&gt;
+matches the signal gets executed. The Environment Variable <b>%0</b> gets set to the signal that
+was received.</p>
+
+<p>A signal handler block can be located anywhere in the program, as long as it is at the top level
+of the program scope (and not inside another function block or loop). It is an error if the
+<b>endsig</b> command is missing at the end of the block.</p>
+
+<p>It is possible to assign more than one signal to a signal handler by specifying a
+comma-separated list of signals in &lt;name&gt;. Use the special keyword <b>*</b> to match all
+signals.</p>
+
+<p>The following example shows a signal handler block that would get executed whenever the game
+sends any of the signals <b>Leave</b>, <b>Disconnect</b>, or <b>Death</b> to the program:</p>
+
+<p class=indent2>
+  <span style=color:#ffff80>signal</span>
+    <span style=color:#80ff80>leave, disconnect, death</span><br>
+   …<br>
+  <span style=color:#ffff80>endsig</span><br>
+</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#function">function</a>
+</mark>
+
+<hr>
+
+<!-- input -->
+<a name="input">
+input &lt;variable&gt;<br>
+<br>
+input &lt;variable&gt;:&lt;type&gt;<br>
+</a>
+
+<p>This command enables a program to directly interact with a player's game session in the web
+browser window. This command pauses the program until the player inputs a response directly to the
+active program via its Program ID (PID).</p>
+
+<p>This command is intended for use with HTML modules that run JavaScript programs on the client
+side of the web browser. As a prerequisite, the game program must invoke the module and pass its
+PID to the JavaScript client. Whenever the client intends to input a response to the program
+(usually as a result of the player clicking on a choice or button presented in the window), it
+sends the command <b>!&lt;PID&gt;!&lt;input string&gt;</b> to the game session, where &lt;PID&gt;
+is the matching program ID. The &lt;input string&gt; is fed directly to the program and stored in
+&lt;variable&gt;, at which point the program resumes executing the next command in the list.</p>
+
+<p>For testing purposes, it is possible to use <a href="#@ps">@ps</a> to look up the Program ID of
+a waiting program and type <b>!&lt;PID&gt;!&lt;input string&gt;</b> directly as a game command to
+simulate an input to the program. Only players matching the program's cause (<b>%#</b>) can input
+responses in this fashion. Specifying a PID that is invalid, or a PID that points to a program not
+currently waiting on the <b>input</b> command, does nothing.</p>
+
+<p>The &lt;type&gt; keyword is optional. It is used to control the level of string sanitization
+(safety) on the input coming directly from the JavaScript client. If unspecified, <b>Safe</b> is
+used. The following input types are available:</p>
+
+<table class=list>
+  <tr><td>Any</td><td>–</td>
+    <td>The input string is stored as-is.</td></tr>
+  <tr><td>Float</td><td>–</td>
+    <td>The input string is converted to a floating-point number.</td></tr>
+  <tr><td>Integer</td><td>–</td>
+    <td>The input string is converted to an integer.</td></tr>
+  <tr><td>Line</td><td>–</td>
+    <td>Any newlines are replaced with spaces.</td></tr>
+  <tr><td>Safe</td><td>–</td>
+    <td>Special characters { } = , and newlines are replaced with spaces. This allows the input
+    variable to work with any command in <b>[v(&lt;variable&gt;)]</b> form without needing string
+    sanitization.</td></tr>
+</table>
+
+<mark>See also:
+<a href="#programming">Programming</a>,
+<a href="#set">set</a>
+</mark>
+
+<hr>
+
+<!-- system -->
+<a name="system">
+system &lt;call&gt;<br>
+<br>
+system &lt;call&gt;=&lt;value&gt;<br>
+</a>
+
+<p>This command is used to modify special parameters in the active program, or modify the behavior
+of the game session connected to the active program.</p>
+
+<p>To use this command, specify &lt;call&gt; as one of the keywords from the table below. Most
+system calls require the Security power to use.</p>
+
+<table class=list>
+  <tr><td>+sig</td><td>–</td>
+    <td>By default, when using <a href="#call">call</a> with the &lt;object&gt;/&lt;attribute&gt;
+    parameter to load another attribute's text into the currently running program, the program
+    continues to search the original attribute text for signal handlers when signals are received.
+    This system call enables performing signal handler lookups in the current program scope
+    instead.</td></tr>
+  <tr><td>-sig</td><td>–</td>
+    <td>This call stops processing signal handlers in the current program scope, undoing the
+    <b>+sig</b> call. Note the top level program scope can never have its signal handler lookups
+    disabled.</td></tr>
+  <tr><td>-output</td><td>–</td>
+    <td>(Security) This system call freezes normal game output on the cause's connected game
+    session. Subsequent game output gets queued up to 1MB of data. Using the <a
+    href="#print">print</a> command in this state will send messages to the connection's console
+    output instead of the normal game output. If another player uses the <a href="#page">page</a>
+    command to send a message to the cause while its session is frozen, it will say "(Delayed)"
+    next to the cause's name.</td></tr>
+  <tr><td>+output</td><td>–</td>
+    <td>(Security) This call releases the freeze on cause's game output. If this was the last
+    program holding the freeze on a specific cause dbref#, then all queued output will be
+    immedately sent to the game session.</td></tr>
+  <tr><td>target</td><td>–</td>
+    <td>This system call changes the cause (<b>%#</b>) of the current program to another object
+    specified by the &lt;value&gt; argument. The object executing the program must have Modify
+    permission over the new cause. Additionally, if the executing object has the Security power,
+    &lt;value&gt; can specify a Connection ID in <b>FD:ConcID</b> format (this is the only way to
+    run a program on game sessions that have not yet logged into a player character).</td></tr>
+  <tr style=display:none><td>connect</td><td>–</td>
+    <td>(Security) WIP. Connect a game session to a player character. &lt;value&gt; must be the
+    full name of a valid player character. This can only be used on game sessions that have not yet
+    logged into a player character.</td></tr>
+</table>
+
+<mark>See also:
+<a href="#programming">Programming</a>
+</mark>
+
+<hr>
+
+<!-- @@ -->
+<a name="@@">
+@@ &lt;comment&gt;
+</a>
+
+<p>This command does nothing but specify a comment (line of text) in a program. This allows the
+programmer to annotate the program, such as describing what a function or loop does. It is
+particularly useful for describing what the <b>%0</b> through <b>%9</b> arguments mean in a
+function block.</p>
+
+<p>Note that comments cannot have ; characters in them, as this would indicate the start of the
+next command in the program.</p>
+
+<mark>See also:
+<a href="#programming">Programming</a>
+</mark>
+
+<hr>
+
+<!-- Wildcard Matching -->
+<a name="wildcard matching">
+Wildcard Matching
+</a>
+
+<p>Each &lt;match&gt; is a case-insensitive match that can take the following forms:</p>
+
+<table class=list>
+  <tr><td>value</td><td>–</td>
+    <td>&lt;expression&gt; must be identical to <b>value</b>, except for uppercase/lowercase letter
+    forms. Additionally, the * symbol can be specified anywhere in <b>value</b> as a wildcard that
+    matches zero or more characters from &lt;expression&gt;. Similarly, the ? symbol can be
+    specified to match exactly one character from &lt;expression&gt;.</td></tr>
+  <tr><td>&lt;value</td><td>–</td>
+    <td>If <b>value</b> is a number, then &lt;expression&gt;—when converted to a number—must be
+    less than <b>value</b>. Otherwise, the two strings are compared letter by letter, and the
+    result is true if &lt;expression&gt; comes before <b>value</b> alphabetically.</td></tr>
+  <tr><td>&gt;value</td><td>–</td>
+    <td>If <b>value</b> is a number, then &lt;expression&gt;—when converted to a number—must be
+    greater than <b>value</b>. Otherwise, the two strings are compared letter by letter, and the
+    result is true if &lt;expression&gt; comes after <b>value</b> alphabetically.</td></tr>
+  <tr><td>!value</td><td>–</td>
+    <td>The ! symbol can be used as the first character to flip the true/false result. This
+    negation can be used both with wildcard matches and with &lt; and &gt; matches. Note the !
+    symbol must be specified before any &lt; or &gt;.</td></tr>
+</table>
+
+<hr>
+

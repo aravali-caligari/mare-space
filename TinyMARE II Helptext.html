@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TinyMARE II Helptext</title>
+  <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+  <link rel=stylesheet href=help.css>
+</head>
+
+<body>
+<!-- — -->
+
+<!-- add() -->
+<a name="add()">
+add(&lt;integers&gt;, …)
+</a>
+<p>Add a list of integers and return the sum. Integers can be specified as either a space-separated
+list or as individual function arguments (up to 100 arguments).</p>
+<p>Integers are 64-bit whole numbers spanning the range -9223372036854775808 to
+9223372036854775807. To add floating-point (decimal) numbers instead, use
+<a href="#fadd()">fadd()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[add(3,4)]</td><td>⇒</td><td>'7'</td></tr>
+  <tr><td>[add(1 2 3 4 5 6)]</td><td>⇒</td><td>'21'</td></tr>
+  <tr><td>[add(10,5 5,1 2 3 4)]</td><td>⇒</td><td>'30'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#div()">div()</a>,
+<a href="#mod()">mod()</a>,
+<a href="#mul()">mul()</a>,
+<a href="#sub()">sub()</a>
+</mark>
+
+<hr>
+
+<!-- fadd() -->
+<a name="fadd()">
+fadd(&lt;real numbers&gt;, …)
+</a>
+<p>Add a list of floating-point numbers and return the sum. Numbers can be specified as either a
+space-separated list or as individual function arguments (up to 100 arguments).</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[fadd(3.4 7.6 10.2)]</td><td>⇒</td><td>'21.2'</td></tr>
+  <tr><td>[fadd(pi(),e())]</td><td>⇒</td><td>'5.859874482'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#fdiv()">fdiv()</a>,
+<a href="#fmod()">fmod()</a>,
+<a href="#fmul()">fmul()</a>,
+<a href="#fsub()">fsub()</a>
+</mark>
+
+<hr>
+
+<!-- mul() -->
+<a name="mul()">
+mul(&lt;integers&gt;, …)
+</a>
+<p>Multiply a list of integers and return the product. Integers can be specified as either a
+space-separated list or as individual function arguments (up to 100 arguments). To multiply
+floating-point numbers instead, use <a href="#fmul()">fmul()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[mul(6,7)]</td><td>⇒</td><td>'42'</td></tr>
+  <tr><td>[mul(1 2 3 4 5)]</td><td>⇒</td><td>'120'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#add()">add()</a>,
+<a href="#div()">div()</a>,
+<a href="#mod()">mod()</a>,
+<a href="#sub()">sub()</a>
+</mark>
+
+<hr>
+
+<!-- fmul() -->
+<a name="fmul()">
+fmul(&lt;real numbers&gt;, …)
+</a>
+<p>Multiply a list of floating-point numbers and return the product. Numbers can be specified as
+either a space-separated list or as individual function arguments (up to 100 arguments).</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[fmul(3.8 -2.4 10.6)]</td><td>⇒</td><td>'-96.672'</td></tr>
+  <tr><td>[fmul(4,atan(1))]</td><td>⇒</td><td>'3.141592652'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#fadd()">fadd()</a>,
+<a href="#fdiv()">fdiv()</a>,
+<a href="#fmod()">fmod()</a>,
+<a href="#fsub()">fsub()</a>
+</mark>
+
+<hr>
+
+<!-- sub() -->
+<a name="sub()">
+sub(&lt;integer&gt;, &lt;integer&gt;)
+</a>
+<p>Subtract two integers and return the difference. Both integers must be specified as separate
+arguments to this function. To subtract floating-point numbers instead, use
+<a href="#fsub()">fsub()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[sub(7,4)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[sub(-18,-40)]</td><td>⇒</td><td>'22'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#add()">add()</a>,
+<a href="#div()">div()</a>,
+<a href="#mod()">mod()</a>,
+<a href="#mul()">mul()</a>
+</mark>
+
+<hr>
+
+<!-- fsub() -->
+<a name="fsub()">
+fsub(&lt;real number&gt;, &lt;real number&gt;)
+</a>
+<p>Subtract two floating-point numbers and return the difference. Both numbers must be specified as
+separate arguments to this function.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[fsub(9.43,7.92)]</td><td>⇒</td><td>'1.51'</td></tr>
+  <tr><td>[fsub(fdiv(355,113),pi())]</td><td>⇒</td><td>'0.000000266'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#fadd()">fadd()</a>,
+<a href="#fdiv()">fdiv()</a>,
+<a href="#fmod()">fmod()</a>,
+<a href="#fmul()">fmul()</a>
+</mark>
+
+<hr>
+
+<!-- div() -->
+<a name="div()">
+div(&lt;integer&gt;, &lt;integer&gt;)
+</a>
+<p>Divide two integers and return the integer quotient. Both integers must be specified as separate
+arguments to this function. Dividing by zero will return 0. To divide floating-point numbers
+instead, use <a href="#fdiv()">fdiv()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[div(100,7)]</td><td>⇒</td><td>'14'</td></tr>
+  <tr><td>[div(80,0)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#add()">add()</a>,
+<a href="#mod()">mod()</a>,
+<a href="#mul()">mul()</a>,
+<a href="#rdiv()">rdiv()</a>,
+<a href="#sub()">sub()</a>
+</mark>
+
+<hr>
+
+<!-- fdiv() -->
+<a name="fdiv()">
+fdiv(&lt;real number&gt;, &lt;real number&gt;)
+</a>
+<p>Divide two floating-point numbers and return the quotient. Both numbers must be specified as
+separate arguments to this function. Dividing by zero will return the string <b>"inf"</b> or
+<b>"-inf"</b>, denoting positive or negative infinity.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[fdiv(100,7)]</td><td>⇒</td><td>'14.285714286'</td></tr>
+  <tr><td>[fdiv(42,0)]</td><td>⇒</td><td>'inf'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#fadd()">fadd()</a>,
+<a href="#fmod()">fmod()</a>,
+<a href="#fmul()">fmul()</a>,
+<a href="#fsub()">fsub()</a>
+</mark>
+
+<hr>
+
+<!-- mod() -->
+<a name="mod()">
+mod(&lt;integer&gt;, &lt;integer&gt;)
+</a>
+<p>Divide two integers and return the modulus (the remainder). Both integers must be specified as
+separate arguments to this function. If the first integer is negative, the resulting remainder will
+be negative. If the second integer is zero, 0 will be returned. To get the modulus of two
+floating-point numbers instead, use <a href="#fmod()">fmod()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[mod(45,3)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[mod(46,3)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[mod(47,3)]</td><td>⇒</td><td>'2'</td></tr>
+  <tr class=lbrk><td>[mod(48,3)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[mod(-47,3)]</td><td>⇒</td><td>'-2'</td></tr>
+  <tr><td>[mod(-47,0)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#add()">add()</a>,
+<a href="#div()">div()</a>,
+<a href="#mul()">mul()</a>,
+<a href="#rdiv()">rdiv()</a>,
+<a href="#sub()">sub()</a>
+</mark>
+
+<hr>
+
+<!-- fmod() -->
+<a name="fmod()">
+fmod(&lt;real number&gt;, &lt;real number&gt;)
+</a>
+<p>Divide two floating-point numbers and return the modulus (the remainder). Both numbers must be
+specified as separate arguments to this function. If the first number is negative, the resulting
+remainder will be negative. If the second number is zero, <b>"nan"</b> will be returned.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[fmod(375.2,360)]</td><td>⇒</td><td>'15.2'</td></tr>
+  <tr><td>[fmod(-24.88,21.5)]</td><td>⇒</td><td>'-3.38'</td></tr>
+  <tr><td>[fmod(66,0)]</td><td>⇒</td><td>'nan'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#fadd()">fadd()</a>,
+<a href="#fdiv()">fdiv()</a>,
+<a href="#fmul()">fmul()</a>,
+<a href="#fsub()">fsub()</a>
+</mark>
+
+<hr>
+
+<!-- rdiv() -->
+<a name="rdiv()">
+rdiv(&lt;integer&gt;, &lt;integer&gt;)
+</a>
+<p>Divide two integers and return a random integer result depending on the amount left over in the
+remainder. If the remainder is 0 or small, the more likely the returned answer is the original
+quotient. The higher the remainder compared to the divisor, the more likely the returned answer is
+the quotient + 1. Over time, repeated use of this function in succession will approximate the
+floating-point result via randomness.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[rdiv(31,3)]</td><td>⇒</td><td>Returns '10' two-thirds of the time, and '11' one-third of
+  the time.</td></tr>
+  <tr><td>[rdiv(99,100)]</td><td>⇒</td><td>Returns '1' 99% of the time, otherwise '0'.</td></tr>
+  <tr><td>[rdiv(16,4)]</td><td>⇒</td><td>'4'</td></tr>
+  <tr><td>[rdiv(20,0)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#div()">div()</a>,
+<a href="#mod()">mod()</a>
+</mark>
+
+<hr>
+
+<!-- min() -->
+<a name="min()">
+min(&lt;real numbers&gt;, …)
+</a>
+<p>Return the smallest number (i.e. the minimum) of a list of real numbers. Numbers can be
+specified as either a space-separated list or as individual function arguments (up to 100
+arguments). If no valid numbers are given, it returns 0.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[min(7,4)]</td><td>⇒</td><td>'4'</td></tr>
+  <tr><td>[min(9 4 8 12 1.5 3)]</td><td>⇒</td><td>'1.5'</td></tr>
+  <tr><td>[min(-2 -7 -4 -9)]</td><td>⇒</td><td>'-9'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#avg()">avg()</a>,
+<a href="#max()">max()</a>,
+<a href="#range()">range()</a>
+</mark>
+
+<hr>
+
+<!-- max() -->
+<a name="max()">
+max(&lt;real numbers&gt;, …)
+</a>
+<p>Return the largest number (i.e. the maximum) of a list of real numbers. Numbers can be specified
+as either a space-separated list or as individual function arguments (up to 100 arguments). If no
+valid numbers are given, it returns 0.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[max(7,4)]</td><td>⇒</td><td>'7'</td></tr>
+  <tr><td>[max(9 4 8 12 1.5 3)]</td><td>⇒</td><td>'12'</td></tr>
+  <tr><td>[max(-2 -7 -4 -9)]</td><td>⇒</td><td>'-2'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#avg()">avg()</a>,
+<a href="#min()">min()</a>,
+<a href="#range()">range()</a>
+</mark>
+
+<hr>
+
+<!-- range() -->
+<a name="range()">
+range(&lt;real numbers&gt;, …)
+</a>
+<p>Return the range (i.e. the maximum minus the minimum) of a list of real numbers. Numbers can be
+specified as either a space-separated list or as individual function arguments (up to 100
+arguments). If no valid numbers are given, it returns 0.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[range(3 6.2 10.9 23)]</td><td>⇒</td><td>'20'</td></tr>
+  <tr><td>[range(-2 -7 -4 -9)]</td><td>⇒</td><td>'7'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#avg()">avg()</a>,
+<a href="#max()">max()</a>,
+<a href="#min()">min()</a>,
+<a href="#stdev()">stdev()</a>,
+<a href="#stdevp()">stdevp()</a>
+</mark>
+
+<hr>
+
+<!-- avg() -->
+<a name="avg()">
+avg(&lt;real numbers&gt;, …)
+</a>
+<p>Return the average (mean) of a list of real numbers by summing up the numbers and dividing by
+the number of values given. Numbers can be specified as either a space-separated list or as
+individual function arguments (up to 100 arguments). If no valid numbers are given, it returns
+0.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[avg(5,12)]</td><td>⇒</td><td>'8.5'</td></tr>
+  <tr><td>[avg(8 15 160)]</td><td>⇒</td><td>'61'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#max()">max()</a>,
+<a href="#min()">min()</a>,
+<a href="#range()">range()</a>,
+<a href="#stdev()">stdev()</a>,
+<a href="#stdevp()">stdevp()</a>
+</mark>
+
+<hr>
+
+<!-- stdev() -->
+<a name="stdev()">
+stdev(&lt;real numbers&gt;, …)
+</a>
+<p>Return the sample standard deviation of a list of real numbers. The standard deviation is
+computed by summing the squares of each value in the list subtracted with the list's mean, then
+dividing the result by the number of elements - 1 in the list, and then by taking the square-root
+of that result. If all numbers are identical, a 0 is returned.</p>
+<p>For instance, the sample standard deviation of <b>"4 5 12"</b> is equivalent to:</p>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msqrt>
+    <mfrac>
+      <mrow>
+        <msup><mrow><mo>(</mo><mn>4</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mrow><mo>(</mo><mn>5</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mrow><mo>(</mo><mn>12</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+      </mrow>
+      <mrow>
+        <mn>3</mn><mo>-</mo><mn>1</mn>
+      </mrow>
+    </mfrac>
+  </msqrt>
+</math>
+</center>
+<p>where 7 is the list's average and 3 is the number of elements in the list.</p>
+<p>To compute the population standard deviation instead, use <a href="#stdevp()">stdevp()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[stdev(6 9 9 8)]</td><td>⇒</td><td>'1.414213562'</td></tr>
+  <tr><td>[stdev(4 8 1 3 11 5 7 2 4)]</td><td>⇒</td><td>'3.16227766'</td></tr>
+  <tr><td>[stdev(-10.5 10.5)]</td><td>⇒</td><td>'14.849242405'</td></tr>
+  <tr><td>[stdev(7 7 7)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#avg()">avg()</a>,
+<a href="#range()">range()</a>,
+<a href="#stdevp()">stdevp()</a>
+</mark>
+
+<hr>
+
+<!-- stdevp() -->
+<a name="stdevp()">
+stdevp(&lt;real numbers&gt;, …)
+</a>
+<p>Return the population standard deviation of a list of real numbers. The standard deviation is
+computed by summing the squares of each value in the list subtracted with the list's mean, then
+dividing the result by the number of elements in the list, and then by taking the square-root of
+that result. If all numbers are identical, a 0 is returned.</p>
+<p>For instance, the population standard deviation of <b>"4 5 12"</b> is equivalent to:</p>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msqrt>
+    <mfrac>
+      <mrow>
+        <msup><mrow><mo>(</mo><mn>4</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mrow><mo>(</mo><mn>5</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mrow><mo>(</mo><mn>12</mn><mo>-</mo><mn>7</mn><mo>)</mo></mrow><mn>2</mn></msup>
+      </mrow>
+      <mrow>
+        <mn>3</mn>
+      </mrow>
+    </mfrac>
+  </msqrt>
+</math>
+</center>
+<p>where 7 is the list's average and 3 is the number of elements in the list.</p>
+<p>To compute the sample standard deviation instead, use <a href="#stdev()">stdev()</a>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[stdevp(6 9 9 8)]</td><td>⇒</td><td>'1.224744871'</td></tr>
+  <tr><td>[stdevp(4 8 1 3 11 5 7 2 4)]</td><td>⇒</td><td>'2.98142397'</td></tr>
+  <tr><td>[stdevp(-10.5 10.5)]</td><td>⇒</td><td>'10.5'</td></tr>
+  <tr><td>[stdevp(7 7 7)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#avg()">avg()</a>,
+<a href="#range()">range()</a>,
+<a href="#stdev()">stdev()</a>
+</mark>
+
+<hr>
+
+<!-- band() -->
+<a name="band()">
+band(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return the result of a Binary-AND between two numbers. This function is intended for use on
+numbers representing a bitfield.</p>
+
+<i>Example:</i>
+
+<table class=func>
+  <tr><td>[band(4781,9817)]</td><td>⇒</td><td>'521'</td></tr>
+</table>
+
+<p>The equation <b>"A AND B"</b> is true only if both A and B have a true value. To calculate the
+result in the above example, both numbers are first converted to binary digits. In each column, the
+digits are compared with an AND equation and the result is stored. If both digits contain a 1, a 1
+is stored in the answer—otherwise a 0 is stored.</p>
+
+<p>This equation demonstrates the Binary-AND:</p>
+
+<center>
+<table>
+  <tr><td class=right>4781 =</td><td>0100<b>1</b>01010<b>1</b>&#8203;10<b>1</b></td></tr>
+  <tr><td class=right>AND 9817 =</td><td>1001&#8203;<b>1</b>00101<b>&#8203;1</b>00<b>1</b></td>
+    </tr>
+  <tr><td colspan=2><hr class=equ></td></tr>
+  <tr><td></td><td>0000<b>1</b>00000<b>1</b>00<b>1</b></td><td>= 521</td></tr>
+</table>
+</center>
+
+<i>Testing Bits:</i>
+
+<p>This function is most useful for checking if a bit in a given bitfield is <b>'on'</b> (set to 1)
+or <b>'off'</b> (0). It returns the value that results in a union of all <b>'on'</b> bits in both
+&lt;number1&gt; and &lt;number2&gt;.</p>
+
+<p>For example, the number 80 is equivalent to the binary number 01010000. The bits for <b>"16"</b>
+and <b>"64"</b> are on (1), but all other bits are off (0). The function <b>[band(80,16)]</b> or
+<b>[band(80,64)]</b> would return 16 and 64 respectively (True values), while <b>[band(80,32)]</b>
+would return 0 (a False value).</p>
+
+<mark>See also:
+<a href="#base()">base()</a>,
+<a href="#bnand()">bnand()</a>,
+<a href="#bor()">bor()</a>,
+<a href="#bxor()">bxor()</a>
+</mark>
+
+<hr>
+
+<!-- bnand() -->
+<a name="bnand()">
+bnand(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return the result of a Binary-NAND (Not-And or Negated-And) between two numbers. This function
+is intended for use on numbers representing a bitfield.</p>
+
+<i>Example:</i>
+
+<table class=func>
+  <tr><td>[bnand(9689,2996)]</td><td>⇒</td><td>'9289'</td></tr>
+</table>
+
+<p>The equation <b>"A NAND B"</b> is true only if A is true and B is false. It is equivalent to the
+equation <b>"A AND (NOT B)"</b>. To calculate the result in the above example, both numbers are
+first converted to binary digits. In each column, the digits are compared with a NAND equation and
+the result is stored. A 1 in the first row is changed to 0 only when there is a 1 in the second
+row, otherwise the digit stays the same.</p>
+
+<p>This equation demonstrates the Binary-NAND:</p>
+
+<center>
+<table>
+  <tr><td class=right>9689 =</td><td>10010<b>1&#8203;1</b>&#8203;10<b>1</b>&#8203;1001</td></tr>
+  <tr><td class=right>NAND 2996 =</td><td>00101<b>&#8203;1&#8203;1</b>01<b>&#8203;1</b>0100</td>
+    </tr>
+  <tr><td colspan=2><hr class=equ></td></tr>
+  <tr><td></td><td>10010<b>00</b>10<b>0</b>1001</td><td>= 9289</td></tr>
+</table>
+</center>
+
+<i>Clearing Bits:</i>
+
+<p>This function is most useful for clearing specific bits in a binary number. All the bits in
+&lt;number2&gt; that are set to 1 will set the corresponding bit in &lt;number1&gt; to 0. Bits in
+&lt;number2&gt; that are 0 will have no effect on the bits in &lt;number1&gt;. For example, to
+clear the third bit in a binary number, use <b>[bnand(number,4)]</b>, where 4 is the decimal
+equivalent of 00000100 in binary.</p>
+
+<mark>See also:
+<a href="#band()">band()</a>,
+<a href="#base()">base()</a>,
+<a href="#bor()">bor()</a>,
+<a href="#bxor()">bxor()</a>
+</mark>
+
+<hr>
+
+<!-- bor() -->
+<a name="bor()">
+bor(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return the result of a Binary-OR between two numbers. This function is intended for use on
+numbers representing a bitfield.</p>
+
+<i>Example:</i>
+
+<table class=func>
+  <tr><td>[bor(3144,8531)]</td><td>⇒</td><td>'11611'</td></tr>
+</table>
+
+<p>The equation <b>"A OR B"</b> is true when either A or B is true.
+To calculate the result in the above example, both numbers are
+first converted to binary digits. In each column, the digits are compared with an OR equation and
+the result is stored. If either digit is a 1 (or if both digits are 1), a 1 is stored in the
+answer. A 0 is stored only if both digits are 0.</p>
+
+<p>This equation demonstrates the Binary-OR:</p>
+
+<center>
+<table>
+  <tr><td class=right>3144 =</td><td>001&#8203;10001001000</td></tr>
+  <tr><td class=right>OR 8531 =</td><td>1000010101001&#8203;1</td></tr>
+  <tr><td colspan=2><hr class=equ></td></tr>
+  <tr><td></td><td>101&#8203;1010101&#8203;101&#8203;1</td><td>= 11611</td></tr>
+</table>
+</center>
+
+<i>Setting Bits:</i>
+
+<p>This function is most useful for setting specific bits in a binary number without affecting the
+other bits. ORing a number with a single bit will turn that bit <b>'on'</b> (set to 1) independent
+of the other bits in the number. For example, to turn the third and fifth bits on, use the function
+<b>[bor(number,20)]</b>, where 20 is the decimal equivalent of 00010100 in binary.</p>
+
+<mark>See also:
+<a href="#band()">band()</a>,
+<a href="#base()">base()</a>,
+<a href="#bnand()">bnand()</a>,
+<a href="#bxor()">bxor()</a>
+</mark>
+
+<hr>
+
+<!-- bxor() -->
+<a name="bxor()">
+bxor(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return the result of a Binary-XOR between two numbers. This function is intended for use on
+numbers representing a bitfield.</p>
+
+<i>Example:</i>
+
+<table class=func>
+  <tr><td>[bxor(2212,1613)]</td><td>⇒</td><td>'3817'</td></tr>
+</table>
+
+<p>The equation <b>"A XOR B"</b> is true if and only if A or B have a true value exclusively. That
+is, the equation is true only if one of the two numbers is true, but not if both are true or both
+are false. To calculate the result in the above example, both numbers are first converted to binary
+digits. In each column, the digits are compared using an XOR equation and the result is stored. If
+both digits are different, a 1 is stored in the answer—otherwise a 0 is stored.</p>
+
+<p>This equation demonstrates the Binary-XOR:</p>
+
+<center>
+<table>
+  <tr><td class=right>2122 =</td><td>00100010100100</td></tr>
+  <tr><td class=right>XOR 1613 =</td><td>0001&#8203;1001001&#8203;101</td></tr>
+  <tr><td colspan=2><hr class=equ></td></tr>
+  <tr><td></td><td>001&#8203;1&#8203;101&#8203;1&#8203;101001</td><td>= 3817</td></tr>
+</table>
+</center>
+
+<i>Toggling Bits:</i>
+
+<p>This function is most useful for toggling specific bits in a binary number. With &lt;number1&gt;
+corresponding to the original number, any bits set to 1 in &lt;number2&gt; will toggle the bit in
+the same column of &lt;number1&gt;, and any bits set to 0 will retain the original value. For
+example, to toggle the fourth bit in a binary number, use <b>[bxor(number,8)]</b>, where 8 is the
+decimal equivalent of 00001000 in binary.</p>
+
+<mark>See also:
+<a href="#band()">band()</a>,
+<a href="#base()">base()</a>,
+<a href="#bnand()">bnand()</a>,
+<a href="#bor()">bor()</a>
+</mark>
+
+<hr>
+
+<!-- shl() -->
+<a name="shl()">
+shl(&lt;number&gt;, &lt;count&gt;)
+</a>
+<p>Return the result of bit-shifting a binary &lt;number&gt; left by &lt;count&gt; times. This is
+equivalent to multiplying &lt;number&gt; by 2 to the &lt;count&gt; power.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[shl(8,1)]</td><td>⇒</td><td>'16' (00001000 in binary becomes 00010000)</td></tr>
+  <tr><td>[shl(9,2)]</td><td>⇒</td><td>'36' (00001001 in binary becomes 00100100)</td></tr>
+  <tr><td>[shl(367,3)]</td><td>⇒</td><td>'2936' (101101111 in binary becomes 101101111000)</td>
+    </tr>
+</table>
+
+<mark>See also:
+<a href="#shr()">shr()</a>
+</mark>
+
+<hr>
+
+<!-- shr() -->
+<a name="shr()">
+shr(&lt;number&gt;, &lt;count&gt;)
+</a>
+<p>Return the result of bit-shifting a binary &lt;number&gt; right by &lt;count&gt; times. This is
+equivalent to dividing &lt;number&gt; by 2 to the &lt;count&gt; power.</p>
+
+<p>Note: This is an arithmetic shift and not a logical shift. An arithmetic shift preserves the
+sign of a number.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[shr(16,2)]</td><td>⇒</td><td>'4' (00010000 in binary becomes 00000100)</td></tr>
+  <tr><td>[shr(15,1)]</td><td>⇒</td><td>'7' (00001111 in binary becomes 00000111)</td></tr>
+  <tr><td>[shr(-128,5)]</td><td>⇒</td><td>'-4' (-128 / 2^5 = -4)</td></tr>
+</table>
+
+<mark>See also:
+<a href="#shl()">shl()</a>
+</mark>
+
+<hr>
+
+<!-- signed() -->
+<a name="signed()">
+signed(&lt;number&gt;, &lt;bits&gt;)
+</a>
+<p>Convert &lt;number&gt; to a signed integer, where &lt;bits&gt; is the number of binary bits
+applied to the integer from 1 to 64. The highest bit becomes the sign bit, which determines if the
+number is positive or negative.</p>
+
+<p>Integers are 64 bits wide, spanning the range -9223372036854775808 to 9223372036854775807.
+Integers expressed in fewer bits are normally displayed unsigned (e.g. a 4-bit number uses the
+range 0 to 15). This function displays the signed version of such integers, such that e.g. a 4-bit
+number uses the range -8 to 7 instead (using the two's complement method).</p>
+
+<p>The following table shows signed integer ranges for common bit lengths:</p>
+
+<center>
+<table class=cross>
+  <tr><th>Bits</th><th>Range</th></tr>
+  <tr><td>1</td><td>-1 to 0</td></tr>
+  <tr><td>4</td><td>-8 to 7</td></tr>
+  <tr><td>8</td><td>-128 to 127</td></tr>
+  <tr><td>16</td><td>-32768 to 32767</td></tr>
+  <tr><td>32</td><td>-2147483648 to 2147483647</td></tr>
+</table>
+</center>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[signed(7,4)]</td><td>⇒</td><td>'7'</td></tr>
+  <tr><td>[signed(8,4)]</td><td>⇒</td><td>'-8'</td></tr>
+  <tr><td>[signed(15,4)]</td><td>⇒</td><td>'-1'</td></tr>
+  <tr><td>[signed(60000,16)]</td><td>⇒</td><td>'-5536'</td></tr>
+  <tr><td>[signed(20000000,32)]</td><td>⇒</td><td>'20000000'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#int()">int()</a>
+</mark>
+
+<hr>
+
+<!-- ffs() -->
+<a name="ffs()">
+ffs(&lt;number&gt;)
+</a>
+<p>Return the position of the first bit set in binary value &lt;number&gt;, starting from the least
+significant bit. The least significant bit is position 1, and the most significant bit is position
+64. If no bits are set, 0 is returned.</p>
+
+<p>Negative numbers are stored in binary using the two's complement method, with the 64th bit being
+the sign bit.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[ffs(12)]</td><td>⇒</td><td>'3' (12 in binary is 00001100)</td></tr>
+  <tr><td>[ffs(-512)]</td><td>⇒</td><td>'10'</td></tr>
+  <tr><td>[ffs(pow(2,16))]</td><td>⇒</td><td>'17'</td></tr>
+  <tr><td>[ffs(-2)]</td><td>⇒</td><td>'2' (All bits are set except the least-significant)</td></tr>
+</table>
+
+<mark>See also:
+<a href="#bitcount()">bitcount()</a>
+</mark>
+
+<hr>
+
+<!-- bitcount() -->
+<a name="bitcount()">
+bitcount(&lt;number&gt;)
+</a>
+<p>Return the number of bits set to 1 in binary value &lt;number&gt;. The maximum possible value
+returned is 64, since all integers are expressed as 64 bits. If no bits are set, 0 is returned.</p>
+
+<p>Negative numbers are stored in binary using the two's complement method, with the 64th bit being
+the sign bit.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[bitcount(12)]</td><td>⇒</td><td>'2' (12 in binary is 00001100)</td></tr>
+  <tr><td>[bitcount(255)]</td><td>⇒</td><td>'8'</td></tr>
+  <tr><td>[bitcount(-1)]</td><td>⇒</td><td>'64' (All bits are set)</td></tr>
+</table>
+
+<mark>See also:
+<a href="#ffs()">ffs()</a>
+</mark>
+
+<hr>
+
+<!-- gt() -->
+<a name="gt()">
+gt(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is greater than &lt;number2&gt;, otherwise 0. Both numbers can be
+integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[gt(7,-4)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[gt(5,5)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- gteq() -->
+<a name="gteq()">
+gteq(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is greater than or equal to &lt;number2&gt;, otherwise 0. Both
+numbers can be integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[gteq(12,6)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[gteq(8,8)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[gteq(4,15)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- lt() -->
+<a name="lt()">
+lt(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is less than &lt;number2&gt;, otherwise 0. Both numbers can be
+integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[lt(3,10)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[lt(5,5)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- lteq() -->
+<a name="lteq()">
+lteq(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is less than or equal to &lt;number2&gt;, otherwise 0. Both numbers
+can be integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[lteq(12,6)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[lteq(8,8)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[lteq(4,15)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- eq() -->
+<a name="eq()">
+eq(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is equal to &lt;number2&gt;, otherwise 0. Both numbers can be
+integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[eq(6,82)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[eq(4.6,4.6)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- neq() -->
+<a name="neq()">
+neq(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Return 1 if &lt;number1&gt; is not equal to &lt;number2&gt;, otherwise 0. Both numbers can be
+integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[neq(6,6)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[neq(40,8.3)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>
+</mark>
+
+<hr>
+
+<!-- between() -->
+<a name="between()">
+between(&lt;number&gt;, &lt;low&gt;, &lt;high&gt;)
+</a>
+<p>Return 1 if &lt;number&gt; is between &lt;low&gt; and &lt;high&gt; inclusive, otherwise 0.
+Numbers can be either integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[between(10,5,12)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[between(6,6,20)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[between(9,9.2,10.6)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[between(-4,-10,-4)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#clamp()">clamp()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#ncomp()">ncomp()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- ncomp() -->
+<a name="ncomp()">
+ncomp(&lt;number1&gt;, &lt;number2&gt;)
+</a>
+<p>Compare two numbers &lt;number1&gt; and &lt;number2&gt;, returning -1 if &lt;number1&gt; is less
+than &lt;number2&gt;, 0 if &lt;number1&gt; is equal to &lt;number2&gt;, or 1 if &lt;number1&gt; is
+greater than &lt;number2&gt;.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[ncomp(6,10)]</td><td>⇒</td><td>'-1'</td></tr>
+  <tr><td>[ncomp(4,4.0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[ncomp(-0.7,-0.75)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#between()">between()</a>,
+<a href="#eq()">eq()</a>,
+<a href="#gt()">gt()</a>,
+<a href="#gteq()">gteq()</a>,
+<a href="#lt()">lt()</a>,
+<a href="#lteq()">lteq()</a>,
+<a href="#neq()">neq()</a>
+</mark>
+
+<hr>
+
+<!-- truth() -->
+<a name="ncomp()">
+truth(&lt;expression&gt;)
+</a>
+<p>Evaluate &lt;expression&gt; and return 1 if the result is True, or 0 if it is False.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[truth(6)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[truth(#-1)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#if()">if()</a>,
+<a href="#ifelse()">ifelse()</a>,
+<a href="#iftrue()">iftrue()</a>,
+<a href="#not()">not()</a>
+</mark>
+
+<hr>
+
+<!-- not() -->
+<a name="not()">
+not(&lt;expression&gt;)
+</a>
+<p>Evaluate &lt;expression&gt; and return the Logical-NOT of the result. That is, it returns 1 if
+the result is False, or 0 if the result is True.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<p>Using <b>[not()]</b> is identical to putting a <b>'!'</b> symbol in front of the function name.
+In other words, the following three functions mean the same thing and all return 0:
+<b>[gteq(3,6)]</b>, <b>[not(lt(3,6))]</b>, and <b>[!lt(3,6)]</b>.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[not(6)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[not({})]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[not(string)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[!truth(string)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#if()">if()</a>,
+<a href="#ifelse()">ifelse()</a>,
+<a href="#iftrue()">iftrue()</a>,
+<a href="#truth()">truth()</a>
+</mark>
+
+<hr>
+
+<!-- if() -->
+<a name="if()">
+if(&lt;expression&gt;, &lt;true string&gt;)
+</a>
+<p>Evaluate the boolean &lt;expression&gt; for True or False. If True, the text &lt;true string&gt;
+will be returned. Otherwise, a blank string will be returned.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[if(0,true)]</td><td>⇒</td><td>''</td></tr>
+  <tr><td>[if(1,true)]</td><td>⇒</td><td>'true'</td></tr>
+  <tr><td>[if(gt(6,4),true)]</td><td>⇒</td><td>'true'</td></tr>
+  <tr><td>[if(eq(3,10),true)]</td><td>⇒</td><td>''</td></tr>
+</table>
+
+<mark>See also:
+<a href="#ifelse()">ifelse()</a>,
+<a href="#iftrue()">iftrue()</a>,
+<a href="#not()">not()</a>,
+<a href="#truth()">truth()</a>
+</mark>
+
+<hr>
+
+<!-- iftrue() -->
+<a name="iftrue()">
+iftrue(&lt;expression&gt;, &lt;false string&gt;)
+</a>
+<p>Evaluate the boolean &lt;expression&gt; for True or False. If True, the text &lt;expression&gt;
+will be returned. Otherwise, the text &lt;false string&gt; will be returned.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[iftrue(gt(4,6),false)]</td><td>⇒</td><td>'false'</td></tr>
+  <tr><td>[iftrue(gt(7,6),false)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[iftrue(ncomp(3,7),equal)]</td><td>⇒</td><td>'-1'</td></tr>
+  <tr><td>[iftrue(ncomp(7,7),equal)]</td><td>⇒</td><td>'equal'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#if()">if()</a>,
+<a href="#ifelse()">ifelse()</a>,
+<a href="#not()">not()</a>,
+<a href="#truth()">truth()</a>
+</mark>
+
+<hr>
+
+<!-- ifelse() -->
+<a name="ifelse()">
+ifelse(&lt;expression&gt;, &lt;true string&gt;, …)<br>
+ifelse(&lt;expression&gt;, &lt;true string&gt;, …, &lt;false string&gt;)<br>
+</a>
+<p>Evaluate the boolean &lt;expression&gt; for True or False. If True, the text &lt;true string&gt;
+will be returned. Additional pairs of &lt;expression&gt; and &lt;true string&gt; may be supplied
+(up to 100 arguments), each which are evaluated for True or False, returning that pair's &lt;true
+string&gt; if True. If all expressions are False, then the text &lt;false string&gt; will be
+returned if present, otherwise a blank string will be returned.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[ifelse(1,true)]</td><td>⇒</td><td>'true'</td></tr>
+  <tr><td>[ifelse(0,true)]</td><td>⇒</td><td>''</td></tr>
+  <tr><td>[ifelse(#42,true,false)]</td><td>⇒</td><td>'true'</td></tr>
+  <tr><td>[ifelse(#-1,true,false)]</td><td>⇒</td><td>'false'</td></tr>
+</table>
+
+<p><span class=example>» @echo [set(0,37)]
+                       [ifelse(isdbref(v(0)),object,isnum(v(0)),number,string)]</span><br>
+   <span class=result>number</span></p>
+
+<mark>See also:
+<a href="#if()">if()</a>,
+<a href="#iftrue()">iftrue()</a>,
+<a href="#not()">not()</a>,
+<a href="#truth()">truth()</a>
+</mark>
+
+<hr>
+
+<!-- land() -->
+<a name="land()">
+land(&lt;expression1&gt;, &lt;expression2&gt;, …)
+</a>
+<p>Return the result of a Logical-AND of two or more expressions (up to 100 arguments). If all
+expressions evaluate to True, then a 1 is returned, otherwise 0.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[land(-1,#42)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[land(7,14,0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[land(eq(3,3),neq(8,10))]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[land(gt(4,2),lt(8,6))]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#lor()">lor()</a>,
+<a href="#lxor()">lxor()</a>
+</mark>
+
+<hr>
+
+<!-- lor() -->
+<a name="lor()">
+lor(&lt;expression1&gt;, &lt;expression2&gt;, …)
+</a>
+<p>Return the result of a Logical-OR of two or more expressions (up to 100 arguments). If any
+of the expressions evaluate to True, then a 1 is returned, otherwise 0.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[lor(0,1)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[lor(#5,true,0)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[lor(0,#-1)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#land()">land()</a>,
+<a href="#lxor()">lxor()</a>
+</mark>
+
+<hr>
+
+<!-- lxor() -->
+<a name="lxor()">
+lxor(&lt;expression1&gt;, &lt;expression2&gt;)
+</a>
+<p>Return the result of a Logical-XOR of two expressions. If only either &lt;expression1&gt; or
+&lt;expression2&gt; evaluates to True exclusively, then a 1 is returned. If both expressions are
+True or both are False, then a 0 is returned.</p>
+
+<p>An expression is False if it matches the string <b>"0"</b>, the prefix <b>"#-1"</b>, or the
+empty string <b>""</b>. All other results are considered True.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[lxor(0,1)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[lxor(true,#100)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[lxor(neq(5,5),not(10))]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#land()">land()</a>,
+<a href="#lor()">lor()</a>
+</mark>
+
+<hr>
+
+<!-- e() -->
+<a name="e()">
+e()
+</a>
+<p>Return the mathematical constant e, which is approximately <b>"2.718281828"</b>. e is the base
+of the natural logarithm and exponential function.</p>
+
+<i>Example:</i>
+
+<table class=func>
+  <tr><td>[ln(e())]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#pi()">pi()</a>
+</mark>
+
+<hr>
+
+<!-- pi() -->
+<a name="pi()">
+pi()
+</a>
+<p>Return the mathematical constant pi, which is approximately <b>"3.141592654"</b>. pi is the
+ratio of the circumference of a circle to its diameter.</p>
+
+<i>Example:</i>
+
+<p><span class=example>» @echo A circle whose diameter is 4 has a circumference of
+                       [fmul(4,pi())].</span><br>
+   <span class=result>A circle whose diameter is 4 has a circumference of 12.566370616.</span></p>
+
+<mark>See also:
+<a href="#e()">e()</a>
+</mark>
+
+<hr>
+
+<!-- sin() -->
+<a name="sin()">
+sin(&lt;real number&gt;)
+</a>
+<p>Return the sine of &lt;real number&gt;, which is expressed in radians.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[sin(1)]</td><td>⇒</td><td>'0.841470985'</td></tr>
+  <tr><td>[sin(fdiv(pi(),4))]</td><td>⇒</td><td>'0.707106782'</td></tr>
+  <tr><td>[sin(fdiv(pi(),2))]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#acos()">acos()</a>,
+<a href="#asin()">asin()</a>,
+<a href="#atan()">atan()</a>,
+<a href="#cos()">cos()</a>,
+<a href="#tan()">tan()</a>
+</mark>
+
+<hr>
+
+<!-- cos() -->
+<a name="cos()">
+cos(&lt;real number&gt;)
+</a>
+<p>Return the cosine of &lt;real number&gt;, which is expressed in radians.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[cos(1)]</td><td>⇒</td><td>'0.540302306'</td></tr>
+  <tr><td>[cos(pi())]</td><td>⇒</td><td>'-1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#acos()">acos()</a>,
+<a href="#asin()">asin()</a>,
+<a href="#atan()">atan()</a>,
+<a href="#sin()">sin()</a>,
+<a href="#tan()">tan()</a>
+</mark>
+
+<hr>
+
+<!-- tan() -->
+<a name="tan()">
+tan(&lt;real number&gt;)
+</a>
+<p>Return the tangent of &lt;real number&gt;, which is expressed in radians.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[tan(0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[tan(1)]</td><td>⇒</td><td>'1.557407725'</td></tr>
+  <tr><td>[tan(pi())]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#acos()">acos()</a>,
+<a href="#asin()">asin()</a>,
+<a href="#atan()">atan()</a>,
+<a href="#cos()">cos()</a>,
+<a href="#sin()">sin()</a>
+</mark>
+
+<hr>
+
+<!-- asin() -->
+<a name="asin()">
+asin(&lt;real number&gt;)
+</a>
+<p>Return the arcsine of &lt;real number&gt;, which is expressed in radians. Any number less than
+-1 or greater than 1 will return <b>"inf"</b> for infinity.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[asin(0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[asin(1)]</td><td>⇒</td><td>'1.570796327'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#acos()">acos()</a>,
+<a href="#atan()">atan()</a>,
+<a href="#cos()">cos()</a>,
+<a href="#sin()">sin()</a>,
+<a href="#tan()">tan()</a>
+</mark>
+
+<hr>
+
+<!-- acos() -->
+<a name="acos()">
+acos(&lt;real number&gt;)
+</a>
+<p>Return the arccosine of &lt;real number&gt;, which is expressed in radians. Any number less than
+-1 or greater than 1 will return <b>"inf"</b> for infinity.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[acos(0)]</td><td>⇒</td><td>'1.570796327'</td></tr>
+  <tr><td>[acos(1)]</td><td>⇒</td><td>'3.141592654'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#asin()">asin()</a>,
+<a href="#atan()">atan()</a>,
+<a href="#cos()">cos()</a>,
+<a href="#sin()">sin()</a>,
+<a href="#tan()">tan()</a>
+</mark>
+
+<hr>
+
+<!-- atan() -->
+<a name="atan()">
+atan(&lt;real number&gt;)
+</a>
+<p>Return the arctangent of &lt;real number&gt;, which is expressed in radians.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[atan(0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[atan(1)]</td><td>⇒</td><td>'0.785398163'</td></tr>
+  <tr><td>[atan(inf)]</td><td>⇒</td><td>'1.570796327'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#acos()">acos()</a>,
+<a href="#asin()">asin()</a>,
+<a href="#cos()">cos()</a>,
+<a href="#sin()">sin()</a>,
+<a href="#tan()">tan()</a>
+</mark>
+
+<hr>
+
+<!-- pow() -->
+<a name="pow()">
+pow(&lt;real number&gt;, &lt;exponent&gt;)
+</a>
+<p>Return the result of &lt;real number&gt; raised to the power of &lt;exponent&gt;. If &lt;real
+number&gt; is negative and &lt;exponent&gt; is a fraction of a whole number, <b>"nan"</b> for
+not-a-number will be returned.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[pow(3,4)]</td><td>⇒</td><td>'81'</td></tr>
+  <tr><td>[pow(2,16)]</td><td>⇒</td><td>'65536'</td></tr>
+  <tr><td>[pow(10,6)]</td><td>⇒</td><td>'1000000'</td></tr>
+  <tr><td>[pow(2.5,3)]</td><td>⇒</td><td>'15.625'</td></tr>
+  <tr><td>[pow(9,0.5)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[pow(-2,3)]</td><td>⇒</td><td>'-8'</td></tr>
+  <tr><td>[pow(-2,4)]</td><td>⇒</td><td>'16'</td></tr>
+  <tr><td>[pow(-2,4.5)]</td><td>⇒</td><td>'nan'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#exp()">exp()</a>,
+<a href="#sqrt()">sqrt()</a>
+</mark>
+
+<hr>
+
+<!-- exp() -->
+<a name="exp()">
+exp(&lt;power&gt;)
+</a>
+<p>Return the result of raising the mathematical constant e to &lt;power&gt;. This is the opposite
+of taking the natural logarithm, ln().</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[exp(1)]</td><td>⇒</td><td>'2.718281828'</td></tr>
+  <tr><td>[exp(4)]</td><td>⇒</td><td>'54.598150033'</td></tr>
+  <tr><td>[ln(exp(6))]</td><td>⇒</td><td>'6'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#ln()">ln()</a>,
+<a href="#log()">log()</a>,
+<a href="#pow()">pow()</a>
+</mark>
+
+<hr>
+
+<!-- sqrt() -->
+<a name="sqrt()">
+sqrt(&lt;real number&gt;)
+</a>
+<p>Return the square root of &lt;real number&gt;. If &lt;real number&gt; is negative, <b>"nan"</b>
+for not-a-number will be returned.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[sqrt(0)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[sqrt(2)]</td><td>⇒</td><td>'1.414213562'</td></tr>
+  <tr><td>[sqrt(pow(8,2))]</td><td>⇒</td><td>'8'</td></tr>
+  <tr><td>[sqrt(-4)]</td><td>⇒</td><td>'nan'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#pow()">pow()</a>
+</mark>
+
+<hr>
+
+<!-- ln() -->
+<a name="ln()">
+ln(&lt;real number&gt;)
+</a>
+<p>Return the natural log (base e) of &lt;real number&gt;. If &lt;real number&gt; is negative or
+zero, <b>"nan"</b> for not-a-number will be returned.</p>
+
+<p>Use log() if you wish to take the log with a base other than e, as rounding errors with this
+function may result.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[ln(1)]</td><td>⇒</td><td>'0'</td></tr>
+  <tr><td>[ln(0)]</td><td>⇒</td><td>'nan'</td></tr>
+  <tr><td>[ln(exp(4))]</td><td>⇒</td><td>'4'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#exp()">exp()</a>,
+<a href="#log()">log()</a>
+</mark>
+
+<hr>
+
+<!-- neg() -->
+<a name="neg()">
+neg(&lt;real number&gt;)
+</a>
+<p>Return the negation of &lt;real number&gt;—that is, a positive number becomes negative and a
+negative number becomes positive. The negation of zero is always 0.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[neg(42)]</td><td>⇒</td><td>'-42'</td></tr>
+  <tr><td>[neg(-1.78)]</td><td>⇒</td><td>'1.78'</td></tr>
+  <tr><td>[neg(inf)]</td><td>⇒</td><td>'-inf'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#abs()">abs()</a>,
+<a href="#sign()">sign()</a>
+</mark>
+
+<hr>
+
+<!-- abs() -->
+<a name="abs()">
+abs(&lt;real number&gt;)
+</a>
+<p>Return the absolute value of &lt;real number&gt;—that is, a negative number becomes positive and
+all other numbers stay the same.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[abs(42)]</td><td>⇒</td><td>'42'</td></tr>
+  <tr><td>[abs(-1.78)]</td><td>⇒</td><td>'1.78'</td></tr>
+  <tr><td>[abs(0)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#neg()">neg()</a>,
+<a href="#sign()">sign()</a>
+</mark>
+
+<hr>
+
+<!-- sign() -->
+<a name="sign()">
+sign(&lt;real number&gt;)
+</a>
+<p>Determine the sign of &lt;real number&gt;. If positive, 1 will be returned. If negative, -1 will
+be returned. If zero, 0 will be returned.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[sign(42)]</td><td>⇒</td><td>'1'</td></tr>
+  <tr><td>[sign(-1.78)]</td><td>⇒</td><td>'-1'</td></tr>
+  <tr><td>[sign(0)]</td><td>⇒</td><td>'0'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#abs()">abs()</a>,
+<a href="#neg()">neg()</a>
+</mark>
+
+<hr>
+
+<!-- int() -->
+<a name="int()">
+int(&lt;string&gt;)
+</a>
+<p>Return the integer portion of &lt;string&gt;, which can be a whole number, floating-point
+(decimal) number, or a text string that begins with a number (and has other characters or symbols).
+All digits after the decimal point are truncated (and not rounded), and any specified e-notation is
+ignored.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[int(3.1419)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[int(7.82)]</td><td>⇒</td><td>'7'</td></tr>
+  <tr><td>[int(14th Street)]</td><td>⇒</td><td>'14'</td></tr>
+  <tr><td>[int(1e6)]</td><td>⇒</td><td>'1'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#float()">float()</a>,
+<a href="#round()">round()</a>,
+<a href="#signed()">signed()</a>
+</mark>
+
+<hr>
+
+<!-- float() -->
+<a name="float()">
+float(&lt;string&gt;)
+</a>
+<p>Return the floating-point portion of &lt;string&gt;, which can be a whole number, floating-point
+(decimal) number with exponents, or a text string that begins with a number (and has other
+characters or symbols). A 0 will be returned for any string that does not begin with a number.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[float(3.1419)]</td><td>⇒</td><td>'3.1419'</td></tr>
+  <tr><td>[float(7.82)]</td><td>⇒</td><td>'7.82'</td></tr>
+  <tr><td>[float(14th Street)]</td><td>⇒</td><td>'14'</td></tr>
+  <tr><td>[float(1e6)]</td><td>⇒</td><td>'100000'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#int()">int()</a>
+</mark>
+
+<hr>
+
+<!-- ceil() -->
+<a name="ceil()">
+ceil(&lt;real number&gt;)
+</a>
+<p>Return the integer portion of &lt;real number&gt;, rounding up.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[ceil(4.00)]</td><td>⇒</td><td>'4'</td></tr>
+  <tr><td>[ceil(4.01)]</td><td>⇒</td><td>'5'</td></tr>
+  <tr><td>[ceil(-2.77)]</td><td>⇒</td><td>'-2'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#floor()">floor()</a>,
+<a href="#round()">round()</a>
+</mark>
+
+<hr>
+
+<!-- floor() -->
+<a name="floor()">
+floor(&lt;real number&gt;)
+</a>
+<p>Return the integer portion of &lt;real number&gt;, rounding down.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[floor(4.00)]</td><td>⇒</td><td>'4'</td></tr>
+  <tr><td>[floor(3.99)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[floor(-2.77)]</td><td>⇒</td><td>'-3'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#ceil()">ceil()</a>,
+<a href="#round()">round()</a>
+</mark>
+
+<hr>
+
+<!-- angle() -->
+<a name="angle()">
+angle(&lt;x&gt;, &lt;y&gt;)
+</a>
+<p>Return the angle in degrees from 0 to 360 of a line drawn from <b>(0,0)</b> to <b>(x,y)</b> on a
+Cartesian graph. Angles begin at 0° where (x&nbsp;&gt;&nbsp;0) and (y&nbsp;=&nbsp;0), and increase
+as the line rotates counter-clockwise through the quadrants. The following diagram illustrates
+this graph, showing the quadrants labeled from I through IV.</p>
+
+<div style="overflow:hidden; margin: -1em 0">
+
+<svg style="float:left; margin-left:40px" width="340" height="340" viewBox="0 0 340 340"
+     xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <path fill="none" stroke="#ffaaaa" stroke-width="2" d="m 170,170 77.777,-77.777"/>
+    <path fill="none" stroke="#aaaaaa" stroke-width="2" d="M 60,170 H 280"/>
+    <path fill="none" stroke="#aaaaaa" stroke-width="2" d="M 170,60 V 280"/>
+    <text x="305" y="179" font-size="24" text-anchor="middle" fill="#aaaaaa">0°</text>
+    <text x="157" y="45" font-size="24" fill="#aaaaaa">90°</text>
+    <text x="28" y="179" font-size="24" text-anchor="middle" fill="#aaaaaa">180°</text>
+    <text x="150" y="313" font-size="24" fill="#aaaaaa">270°</text>
+    <text x="255" y="81" font-size="24" fill="#aaaaaa">45°</text>
+    <text x="224" y="127" font-family="serif" font-size="32" text-anchor="middle"
+          fill="#aaaaaa">I</text>
+    <text x="116" y="127" font-family="serif" font-size="32" text-anchor="middle"
+          fill="#aaaaaa">II</text>
+    <text x="116" y="235" font-family="serif" font-size="32" text-anchor="middle"
+          fill="#aaaaaa">III</text>
+    <text x="223" y="235" font-family="serif" font-size="32" text-anchor="middle"
+          fill="#aaaaaa">IV</text>
+  </g>
+</svg>
+
+<p>0 is directly positive on the X-axis, 90 is directly positive on the Y-axis, 180 is directly
+negative on the X-axis, and 270 is directly negative on the Y-axis.</p>
+
+<p>Coordinate <b>(7,7)</b> (shown in pink) is at an angle of 45°.</p>
+
+<p>Specifying 0 for both &lt;x&gt; and &lt;y&gt; will return 0.</p>
+
+</div>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[angle(7,7)]</td><td>⇒</td><td>'45'</td></tr>
+  <tr><td>[angle(-2,10)]</td><td>⇒</td><td>'101.309932474'</td></tr>
+  <tr><td>[angle(0,-8.5)]</td><td>⇒</td><td>'270'</td></tr>
+</table>
+
+<i>Coordinate System Conversions:</i>
+
+<p>To convert a pair of points from the Cartesian coordinate system to Polar coordinates, use
+dist2d() to find the distance from <b>(0,0)</b> and convert the value returned by angle() into
+radians. The following function pair converts a point from Cartesian <b>(x,y)</b> to Polar
+<b>(r,theta)</b>:</p>
+
+<p><b>[dist2d(0,0,x,y)]</b> , <b>[fmul(angle(x,y),fdiv(pi(),180))]</b></p>
+
+<p>To convert back from Polar <b>(r,theta)</b> back to Cartesian <b>(x,y)</b>, use the equation
+<b>"r&nbsp;*&nbsp;cos(theta)"</b> to find <b>'x'</b> and <b>"r&nbsp;*&nbsp;sin(theta)"</b> to find
+<b>'y'</b>:</p>
+
+<p><b>[fmul(r,cos(theta))]</b> , <b>[fmul(r,sin(theta))]</b></p>
+
+<mark>See also:
+<a href="#dist2d()">dist2d()</a>,
+<a href="#dist3d()">dist3d()</a>
+</mark>
+
+<hr>
+
+<!-- dist2d() -->
+<a name="dist2d()">
+dist2d(&lt;x1&gt;, &lt;y1&gt;, &lt;x2&gt;, &lt;y2&gt;)
+</a>
+<p>Return the distance between points <b>(x1,y1)</b> and <b>(x2,y2)</b> on a 2-dimensional
+Cartesian graph, using the following equation:</p>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msqrt>
+    <mrow>
+      <msup><mrow><mo>(</mo><mi>x</mi><mn>2</mn><mo>-</mo><mi>x</mi><mn>1</mn><mo>)</mo></mrow>
+        <mn>2</mn>
+      </msup>
+      <mo>+</mo>
+      <msup><mrow><mo>(</mo><mi>y</mi><mn>2</mn><mo>-</mo><mi>y</mi><mn>1</mn><mo>)</mo></mrow>
+        <mn>2</mn>
+      </msup>
+    </mrow>
+  </msqrt>
+</math>
+</center>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[dist2d(0,0,1,1)]</td><td>⇒</td><td>'1.414213562'</td></tr>
+  <tr><td>[dist2d(0,0,3,4)]</td><td>⇒</td><td>'5'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#angle()">angle()</a>,
+<a href="#dist3d()">dist3d()</a>
+</mark>
+
+<hr>
+
+<!-- dist3d() -->
+<a name="dist3d()">
+dist3d(&lt;x1&gt;, &lt;y1&gt;, &lt;z1&gt;, &lt;x2&gt;, &lt;y2&gt;, &lt;z2&gt;)
+</a>
+<p>Return the distance between points <b>(x1,y1,z1)</b> and <b>(x2,y2,z2)</b> on a 3-dimensional
+Cartesian graph, using the following equation:</p>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msqrt>
+    <mrow>
+      <msup><mrow><mo>(</mo><mi>x</mi><mn>2</mn><mo>-</mo><mi>x</mi><mn>1</mn><mo>)</mo></mrow>
+        <mn>2</mn>
+      </msup>
+      <mo>+</mo>
+      <msup><mrow><mo>(</mo><mi>y</mi><mn>2</mn><mo>-</mo><mi>y</mi><mn>1</mn><mo>)</mo></mrow>
+        <mn>2</mn>
+      </msup>
+      <mo>+</mo>
+      <msup><mrow><mo>(</mo><mi>z</mi><mn>2</mn><mo>-</mo><mi>z</mi><mn>1</mn><mo>)</mo></mrow>
+        <mn>2</mn>
+      </msup>
+    </mrow>
+  </msqrt>
+</math>
+</center>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[dist3d(0,0,0,1,1,1)]</td><td>⇒</td><td>'1.732050808'</td></tr>
+  <tr><td>[dist3d(0,0,0,4,8,19)]</td><td>⇒</td><td>'21'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#angle()">angle()</a>,
+<a href="#dist2d()">dist2d()</a>
+</mark>
+
+<hr>
+
+<!-- round() -->
+<a name="round()">
+round(&lt;real number&gt;)<br>
+round(&lt;real number&gt;, &lt;decimal places&gt;)<br>
+</a>
+<p>Round an integer or floating-point number to the nearest integer value, or up to the number of
+specified &lt;decimal places&gt;. If the number of decimal places exceeds the original number,
+zeroes will be added as placeholders.</p>
+
+<p>&lt;decimal places&gt; can only be as large as the system-configured number of displayed decimal
+places.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[round(3.1419)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[round(-7.82)]</td><td>⇒</td><td>'-8'</td></tr>
+  <tr><td>[round(10.309,2)]</td><td>⇒</td><td>'10.31'</td></tr>
+  <tr><td>[round(21.478,5)]</td><td>⇒</td><td>'21.47800'</td></tr>
+  <tr><td>[round(sqrt(2),4)]</td><td>⇒</td><td>'1.4142'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#ceil()">ceil()</a>,
+<a href="#floor()">floor()</a>,
+<a href="#int()">int()</a>,
+<a href="#round()">round()</a>
+</mark>
+
+<hr>
+
+<!-- clamp() -->
+<a name="clamp()">
+clamp(&lt;number&gt;, &lt;low&gt;, &lt;high&gt;)
+</a>
+<p>Return &lt;number&gt; if it falls between the range &lt;low&gt; and &lt;high&gt; inclusive.
+Otherwise, return &lt;low&gt; if &lt;number&gt; is less than &lt;low&gt;, or &lt;high&gt; if
+&lt;number&gt; is greater than &lt;high&gt;. Numbers can be either integers or floating-point.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[clamp(12,15,25)]</td><td>⇒</td><td>'15'</td></tr>
+  <tr><td>[clamp(22,15,25)]</td><td>⇒</td><td>'22'</td></tr>
+  <tr><td>[clamp(27,15,25)]</td><td>⇒</td><td>'25'</td></tr>
+</table>
+
+<i>Errors:</i>
+
+<p><b>"#-1 Invalid range."</b> - The value &lt;low&gt; was specified as greater than
+&lt;high&gt;.</p>
+
+<mark>See also:
+<a href="#between()">between()</a>
+</mark>
+
+<hr>
+
+<!-- log() -->
+<a name="log()">
+log(&lt;real number&gt;)<br>
+log(&lt;real number&gt;, &lt;base&gt;)<br>
+</a>
+<p>Return the logarithm (base 10) of &lt;real number&gt;. If &lt;base&gt; is specified, then return
+the log base &lt;base&gt; of &lt;real number&gt; instead. To take the natural log, either use
+<a href="#e()">e()</a> as &lt;base&gt;, or use the ln() function instead.</p>
+
+<p>If either &lt;real number&gt; or &lt;base&gt; is negative or zero, <b>"nan"</b> for not-a-number
+will be returned.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[log(100)]</td><td>⇒</td><td>'2'</td></tr>
+  <tr><td>[log(1000)]</td><td>⇒</td><td>'3'</td></tr>
+  <tr><td>[log(128,2)]</td><td>⇒</td><td>'7'</td></tr>
+  <tr><td>[log(81,3)]</td><td>⇒</td><td>'4'</td></tr>
+  <tr><td>[log(150,e())]</td><td>⇒</td><td>'5.010635295'</td></tr>
+  <tr><td>[log(2,-4)]</td><td>⇒</td><td>'nan'</td></tr>
+</table>
+
+<mark>See also:
+<a href="#exp()">exp()</a>,
+<a href="#ln()">ln()</a>
+</mark>
+
+<hr>
+
+<!-- factor() -->
+<a name="factor()">
+factor(&lt;integer&gt;)
+</a>
+<p>Return the prime factorization of &lt;integer&gt; as a list of integers that, when mulitplied
+together, will result in the original integer.</p>
+
+<p>Due to the computation time involved, POW_FUNCTIONS is required for factoring integers larger
+than 2147483647.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[factor(15)]</td><td>⇒</td><td>'3 5'</td></tr>
+  <tr><td>[factor(48)]</td><td>⇒</td><td>'2 2 2 2 3'</td></tr>
+  <tr><td>[factor(-154)]</td><td>⇒</td><td>'-2 7 11'</td></tr>
+  <tr><td>[factor(1999)]</td><td>⇒</td><td>'1999'</td></tr>
+</table>
+
+<hr>
+
+<!-- hash() -->
+<a name="hash()">
+hash(&lt;key&gt;, &lt;seed&gt;, …)
+</a>
+<p>Return the hash of &lt;key&gt; for a given &lt;seed&gt; as an unsigned 32-bit number. Additional
+pairs of &lt;key&gt; and &lt;seed&gt; can be specified, up to a maximum of 100 function arguments.
+Pairs are hashed individually, with their results binary-XOR'd together as a single returned
+value.</p>
+
+<p>For each &lt;seed&gt; value, hash() produces a deterministic, pseudo-random 1:1 permutation of
+&lt;key&gt; such that every possible 32-bit value of &lt;key&gt; is represented in the output. In
+other words, if one were to input keys 0 through 4294967295 consecutively for the same
+&lt;seed&gt;, each value would appear in the output once—albeit in a random order.
+
+<p>To make the most of hash() when coding, choose a random seed ahead of time and specify it in the
+hash() function as a hard value; i.e. the &lt;key&gt; is the part that varies. Use
+<b>[rand(4294967296)]</b> to pick a good seed.</p>
+
+<p>Both signed and unsigned 32-bit integers can be specified for &lt;key&gt; and &lt;seed&gt;.
+Signed integers will be converted to unsigned prior to the hash operation. Larger integers will
+simply wrap around the 32-bit space.</p>
+
+<i>Examples:</i>
+
+<table class=func>
+  <tr><td>[hash(0,1704230862)]</td><td>⇒</td><td>'1132851078'</td></tr>
+  <tr><td>[hash(1,1704230862)]</td><td>⇒</td><td>'1958822564'</td></tr>
+  <tr><td>[hash(2,1704230862)]</td><td>⇒</td><td>'3248781611'</td></tr>
+  <tr><td>[hash(3,1704230862)]</td><td>⇒</td><td>'3055617248'</td></tr>
+  <tr><td>[hash(mid(v(#),1,20),1704230862)]</td><td>⇒</td><td>Returns a unique but constant value
+  per object dbref#.</td></tr>
+</table>
+
+<i>Errors:</i>
+
+<p><b>"#-1 Wrong number of arguments."</b> - The number of function arguments specified is not
+a multiple of 2.</p>
+
+<mark>See also:
+<a href="#lrand()">lrand()</a>,
+<a href="#rand()">rand()</a>,
+<a href="#scramble()">scramble()</a>,
+<a href="#shuffle()">shuffle()</a>
+</mark>
+
+<hr>
+

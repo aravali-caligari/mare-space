@@ -1,10 +1,11 @@
 # Purpose of this README:
 # A general format template for legacy softcode that has converted to MARE2
-# Some attributes may be 'built-in' and not need to be defined with @defattr, if it is missing from the legacy metadata attribute definitions section.
 
 #
 # MARE2 Conversion Template follows here
 #
+
+# `<Object Name>`
 
 ## Attribute list (MARE2 conversion template)
 
@@ -24,10 +25,13 @@
 
 ---cut---
 ( @defattr <Object Name>/<attribute name>=<flags> )
+or
+( @defattr <Object Name>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
-( @@ Built-in attribute, no need to define ) if the attribute is built-in and has no flags.
+( @@ Built-in attribute, no need to define ) if the attribute is built-in.
 ---cut---
-&<attribute name> <Object Name>=<converted attribute value>
+( &<attribute name> <Object Name>=<converted attribute value> )
+( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
 ---cut---
 
 @@ ATTRIBUTE: <Object Name>/<next attribute name>
@@ -35,10 +39,14 @@ or
 
 ---cut---
 ( @defattr <Object Name>/<next attribute name>=<flags> )
+or
+( @defattr <Object Name>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
-( @@ Built-in attribute, no need to define ) if the attribute is built-in and has no flags.
+( @@ Built-in attribute, no need to define ) if the attribute is built-in.
 ---cut---
-&<next attribute name> <Object Name>=<converted attribute value>
+( &<next attribute name> <Object Name>=<converted attribute value> )
+or
+( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
 ---cut---
 
 ... additional converted attributes ...

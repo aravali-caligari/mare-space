@@ -1,5 +1,4 @@
 # Example of a completed legacy softcode dump in markdown analysis + conversion instructions format
-# The Purpose field should be filled out after analyzing the legacy softcode for clues about the object's role in the simulation, and any relevant context.
 
 # 
 # Template for a legacy softcode dump in markdown format follows here
@@ -13,7 +12,7 @@
 
 ## Purpose
 
-<A Purpose description of the object goes here>
+<description of the object purpose goes here>
 
 ## Meta data
 

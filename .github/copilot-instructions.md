@@ -14,7 +14,8 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
   - `Incoming/`: Individual raw examine dumps as text files that may contain multiple objects per file.
   - `Processed/`: The same raw examine dump files after they are parsed, and moved from 'Incoming/' to this folder.
 - `object_artifacts/`: area to store artifacts like the parsed object metadata, english analysis descriptions, converted MARE2 softcode. Subfolders per object. Read `README.Template.Folder.File.Structure.md` for details.
-- `TinyMARE II help documentation.md`: authoritative MARE2/TinyMARE programming syntax (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
+- `TinyMARE II Helptext - Programming.html` - Authoritative MARE2/TinyMARE programming syntax. (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
+- `TinyMARE II Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.Format.of.Examine.md`: struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.
 - `README.Format.Legacy.Markdown.md`: template + example for legacy softcode dumps in markdown format
 - `README.Format.English.Description.md`: template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
@@ -42,17 +43,25 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` with `case`, `default`, `break`, `endswitch`.
 - `@wait N=...` → `wait N` then the block.
 - `@foreach v(list)=...` → `for i__=v(list)` ... `done`.
-- `$command` definitions: move them behind the lock and convert to `:/[lock]/N$command:` where `N` matches TinyMARE II command arg patterns (1/2/3).
-- Rename attribute names containing `?` or `+` to `_` and update all references.
+- `$command` definitions: move them behind the lock and convert to `:/[lock]/N$command:` where `N` matches TinyMARE II command arg patterns listed here:
+  - 1=No or 1 args (e.g. `$command` or `$command *`)
+  - 2=Two args in the pattern *=* (e.g. `$command *=*`)
+  - 3=Three or more args in the pattern `*=*,*,...` (e.g. `$command *=*,*`) or it has extra static args before the first `*` (e.g. `$command static *=*`)
+- Command definitions in TinyMARE II only support one static command word followed by args. Therefore:
+- If a command definition has extra static args then define a new attribute to handle dispatching based on those subcommand static args.
+  - e.g., `origattrib: $command static *=*` becomes a new dispatch attribute `&newattrib object=:3$command:<Dispatch switch code>` that checks the static args and calls the appropriate original attribute, passing along the remaining args.
+  - Name the new dispatch attribute something meaningful related to the command being dispatched.
+  - e.g. for `$airlock open *=*` and `$airlock close *=*`, create a new attribute `&airlock_control object=:3$airlock:<dispatch code>`. 
 - Any attribute names that begin with a number should be prefixed with 'N_' and all references updated accordingly.
+- Any attributes 
 
 ## Formatting expectations for converted snippets
 
 - Use indentation for blocks; use `else`/`endif` (do not use `{}` for `if` blocks).
 - No spaces around `=` and no spaces after commas in argument lists.
 - If attribute flags are known, emit them explicitly: `@defattr <obj>/<attr>=<flags>` then `&<attr> <obj>=...`.
+- If an attribute definition exists but is missing from the Attribute List section, define it with `@defattr` with any converted code.
 - If a new attribute to handle a dispatch or state is needed, define it with `@defattr <obj>/<newattr>=inherit program` before use.
 - If a markdown object file has metadata with `Location: ...(#<id>R)`, start conversion with `@@ Move to location so next commands are targeted on the right object.`
 `@teleport me=#<id>`.
-- Separate converted attributes with: blank line, a line containing `@@@@@@@@ NEXT ATTRIBUTE @@@@@@@@`, blank line.
-
+- Preserve comments starting with `@@` and `---cut---` lines to separate attribute sections.

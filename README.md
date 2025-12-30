@@ -40,7 +40,8 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 
 - `README.*.md` - Various documentation, templates, and examples.
 
-- `TinyMARE II help documentation.md` - Authoritative MARE2/TinyMARE programming syntax.
+- `TinyMARE II Helptext - Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
+- `TinyMARE II Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.softcode.manual.md` - SpaceMARE-specific `@` commands and datatypes.
 - `legacy_MARE_helptext.html` - Legacy MARE I command/function help.
 - `README.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
