@@ -74,8 +74,15 @@ Use `2$` when the natural syntax is “key=value” and you only need one `=` sp
 
 - `command <one word>=<value>`
 - `command <arg1>=<arg2>,<arg3>,<arg4>...`
+- `command <one word>`
+
+### Special case for subcommand dispatching
+
+Because TinyMARE II only supports **one static command word**, multiple attributes with legacy patterns like:
 - `command <subcommand(s)> <arg1>=<arg2>,<arg3>,<arg4>...`
-- Also commonly used when you need to parse/dispatch **extra static words** after the command (subcommands), even if you don’t actually have 3+ arguments.
+- `command <multi subcommmand words>`
+- `commmand <another subcommand> <arg1>=<arg2>`
+- These cannot be represented as two or more separate `$command ...` commands directly. Instead, create **one** `3$command` attribute that dispatches on the extra static words even if you don't have 3+ args. 
 
 ### Softcode binding (common convention)
 - `v(0)` = left side (also often used as a subcommand selector or “target”)
