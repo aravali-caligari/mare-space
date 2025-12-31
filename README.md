@@ -42,11 +42,14 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 
 - `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
 - `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
-- `README.softcode.manual.md` - SpaceMARE-specific `@` commands and datatypes.
+- `README.Space.softcode.manual.md` - SpaceMARE-specific `@` commands, functions, and datatypes.
 - `README.legacy_MARE_helptext.html` - Legacy MARE I command/function help.
-- `README.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
+- `README.Space.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
 - `README.Template.Folder.File.Structure.md` - Recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.
-- `README.Format.of.Examine.md` - Struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.
-- `README.Format.Legacy.Markdown.md` - Template + example for legacy softcode dumps in markdown format.
-- `README.Format.English.Description.md` - Template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
-- `README.Format.Converted.Code.Format.md` - Template + example for writing converted MARE2 code when asked to 'Convert' legacy softcode attribute lists.
+- `README.Format.Examine.md` - Struture + example for the incoming object 'examine' structure, how to parse it, make any fixes for multi-lines, and prepare it for conversion to legacy markdown format.
+- `README.Format.MetaData.md` - Template + example for legacy softcode dumps in markdown format used as part of being asked to 'examine'.
+- `README.Format.Analysis.English.Description.md` - Template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
+- `README.Format.Converted.Code.md` - Template + example for writing converted MARE2 code when asked to 'Convert' legacy softcode attribute lists.
+- `README.How.Command.Args.Work.md` - Explanation of how TinyMARE II `$command` argument patterns (`1$`, `2$`, `3$`) work, including locks, player locks, and ignore unhandled signals.
+
+

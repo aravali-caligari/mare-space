@@ -1,5 +1,8 @@
 # Purpose of this README: Shows an example of 'examine' output from MARE before its converted to Legacy Markdown format
-# Some attributes may be 'built-in' and missing from the Attribute definitions section but still present in the Attribute list.
+
+Some attributes may be 'built-in' and missing from the Attribute definitions section but still present in the Attribute list.
+
+All 'Attribute list' entries are expected to have a single-line value per attribute (i.e. no multi-line values). If a dumpfile contains multi-line attribute values, those should be converted to single-line values in the 'examine' output file by replacing newlines with spaces before converting to Legacy Markdown format.
 
 #
 # Example of the 'examine' output structure follows here
@@ -49,6 +52,32 @@ cloakhelp:$cloakhelp:/[v(eng_man)]/@pemit %#=CLOAK ON PASSKEY=<passkey> : Activa
 Location: PCS Equipment Room(#50723R)
 Home: Helm Equipment Room(#11848R)
 
-#
+--- 
+## Example of 'examine' output that incorrectly includes multi-line attribute values (this is NOT the expected format). Change newlines to spaces to convert to single-line values in the 'examine' output file
+
+Cloak Parent(#54808h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 1500
+Plane: 0
+Created: Sun Nov 27 05:53:55 1994
+Modified: Sun Dec 11 18:01:51 1994
+Attribute definitions:
+  cloakhelp: inherit program
+  passkey
+  set_passkey1: inherit program
+  set_passkey2: inherit program
+  cloak_on: inherit program
+  cloak_off: inherit program 
+Attribute list:
+cloak_on:$cloak on passkey=*:/[v(eng_man)]/@swi
+[get(s([v(us)]/vismult))]=-1,{@pemit %#=Cloaking device
+already on.},{@swi [v(passkey)]=00[v(0)],{@vismult [v(us)]=-1;@emit
+Cloaking device engaged.},{@pemit %#=Invalid cloak passkey.}}
+set_passkey1:$cloak passkey *=*:/[v(eng_man)]/@swi [v(passkey)]=00[v(0)],{@passkey me=00[v(1)];@pemit %#=Cloaking device passkey - Set.},{@pemit 
+%#=Cloaking device passkey - Invalid.}
+set_passkey2:$initial passkey=*:/[v(eng_man)]/print reached here
+
+---
 # End of 'examine' output example
 #

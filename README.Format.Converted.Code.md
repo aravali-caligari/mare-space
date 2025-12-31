@@ -77,7 +77,7 @@ or
 @@ ----------------------------------
 
 ---cut---
-@@ Built-in attribute, no need to define
+@@ Built-in attribute, no need to @defattr
 ---cut---
 &OSucc #25980=fires up %p engines and blasts out into the void with a tremendous roar.
 ---cut---
@@ -95,7 +95,7 @@ or
 @@ ----------------------------------
 
 ---cut---
-@@ Built-in attribute, no need to define
+@@ Built-in attribute, no need to @defattr
 ---cut---
 &OFail #25980=contemplates suicide by stepping into the void,but then %s decides not to.
 ---cut---
@@ -104,7 +104,7 @@ or
 @@ ---------------------------------
 
 ---cut---
-@@ Built-in attribute, no need to define
+@@ Built-in attribute, no need to @defattr
 ---cut---
 &Fail #25980=You would die if you stepped out there,you decide not to.
 ---cut---
@@ -113,7 +113,7 @@ or
 @@ ---------------------------------
 
 ---cut---
-@@ Built-in attribute, no need to define
+@@ Built-in attribute, no need to @defattr
 ---cut---
 &Desc #25980=You see a hangar door that leads out into Space.
 ---cut---
@@ -122,7 +122,7 @@ or
 @@ -----------------------------------
 
 ---cut---
-@@ Built-in attribute, no need to define
+@@ Built-in attribute, no need to @defattr
 ---cut---
 &OnSucc #25980=
 @thrust %#=0
