@@ -30,7 +30,7 @@ print You said: [v(0)]
 
 ### Typical user input patterns
 - `command`
-- `command <anything...>` (everything after the first space and before an '=' sign is treated as one argument)
+- `command <anything...>` (everything after the first space and before an  optional '=' sign is treated as one argument)
 
 ### Softcode binding
 - `v(0)` = the optional argument string (may be empty)
@@ -71,13 +71,16 @@ Use `2$` when the natural syntax is “key=value” and you only need one `=` sp
 ## `3$` — `*=*,*,...` form (and the “dispatcher” workhorse)
 
 ### Typical user input patterns
-- `command <left>=<right>,<arg3>,<arg4>...`
+
+- `command <one word>=<value>`
+- `command <arg1>=<arg2>,<arg3>,<arg4>...`
+- `command <subcommand(s)> <arg1>=<arg2>,<arg3>,<arg4>...`
 - Also commonly used when you need to parse/dispatch **extra static words** after the command (subcommands), even if you don’t actually have 3+ arguments.
 
 ### Softcode binding (common convention)
-- `v(0)` = left side (often used as a subcommand selector or “target”)
-- `v(1)` = first value after `=`
-- `v(2)` = second value after `,`
+- `v(0)` = left side (also often used as a subcommand selector or “target”)
+- `v(1)` = first value after `=` (if any)
+- `v(2)` = second value after `,` (if any)
 - etc.
 
 ### Example: real 3+ args
@@ -95,8 +98,9 @@ Because TinyMARE II only supports **one static command word**, a legacy pattern 
 
 - `$airlock open <target>=<code>`
 - `$airlock close <target>=<code>`
+- `$airlock off`
 
-cannot be represented as two separate `$airlock ...` commands directly. Instead, create **one** `3$airlock` attribute that dispatches on the extra static words.
+cannot be represented as two or more separate `$airlock ...` commands directly. Instead, create **one** `3$airlock` attribute that dispatches on the extra static words.
 
 ### Example dispatcher shape
 ```mud
@@ -105,6 +109,7 @@ cannot be represented as two separate `$airlock ...` commands directly. Instead,
 @@ - "airlock open <target>=<code>"
 @@ - "airlock close <target>=<code>"
 @@ - "airlock set passkey=<newpasskey>"
+@@ - "airlock off"
 @@ - "airlock reset passkey=<oldpasskey>,<newpasskey>"
 switch v(0)
   case open
@@ -118,6 +123,9 @@ switch v(0)
     break
   case reset passkey
     call me/airlock_reset_passkey=v(1),v(2)
+    break
+  case off
+    call me/airlock_off
     break
   default
     print Invalid subcommand: [v(0)]
@@ -134,7 +142,7 @@ The dispatcher pattern is very common in legacy softcode conversion, since many 
 
 ## Quick selection guide
 
-- Use `1$` if: `command` or `command <free text>`
+- Use `1$` if: `command` or `command <free text without '='>`
 - Use `2$` if: `command <a>=<b>`
 - Use `3$` if: `command <a>=<b>,<c>...` **or** you need `command <subcommand> ...` style dispatching
 
@@ -145,6 +153,7 @@ The dispatcher pattern is very common in legacy softcode conversion, since many 
 In the legacy code, many commands used optional locking syntax with the colon and slash (`:/`) characters to indicate that the command should only run if the caller had permission to do so, as evaluated by the target object using the expression after the slash and before the 2nd slash.
 
 ### Example legacy code with locking syntax
+
 ```mud
 oldcommand me=:/[get(link(me),security)]/$oldcommand:<old logic>
 ```

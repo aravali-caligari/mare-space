@@ -18,7 +18,7 @@ This file describes how to handle legacy softcode parsing, analysis, and convers
 - `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax. (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
 - `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.Format.Examine.md`: struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.
-- `README.Format.Metadatamd`: template + example for legacy softcode dumps in markdown format
+- `README.Format.Metadata.md`: template + example for legacy softcode dumps in markdown format
 - `README.Format.Analysis.English.Description.md`: template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
 - `README.Format.Converted.Code.md`: template + example for writing converted MARE2 code when asked to 'Convert' legacy softcode attribute lists.
 - `README.Template.Folder.File.Structure.md`: recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.
@@ -45,9 +45,10 @@ This file describes how to handle legacy softcode parsing, analysis, and convers
 - substitutions: `[ ... ]`, variables `%0-%9` / `v(0)-v(9)`
 - locks: `:/[ ... ]/` (lock failure prevents execution)
 - multi-command lines: `;` splits commands (unless inside `{ ... }`)
-- `@pemit %#=...` → `print ...` (no quotes).
+- `@pemit %#=...` → `print ...` (no quotes). This conversion applies to only '@pemit %#=...' where the target is always `%#` (the caller). Other forms of `@pemit` with different targets should be preserved as-is.
+- `@if cond=...` → `if cond` then the block, ending with `endif`.
 - `@tr <obj>/<attr>[=<args>]` → `call <obj>/<attr>[=<args>]`.
-- `@swi/@switch cond,{...},{...}` → structured `switch cond` with `case`, `default`, `break`, `endswitch`.
+- `@swi/@switch cond,{...},{...}` → structured `switch cond` with `case`, `default`, `break`, `endswitch`. See `README.TinyMARE.II.Helptext.Programming.html` for exact syntax.
 - `@wait N=...` → `wait N` then the block.
 - `@foreach v(list)=...` → `for i__=v(list)` ... body with `set 0=v(i__)` ... `done`.
 - `$command` definitions: Read `README.How.Command.Args.Work.md` for details on understanding and converting `$command` attributes with different argument patterns (`1$`, `2$`, `3$`), locks, player locks, and ignore unhandled signals.
@@ -56,11 +57,10 @@ This file describes how to handle legacy softcode parsing, analysis, and convers
 
 - Use indentation for blocks; use `else`/`endif` (do not use `{}` for `if` blocks).
 - No spaces around `=` in code and no spaces after commas in argument lists.
-- If attribute flags are known, emit them explicitly: `@defattr <obj>/<attr>=<flags>` then `&<attr> <obj>=...`.
+- If attribute flags are known, emit them explicitly: `@defattr #<id>/<attr>=<flags>` then `&<attr> #<id>=...`. `<id>` is the object dbref ID number without any suffix like `R` or `h`.
 - If an attribute definition exists but is missing from the Attribute List section, define it with `@defattr` with any converted code.
-- If a new attribute to handle a dispatch or state is needed, define it with `@defattr <obj>/<newattr>=inherit program` before use.
-- If a markdown object file has metadata with `Location: ...(#<id>R)`, start conversion with `@@ Move to location so next commands are targeted on the right object.`
-`@teleport me=#<dbref>`.
+- If a new attribute to handle a dispatch or state is needed, define it with `@defattr #<id>/<newattr>=inherit program` before use.
+- If a markdown object file has metadata with `Location: ...(#<id>R)`, start conversion with `@@ Teleport to object location as a convenience` and `@teleport me=#<id>`.
 - Preserve comments starting with `@@` and `---cut---` lines to separate attribute sections.
 
 ## Additional resources
