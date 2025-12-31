@@ -38,12 +38,12 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 
 - `legacyspacesim/` - Legacy Space Sim C sources (reference only for understanding legacy space functions and commands used by softcode).
 
-- `README.*.md` and `*.html` - Various documentation, templates, and examples.
+- `README.*.md` and `README.*.html` - Various documentation, templates, and examples.
 
-- `TinyMARE II Helptext - Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
-- `TinyMARE II Helptext.html` - General TinyMARE II helptext including commands and functions.
+- `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
+- `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.softcode.manual.md` - SpaceMARE-specific `@` commands and datatypes.
-- `legacy_MARE_helptext.html` - Legacy MARE I command/function help.
+- `README.legacy_MARE_helptext.html` - Legacy MARE I command/function help.
 - `README.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
 - `README.Template.Folder.File.Structure.md` - Recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.
 - `README.Format.of.Examine.md` - Struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.

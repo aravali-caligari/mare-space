@@ -14,8 +14,9 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
   - `incoming/`: Individual raw examine dumps as text files that may contain multiple objects per file.
   - `processed/`: The same raw examine dump files after they are parsed, and moved from `incoming/` to this folder.
 - `object_artifacts/`: area to store artifacts like the parsed object metadata, english analysis descriptions, converted MARE2 softcode. Subfolders per object. Read `README.Template.Folder.File.Structure.md` for details.
-- `TinyMARE II Helptext - Programming.html` - Authoritative MARE2/TinyMARE programming syntax. (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
-- `TinyMARE II Helptext.html` - General TinyMARE II helptext including commands and functions.
+- `README.legacy_MARE_helptext.html`: legacy MARE1 command/function help.
+- `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax. (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
+- `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.Format.of.Examine.md`: struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.
 - `README.Format.Legacy.Markdown.md`: template + example for legacy softcode dumps in markdown format
 - `README.Format.English.Description.md`: template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
@@ -24,7 +25,6 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
 - `README.legacy.conversions.md`: SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
 - `README.softcode.manual.md`: SpaceMARE-specific `@` commands and datatypes.
 - `legacyspacesim/`: legacy Space Sim C source files (reference only for understanding legacy space functions and commands used by softcode).
-- `legacy_MARE_helptext.html`: legacy MARE1 command/function help.
 
 ## How to handle softcode conversion tasks
 

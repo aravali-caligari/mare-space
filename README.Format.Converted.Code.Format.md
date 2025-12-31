@@ -12,8 +12,8 @@
 ```mud
 
 @@ -----------------------------
-@@ OBJECT: <Object Name>
-@@ LOCATION: <Location Name>
+@@ OBJECT: <Object Name>(#dbref)
+@@ LOCATION: <Location Name>(#dbref)
 @@ -----------------------------
 
 ---cut---
@@ -24,13 +24,13 @@
 @@ -----------------------------
 
 ---cut---
-( @defattr <Object Name>/<attribute name>=<flags> )
+( @defattr <Object dbref>/<attribute name>=<flags> )
 or
-( @defattr <Object Name>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
+( @defattr <Object dbref>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
 ( @@ Built-in attribute, no need to define ) if the attribute is built-in.
 ---cut---
-( &<attribute name> <Object Name>=<converted attribute value> )
+( &<attribute name> <Object dbref>=<converted attribute value> )
 ( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
 ---cut---
 
@@ -38,13 +38,13 @@ or
 @@ -----------------------------
 
 ---cut---
-( @defattr <Object Name>/<next attribute name>=<flags> )
+( @defattr <Object dbref>/<next attribute name>=<flags> )
 or
-( @defattr <Object Name>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
+( @defattr <Object dbref>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
 ( @@ Built-in attribute, no need to define ) if the attribute is built-in.
 ---cut---
-( &<next attribute name> <Object Name>=<converted attribute value> )
+( &<next attribute name> <Object dbref>=<converted attribute value> )
 or
 ( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
 ---cut---
@@ -64,8 +64,8 @@ or
 
 ```mud
 @@ -----------------------------
-@@ OBJECT: Space Exit Parent
-@@ LOCATION: Door Equipment Room
+@@ OBJECT: Space Exit Parent(#25980)
+@@ LOCATION: Door Equipment Room(#28607)
 @@ -----------------------------
 
 ---cut---
@@ -79,16 +79,16 @@ or
 ---cut---
 @@ Built-in attribute, no need to define
 ---cut---
-&OSucc Space Exit Parent=fires up %p engines and blasts out into the void with a tremendous roar.
+&OSucc #25980=fires up %p engines and blasts out into the void with a tremendous roar.
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/eject
 @@ ----------------------------------
 
 ---cut---
-@defattr Space Exit Parent/eject=inherit program
+@defattr #25980/eject=inherit program
 ---cut---
-&eject Space Exit Parent=call me/OnSucc
+&eject #25980=call me/OnSucc
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/OFail
@@ -97,7 +97,7 @@ or
 ---cut---
 @@ Built-in attribute, no need to define
 ---cut---
-&OFail Space Exit Parent=contemplates suicide by stepping into the void,but then %s decides not to.
+&OFail #25980=contemplates suicide by stepping into the void,but then %s decides not to.
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/Fail 
@@ -106,7 +106,7 @@ or
 ---cut---
 @@ Built-in attribute, no need to define
 ---cut---
-&Fail Space Exit Parent=You would die if you stepped out there,you decide not to.
+&Fail #25980=You would die if you stepped out there,you decide not to.
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/desc
@@ -115,7 +115,7 @@ or
 ---cut---
 @@ Built-in attribute, no need to define
 ---cut---
-&Desc Space Exit Parent=You see a hangar door that leads out into Space.
+&Desc #25980=You see a hangar door that leads out into Space.
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/OnSucc
@@ -124,7 +124,7 @@ or
 ---cut---
 @@ Built-in attribute, no need to define
 ---cut---
-&OnSucc Space Exit Parent=
+&OnSucc #25980=
 @thrust %#=0
 @linposx %#=xpos([link(me)],%#,5)
 @linposy %#=ypos([link(me)],%#,5)
