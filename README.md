@@ -29,16 +29,16 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 
 - `legacy_examine_dumps/` - Text files containing raw legacy softcode dumps (if any) used as sources for parsing. May contain multiple objects per file.
 - `object_artifacts/` - Parsed objects from the legacy examine dumps, with subfolders per object containing:
-  - `examine.<object_name>.txt` - Incoming object 'examine' structure before converting the object to legacy markdown format.
-  - `metadata.<object_name>.md` - Legacy object in metadata markdown format.
-  - `analysis.<object_name>.md` - English logic description of the legacy attribute list.
-  - `converted.<object_name>.md` - Converted MARE2 code.
+  - `1-examine.<object_name>.txt` - Incoming object 'examine' structure before converting the object to legacy markdown format.
+  - `2-metadata.<object_name>.md` - Legacy object in metadata markdown format.
+  - `3-analysis.<object_name>.md` - English logic description of the legacy attribute list.
+  - `4-converted.<object_name>.md` - Converted MARE2 code.
 
 - `.github/` - Repo automation + AI agent instructions.
 
 - `legacyspacesim/` - Legacy Space Sim C sources (reference only for understanding legacy space functions and commands used by softcode).
 
-- `README.*.md` - Various documentation, templates, and examples.
+- `README.*.md` and `*.html` - Various documentation, templates, and examples.
 
 - `TinyMARE II Helptext - Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
 - `TinyMARE II Helptext.html` - General TinyMARE II helptext including commands and functions.
