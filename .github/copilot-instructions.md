@@ -9,7 +9,7 @@ This file describes how to handle legacy softcode parsing, analysis, and convers
 
 ## Where to look
 
-- Ignore anything in the `backup of legacy softcode` folder. This is just legacy reference material and not to be used by the instructions below.
+- Ignore anything in the `.backup of legacy softcode/` folder. This is just legacy reference material and not to be used by the instructions below.
 - `legacy_examine_dumps/`: Folders and files containing raw legacy softcode dumps (if any) used as sources for parsing. May contain multiple objects per file.
   - `incoming/`: Individual raw examine dumps as text files that may contain multiple objects per file.
   - `processed/`: The same raw examine dump files after they are parsed, and moved from `incoming/` to this folder.
