@@ -46,6 +46,8 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 - `README.Space.softcode.manual.md` - SpaceMARE-specific `@` commands, functions, and datatypes.
 - `README.legacy_MARE_helptext.html` - Legacy MARE I command/function help.
 - `README.Space.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
+- `README.Space.features.list.md` - List of SpaceMARE features and softcode components.
+- `README.Space.terminology.md` - Glossary of SpaceMARE-specific terms and definitions.
 - `README.Template.Folder.File.Structure.md` - Recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.
 - `README.Format.Examine.md` - Struture + example for the incoming object 'examine' structure, how to parse it, make any fixes for multi-lines, and prepare it for conversion to legacy markdown format.
 - `README.Format.MetaData.md` - Template + example for legacy softcode dumps in markdown format used as part of being asked to 'examine'.
