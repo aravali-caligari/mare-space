@@ -2,8 +2,6 @@
 
 Some attributes may be 'built-in' and missing from the Attribute definitions section but still present in the Attribute list.
 
-All 'Attribute list' entries are expected to have a single-line value per attribute (i.e. no multi-line values). If a dumpfile contains multi-line attribute values, those should be converted to single-line values in the 'examine' output file by replacing newlines with spaces before converting to Legacy Markdown format.
-
 #
 # Example of the 'examine' output structure follows here
 #

@@ -1,135 +1,53 @@
-# How TinyMARE II `$commands` supports command arg patterns (`1$`, `2$`, `3$`), locks, player locks, and ignore unhandled signals
+# TinyMARE II `$command` argument parsing (short guide)
 
-## Overview of command argument patterns
+This is a conversion-focused cheat sheet for how TinyMARE II parses `$command` attributes and how to preserve legacy behavior when porting multi-word commands.
 
-In TinyMARE II, when defining a `$command` attribute, you can specify how the command's arguments are parsed using special suffixes: blank, `1$`, `2$`, and `3$`. These suffixes indicate the expected shape of the arguments provided by the user when they invoke the command.
+## Core rule (why `3$` exists)
 
-### Suffix meanings:
+TinyMARE II user-defined commands have **one static command word** (the `$command`). Any additional static words ("subcommands") must be handled by a **single dispatcher** attribute, usually using `3$`.
 
-- (blank) — zero or more arguments (everything after the command is treated as a single string)
-- `1$` — zero or one argument (space-separated, rest-of-line)
-- `2$` — exactly two arguments in `arg1=arg2` form
-- `3$` — three-or-more arguments in `arg1=arg2,arg3,...` form (also used for multi-word/static subcommand dispatch)
+## Suffixes: what they mean
 
-This matters because TinyMARE II command definitions only support **one static command word** (the `$command` itself), followed optionally by arguments. If you need extra static words (subcommands), you typically implement a `3$` dispatcher.
+When defining a `$command` attribute, the suffix determines how input is split into `v()` arguments:
 
-### (Blank) — No suffix: free-form single string argument
+- (blank) — free-form; the entire post-command text becomes one string (effectively the same as `1$`).
+- `1$` — 0 or 1 argument; rest-of-line string (may include spaces) up to an optional `=`.
+- `2$` — exactly two args in `left=right` form.
+- `3$` — `left=right1,right2,...` form **and** the standard choice for multi-word/subcommand dispatch.
 
-This is the default behavior when no suffix is provided. This is equivilant to `1$` behavior. The entire argument string after the command is treated as a single string. However, when converting legacy code, it's often better to use `1$` for clarity.
+## Bindings (what ends up in `v(0)`, `v(1)`, ...)
 
-### Example: no suffix (free-form single string)
+- `1$`
+  - `v(0)` = optional argument string (may be empty)
+- `2$`
+  - `v(0)` = left of `=`
+  - `v(1)` = right of `=`
+- `3$` (common convention)
+  - `v(0)` = left of `=` (often used as a selector like `open`, `set passkey`, `on passkey`, etc)
+  - `v(1)` = first value after `=` (if any)
+  - `v(2)` = second value after `,` (if any)
+  - etc.
 
-```mud
-&do_echo me=$echo:
-print You said: [v(0)]
-```
+## Dispatching multi-word legacy commands (use `3$` even without 3 args)
 
----
+Legacy softcode often used multiple `$command ...` attributes like:
 
-## `1$` — No args, or one “rest-of-line” arg
-
-### Typical user input patterns
-- `command`
-- `command <anything...>` (everything after the first space and before an  optional '=' sign is treated as one argument)
-
-### Softcode binding
-- `v(0)` = the optional argument string (may be empty)
-
-### Example
-```mud
-&do_scan me=:1$scan:
-if v(0)
-  print Scanning: [v(0)]
-else
-  print Scanning current target.
-endif
-```
-
-Use `1$` for commands that either take no arguments or take a single free-form argument (including text with spaces) before an optional `=` sign.
-
----
-
-## `2$` — Two args in `*=*` form
-
-### Typical user input pattern
-- `command <left>=<right>`
-
-### Softcode binding
-- `v(0)` = left side (before `=`)
-- `v(1)` = right side (after `=`)
-
-### Example
-```mud
-&do_setfreq me=:2$setfreq:
-print Setting frequency [v(0)] to [v(1)].
-```
-
-Use `2$` when the natural syntax is “key=value” and you only need one `=` split.
-
----
-
-## `3$` — `*=*,*,...` form (and the “dispatcher” workhorse)
-
-### Typical user input patterns
-
-- `command <one word>=<value>`
-- `command <arg1>=<arg2>,<arg3>,<arg4>...`
-- `command <one word>`
-
-### Special case for subcommand dispatching
-
-Because TinyMARE II only supports **one static command word**, multiple attributes with legacy patterns like:
-- `command <subcommand(s)> <arg1>=<arg2>,<arg3>,<arg4>...`
-- `command <multi subcommmand words>`
-- `commmand <another subcommand> <arg1>=<arg2>`
-- These cannot be represented as two or more separate `$command ...` commands directly. Instead, create **one** `3$command` attribute that dispatches on the extra static words even if you don't have 3+ args. 
-
-### Softcode binding (common convention)
-- `v(0)` = left side (also often used as a subcommand selector or “target”)
-- `v(1)` = first value after `=` (if any)
-- `v(2)` = second value after `,` (if any)
-- etc.
-
-### Example: real 3+ args
-```mud
-&do_route me=:3$route:
-@@ user input: "route mars=fast,stealth"
-print Dest=[v(0)] mode1=[v(1)] mode2=[v(2)]
-```
-
----
-
-## When to use `3$` even if you “don’t have 3 args”: subcommand dispatch
-
-Because TinyMARE II only supports **one static command word**, a legacy pattern like:
-
-- `$airlock open <target>=<code>`
-- `$airlock close <target>=<code>`
+- `$airlock open passkey=<code>`
+- `$airlock close <left>=<right1>,<right2>,etc...`
 - `$airlock off`
 
-cannot be represented as two or more separate `$airlock ...` commands directly. Instead, create **one** `3$airlock` attribute that dispatches on the extra static words.
+In TinyMARE II, these become **one** `3$airlock` command that switches on the extra static words (contained in `v(0)`)
 
-### Example dispatcher shape
+Minimal dispatcher shape:
+
 ```mud
-&airlock_control me=:3$airlock:
-@@ user patterns include:
-@@ - "airlock open <target>=<code>"
-@@ - "airlock close <target>=<code>"
-@@ - "airlock set passkey=<newpasskey>"
-@@ - "airlock off"
-@@ - "airlock reset passkey=<oldpasskey>,<newpasskey>"
+&airlock_cmd me=:3$airlock:
 switch v(0)
-  case open
+  case open passkey
     call me/airlock_open=v(1)
     break
   case close
-    call me/airlock_close=v(1)
-    break
-  call set passkey
-    call me/airlock_set_passkey=v(1)
-    break
-  case reset passkey
-    call me/airlock_reset_passkey=v(1),v(2)
+    call me/airlock_close=v(1),v(2)
     break
   case off
     call me/airlock_off
@@ -139,63 +57,39 @@ switch v(0)
 endswitch
 ```
 
-. The key rule is: **use one or more `$command` word(s) before the optional equal sign**, then dispatch in softcode.
+Conversion nuance:
 
-The called attributes remove their original $command / :locks: and just implement the core logic.
+- The dispatcher is the **only** `$airlock` command definition.
+- The called attributes (`airlock_open`, `airlock_close`, etc) should contain only the core logic (remove their legacy `$command` wrappers and locks).
+- The key rule is: parse **static words before the optional `=`**, then dispatch.
 
-The dispatcher pattern is very common in legacy softcode conversion, since many commands had multiple subcommands or modes.
+## Quick selection
 
----
+- Use `1$` for: `command` or `command <free text>` (no structured `=` parsing needed).
+- Use `2$` for: `command <a>=<b>`.
+- Use `3$` for: `command <a>=<b>,<c>...` **or** any subcommand-style pattern: `command <subcommand> ...`.
 
-## Quick selection guide
+## Optional lock syntax (legacy and conversion)
 
-- Use `1$` if: `command` or `command <free text without '='>`
-- Use `2$` if: `command <a>=<b>`
-- Use `3$` if: `command <a>=<b>,<c>...` **or** you need `command <subcommand> ...` style dispatching
-
----
-
-## Optional locking syntax
-
-In the legacy code, many commands used optional locking syntax with the colon and slash (`:/`) characters to indicate that the command should only run if the caller had permission to do so, as evaluated by the target object using the expression after the slash and before the 2nd slash.
-
-### Example legacy code with locking syntax
-
-```mud
-oldcommand me=:/[get(link(me),security)]/$oldcommand:<old logic>
-```
-This means: only run `oldcommand` if the caller (`me`) has permission as determined by evaluating `[get(link(me),security)]` as a boolean expression.
-
-In the converted MARE2 code, you can retain this locking syntax in the converted `:/[lock expression]/#$command:<new logic>` style-attribute, as shown in the previous examples.
-
-### Example converted code with locking syntax
+Legacy code often used `:/.../` to guard a command (only run if the lock expression passes). Preserve it in converted `$command` attributes.
 
 ```mud
 &cloak_cmd me=:/[v(eng_man)]/3$cloak:print Cloak command received.
 ```
 
----
+## Optional MARE2-only flags (usually not added during conversion)
 
-## Optional 'player locks' and 'ignore unhandled signals' syntax
+These exist in TinyMARE II but not legacy dumps; avoid adding them unless you are intentionally extending behavior:
 
-In MARE2, you can also use 'player locks' and the 'ignore unhandled signals' as part of the $command attribute definition. This is only available in MARE2 and not in legacy code. Therefore, converted code will never include these features unless manually added later.
+- `P` (player-only lock): only players can run the command.
+- `~` (ignore unhandled signals): command continues normally if an unhandled signal occurs.
 
-'Player locks' allow you to specify an additional lock that only allows the $command to be executed by players (not NPCs or scripts). 
-
-'Ignore unhandled signals' allow the command to be executed and finish normally even if an unhandled code signal occurs during its execution.
-
-### Examples with 'player locks', 'ignore unhandled signals', or both
+Examples:
 
 ```mud
-&example_cmd me=:P/[v(eng_man)]/1$example:print Example command with player lock.
-&another_cmd me=:~2$another:print Another command that ignores unhandled signals and does not use a lock.
-&combined_cmd me=:~P/[v(eng_man)]/1$combined:print Combined command with both player lock and ignoring unhandled signals indicated.
+&example_cmd me=:P/[v(eng_man)]/1$example:print Example with player lock.
+&another_cmd me=:~2$another:print Example that ignores unhandled signals.
+&combined_cmd me=:~P/[v(eng_man)]/1$combined:print Both flags.
 ```
 
----
-
-## Summary
-
-This guide explains how to use TinyMARE II's `$command` argument patterns (`1$`, `2$`, `3$`) effectively for different command structures, including subcommand dispatching, optional locking syntax, player locks, and ignoring unhandled signals. Use the appropriate pattern based on the expected user input and command structure to ensure clear and maintainable softcode.
-
-# End of README.How.Command.Args.Work.md
+<!-- End of README.How.Command.Args.Work.md -->
