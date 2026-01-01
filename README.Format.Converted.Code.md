@@ -125,18 +125,8 @@ or
 @@ Built-in attribute, no need to @defattr
 ---cut---
 &OnSucc #25980=
-@thrust %#=0
-@linposx %#=xpos([link(me)],%#,5)
-@linposy %#=ypos([link(me)],%#,5)
-@linposz %#=zpos([link(me)],%#,5)
-@linvelx %#=xvel([link(me)],1)
-@linvely %#=yvel([link(me)],1)
-@linvelz %#=zvel([link(me)],1)
-@angposx %#=get(link(me),angposx)
-@angposy %#=get(link(me),angposy)
-@angposz %#=get(link(me),angposz)
-@angvelz %#=get(link(me),angvelz)
-!enter %#
+@@ SpaceMARE2: thrust/pos/vel/attitude are consolidated datatypes.
+@spunpark get(link(me),us)
 @tel %#=loc(link(me))
 @zlink %#=zone(loc(link(me)))
 @zemit get(%#,#44444.Zone)=The ship engines roar and the ship lurches forward into space.

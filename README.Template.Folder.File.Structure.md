@@ -15,8 +15,8 @@
 - `object_artifacts/`: Folder for parsed objects from the legacy examine dumps.
   - `dbobj.<Object_Name>.<id>/`: folder for each object being converted
     - `1-examine.<object_name>.<id>.txt`: incoming object 'examine' structure before converting the object to legacy markdown format (see `README.Format.of.Examine.md` for structure + example)
-    - `2-metadata.<object_name>.<id>.md`: legacy object in metadata markdown format (see `README.Format.Legacy.Markdown.md` for template + example)
-    - `3-analysis.<object_name>.<id>.md`: English logic description of the legacy attribute list (see `README.Format.English.Description.md` for template + example)
-    - `4-converted.<object_name>.<id>.md`: converted MARE2 code (see `README.Format.Converted.Code.Format.md` for template + example)
+    - `2-metadata.<object_name>.<id>.md`: legacy object in metadata markdown format (see `README.Format.Metadata.md` for template + example)
+    - `3-analysis.<object_name>.<id>.md`: English logic description of the legacy attribute list (see `README.Format.Analysis.English.Description.md` for template + example)
+    - `4-converted.<object_name>.<id>.md`: converted MARE2 code (see `README.Format.Converted.Code.md` for template + example)
     - `5-review.<object_name>.<id>.md`: review comments on the converted code (if any)
   - ... more objects ...
