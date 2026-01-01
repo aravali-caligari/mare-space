@@ -29,10 +29,11 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 
 - `legacy_examine_dumps/` - Text files containing raw legacy softcode dumps (if any) used as sources for parsing. May contain multiple objects per file.
 - `object_artifacts/` - Parsed objects from the legacy examine dumps, with subfolders per object containing:
-  - `1-examine.<object_name>.txt` - Incoming object 'examine' structure before converting the object to metadata markdown format.
-  - `2-metadata.<object_name>.md` - Legacy object in metadata markdown format.
-  - `3-analysis.<object_name>.md` - English logic description of the legacy attribute list.
-  - `4-converted.<object_name>.md` - Converted MARE2 code.
+  - `1-examine.<object_name>.<id>.txt` - Incoming object 'examine' structure before converting the object to metadata markdown format.
+  - `2-metadata.<object_name>.<id>.md` - Legacy object in metadata markdown format.
+  - `3-analysis.<object_name>.<id>.md` - English logic description of the legacy attribute list.
+  - `4-converted.<object_name>.<id>.md` - Converted MARE2 code.
+  - `5-review.<object_name>.<id>.md` - Review comments on the converted code (if any).
 
 - `.github/` - Repo automation + AI agent instructions.
 
