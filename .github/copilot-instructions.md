@@ -2,68 +2,76 @@
 applyTo: "*.md,*.html,*.txt"
 ---
 
-# mare-space: SpaceMARE softcode + conversions
+# mare-space: SpaceMARE softcode conversions
 
-This repo is documentation + softcode source control for the SpaceMARE simulation used in TinyMARE II. The *server/engine hardcode C code* lives in a separate repo (see the link in `README.md`).
-This file describes how to handle legacy softcode parsing, analysis, and conversion tasks, including where to look for source material, how to interpret legacy code patterns, and how to format converted code.
+This repo is documentation + softcode source control for the SpaceMARE simulation used in TinyMARE II. The server/engine C code lives in a separate repo (see `README.md`).
 
-## Where to look
+## Inputs and outputs
 
-- Ignore anything in the `.backup of legacy softcode/` folder. This is just legacy reference material and not to be used by the instructions below.
-- `legacy_examine_dumps/`: Folders and files containing raw legacy softcode dumps (if any) used as sources for parsing. May contain multiple objects per file.
-  - `incoming/`: Individual raw examine dumps as text files that may contain multiple objects per file.
-  - `processed/`: The same raw examine dump files after they are parsed, and moved from `incoming/` to this folder.
-- `object_artifacts/`: area to store artifacts like the parsed object metadata, english analysis descriptions, converted MARE2 softcode. Subfolders per object. Read `README.Template.Folder.File.Structure.md` for details.
-- `README.legacy_MARE1_helptext.html`: legacy MARE1 command/function help.
-- `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax. (`print`, `if/else/endif`, `switch/endswitch`, `call`, `wait`, `for ... done`, etc).
-- `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
-- `README.Format.Examine.md`: struture + example for the incoming object 'examine' structure before converting the object to legacy markdown format.
-- `README.Format.Metadata.md`: template + example for legacy softcode dumps in markdown format
-- `README.Format.Analysis.English.Description.md`: template + example for writing English logic descriptions when asked to 'Analyze' legacy softcode attribute lists.
-- `README.Format.Converted.Code.md`: template + example for writing converted MARE2 code when asked to 'Convert' legacy softcode attribute lists.
-- `README.Template.Folder.File.Structure.md`: recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.
-- `README.Space.legacy.conversions.md`: SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
-- `README.Space.softcode.manual.md`: SpaceMARE-specific `@` commands and datatypes.
-- `README.Space.features.list.md` - List of SpaceMARE features and softcode components.
-- `README.Space.terminology.md` - Glossary of SpaceMARE-specific terms and definitions.
-- `legacy.space.hardcode/`: legacy Space Sim C source files (reference only for understanding legacy space functions and commands used by softcode).
+- Ignore `.backup of legacy softcode/` (reference only).
+- Raw legacy dumps: `legacy_examine_dumps/incoming/` (may contain multiple objects per file).
+- After *all requested steps* are complete: move dumps to `legacy_examine_dumps/processed/`.
+- Per-object artifacts live in `object_artifacts/dbobj.<object_name>.<id>/` (see `README.Template.Folder.File.Structure.md`).
 
-## How to handle softcode conversion tasks
+## Workflow (always in order)
 
-- If asked to **parse**: Examine all text files inside the `legacy_examine_dumps/incoming/` folder. For each object found in the file, create a subfolder inside `object_artifacts/` named `dbobj.<object_name>.<id>/` and create an `1-examine.<object_name>.<id>.txt` file inside it with the structure described in `README.Format.Examine.md`. This includes specific instructions about attributes that were incorrectly split over multiple lines and how to fix them. Convert the object names to file names using traditional filename conventions (no spaces, no punctuation, lower-case, no special symbols, only underscores). Then convert that 'examine' file to a legacy markdown metadata format file named `2-metadata.<object_name>.<id>.md` inside the object folder, following the template in `README.Format.Metadata.md`.
-- If asked to **analyze**: Examine all `object_artifacts/dbobj.<object_name>.<id>/2-metadata.<object_name>.<id>.md` files that don't have a corresponding `3-analysis.<object_name>.<id>.md` file. For each attribute/program found in the **Attribute list** section, translate the attribute list legacy code to an English description of the logic for each attribute/program (include the original attribute name). Use the format described in `README.Format.English.Description.md`. Include a section near the beginning of each attribute with a fenced 'original' code block containing the original legacy code. Save the resulting english analysis output as a file named `3-analysis.<object_name>.<id>.md` inside the object folder.
-- If asked to **convert**: Examine all `object_artifacts/dbobj.<object_name>.<id>/3-analysis.<object_name>.<id>.md` files that don't have a corresponding `4-converted.<object_name>.<id>.md` file. Using the `2-metadata.<object_name>.<id>.md` file, convert and output softcode into a file `4-converted.<object_name>.<id>.md`. Preserve behavior exactly as much as possible, using TinyMARE II syntax and conventions and taking account into any changes to the English description (`3-analysis.<object_name>.<id>.md`) that may have been editted by a programmer. Use the format described in `README.Format.Converted.Code.Format.md`. Some attributes may be 'built-in' if they exist in the Attribute List section but are missing from the Attribute Definitions section. In that case, do not define them with `@defattr`.
-Some attributes may need new helper attributes to handle dispatching or state; define these with `@defattr` before use. Some attributes contain built-in attributes specific to SpaceMARE-related code, read the Space-related READMEs listed above (`README.Space.*.md`) about how to convert Space-specific code using the new datatypes, function names, and command names. Follow all formatting expectations described in this file under "Formatting expectations for converted snippets". Save the resulting converted code output as a file named `4-converted.<object_name>.<id>.md` inside the object folder.
-- If asked to **review**: Examine all `object_artifacts/dbobj.<object_name>.<id>/4-converted.<object_name>.<id>.md` files. Review the converted code for correctness, adherence to formatting expectations, and preservation of original behavior. Suggest improvements or corrections as needed. Save the review comments in a file named `5-review.<object_name>.<id>.md` inside the object folder.
-- If asked to perform multiple steps, follow the steps in order: parse → analyze → convert → review, and only move files to processed folders or mark them as complete after all requested steps are done.
+When asked to do multiple steps, do: **parse → analyze → convert → review**. Do not move a dump to `processed/` until the requested steps are done.
 
-## Meaning of special terms
+### Parse
 
-- **Legacy softcode**: Original MARE/MUSE-style softcode from the legacy Space Sim system, often using older syntax and conventions.
-- **Converted MARE2 code**: Softcode that has been translated into TinyMARE II syntax and conventions, suitable for use in the MARE-Space simulation engine.
-- **```mud** blocks**: Fenced code blocks in markdown files that contain legacy MARE/MUSE-style softcode or converted MARE2 code, depending on the context of the file they are in.
+- For each object found in each dump in `legacy_examine_dumps/incoming/`:
+  - Create `object_artifacts/dbobj.<object_name>.<id>/`.
+  - Normalize `<object_name>` for filenames: lower-case, underscores, no spaces/punct.
+  - Write `1-examine.<object_name>.<id>.txt` using `README.Format.Examine.md`.
+  - If any attribute value is split over multiple lines in the raw dump, join lines with spaces so each attribute value becomes a single line.
+  - Convert to `2-metadata.<object_name>.<id>.md` using `README.Format.Metadata.md`.
 
-## Common mechanical conversions (use these patterns)
+### Analyze
 
-- substitutions: `[ ... ]`, variables `%0-%9` / `v(0)-v(9)`
-- locks: `:/[ ... ]/` (lock failure prevents execution)
-- multi-command lines: `;` splits commands (unless inside `{ ... }`)
-- `@pemit %#=...` → `print ...` (no quotes). This conversion applies to only '@pemit %#=...' where the target is always `%#` (the caller). Other forms of `@pemit` with different targets should be preserved as-is.
-- `@if cond=...` → `if cond` then the block, ending with `endif`.
+- For each `2-metadata...md` missing `3-analysis...md`:
+  - Create `3-analysis.<object_name>.<id>.md` using `README.Format.Analysis.English.Description.md`.
+  - For every attribute/program in the `### Attribute list` section, write an English logic description.
+  - Include an `original` fenced block containing the original legacy code for that attribute.
+
+### Convert
+
+- For each `3-analysis...md` missing `4-converted...md`:
+  - Create `4-converted.<object_name>.<id>.md` using `README.Format.Converted.Code.md`.
+  - Reference the legacy softcode documentation in `README.legacy_MARE_helptext.html` for how to understand legacy constructs, functions, and commands.
+  - Preserve behavior; use TinyMARE II syntax (see `README.TinyMARE.II.Helptext.Programming.html` and `README.TinyMARE.II.Helptext.html`).
+  - Respect any manual edits/clarifications in `3-analysis...md`.
+  - Built-in attributes: if present in the `### Attribute list` section but missing from `### Attribute definitions`, do not `@defattr` them.
+  - You may add helper attributes for dispatch/state; `@defattr #<id>/<newattr>=inherit program` before use.
+  - For SpaceMARE-specific code, consult `README.Space.legacy.conversions.md` and `README.Space.softcode.manual.md`.
+
+### Review
+
+- Create `5-review.<object_name>.<id>.md` reviewing correctness, formatting expectations, and behavior preservation.
+
+## Common mechanical conversions
+
+- Substitutions: `[ ... ]`, variables `%0-%9` / `v(0)-v(9)`.
+- Locks: `:/[ ... ]/` (lock failure prevents execution).
+- Multi-command lines: `;` splits commands (unless inside `{ ... }`).
+- `@pemit %#=...` → `print ...` (only when target is `%#`; other forms of `@pemit` must be preserved).
+- `@if cond=...` → `if cond` ... `endif`.
 - `@tr <obj>/<attr>[=<args>]` → `call <obj>/<attr>[=<args>]`.
-- `@swi/@switch cond,{...},{...}` → structured `switch cond` with `case`, `default`, `break`, `endswitch`. See `README.TinyMARE.II.Helptext.Programming.html` for exact syntax.
-- `@wait N=...` → `wait N` then the block.
-- `@foreach v(list)=...` → `for i__=v(list)` ... body with `set 0=v(i__)` ... `done`.
-- `$command` definitions: Read `README.How.Command.Args.Work.md` for details on understanding and converting `$command` attributes with different argument patterns (`1$`, `2$`, `3$`), locks, player locks, and ignore unhandled signals. Keep a careful eye on argument parsing, and subcommand dispatching (due to the rule that converted `$command` are only single words, and cannot be handled by multiple attributes when its the same name). 
+- `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
+- `@wait N=...` → `wait N` ... body.
+- `@foreach v(list)=...` → `for i__=v(list)` ... `set 0=v(i__)` ... `done`.
 
-## Formatting expectations for converted snippets
+### `$command` definitions
+
+- Converted `$command` names are a single word; legacy multi-word subcommands usually require a `3$<cmd>` dispatcher.
+- Follow `README.How.Command.Args.Work.md` for `1$`/`2$`/`3$` patterns, locks, player-locks (`P`), and ignore-unhandled (`~`).
+
+## Formatting expectations (converted snippets)
 
 - Use indentation for blocks; use `else`/`endif` (do not use `{}` for `if` blocks).
-- No spaces around `=` in code and no spaces after commas in argument lists.
-- If attribute flags are known, emit them explicitly: `@defattr #<id>/<attr>=<flags>` then `&<attr> #<id>=...`. `<id>` is the object dbref ID number without any suffix like `R` or `h`.
-- If an attribute definition exists but is missing from the Attribute List section, define it with `@defattr` with any converted code.
-- If a new attribute to handle a dispatch or state is needed, define it with `@defattr #<id>/<newattr>=inherit program` before use. See `README.How.Command.Args.Work.md` for dispatching patterns.
-- If a markdown object file has metadata with `Location: ...(#<id>R)`, start conversion with `@@ Teleport to object location as a convenience` and `@teleport me=#<id>`.
-- Preserve comments starting with `@@` and `---cut---` lines to separate attribute sections.
-
-## Additional resources
+- No spaces around `=` in code; no spaces after commas in argument lists.
+- If attribute flags are known: `@defattr #<id>/<attr>=<flags>` then `&<attr> #<id>=...`.
+  - Use numeric dbref (no `R`/`h` suffix).
+- If metadata has `Location: ...(#<id>R)`, start conversion with:
+  - `@@ Teleport to object location as a convenience`
+  - `@teleport me=#<id>`
+- Preserve comments starting with `@@` and `---cut---` separators.
