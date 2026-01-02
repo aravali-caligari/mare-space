@@ -60,7 +60,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - `@if cond=...` → `if cond` ... `endif`.
 - `@tr <obj>/<attr>[=<args>]` → `call <obj>/<attr>[=<args>]`.
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
-- `@wait N=...` → `wait N` ... body.
+- `@wait N=...` → `sleep N` ... body.
 - `@foreach v(list)=...` → `for i__=v(list)` ... `set 0=v(i__)` ... `done`.
 
 ### `$command` definitions
