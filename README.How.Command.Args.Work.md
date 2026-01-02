@@ -32,8 +32,9 @@ When defining a `$command` attribute, the suffix determines how input is split i
 
 Legacy softcode often used multiple `$command ...` attributes like:
 
-- `$airlock open passkey=<code>`
-- `$airlock close <left>=<right1>,<right2>,etc...`
+- `$airlock open passkey=*`
+- `$airlock passkey *=*,etc...`
+- `$airlock initial=*`
 - `$airlock off`
 
 In TinyMARE II, these become **one** `3$airlock` command that switches on the extra static words (contained in `v(0)`)
@@ -46,8 +47,11 @@ switch v(0)
   case open passkey
     call me/airlock_open=v(1)
     break
-  case close
-    call me/airlock_close=v(1),v(2)
+  case passkey *
+    call me/airlock_passkey=rest(v(0)),v(1)
+    break
+  case initial
+    call me/airlock_initial=v(1)
     break
   case off
     call me/airlock_off
@@ -62,6 +66,7 @@ Conversion nuance:
 - The dispatcher is the **only** `$airlock` command definition.
 - The called attributes (`airlock_open`, `airlock_close`, etc) should contain only the core logic (remove their legacy `$command` wrappers and locks).
 - The key rule is: parse **static words before the optional `=`**, then dispatch.
+- The dispatcher always uses `switch`/`case` for clarity.
 
 ## Quick selection
 

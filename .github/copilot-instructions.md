@@ -33,7 +33,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - For each `2-metadata...md` missing `3-analysis...md`:
   - Create `3-analysis.<object_name>.<id>.md` using `README.Format.Analysis.English.Description.md`.
   - For every attribute/program in the `### Attribute list` section, write an English logic description.
-  - Include an `original` fenced block containing the original legacy code for that attribute.
+  - Include an `original` fenced block containing the original legacy code for that attribute near the top of each attribute section.
 
 ### Convert
 
