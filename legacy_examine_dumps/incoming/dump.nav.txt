@@ -1,0 +1,361 @@
+
+RCS(#33976h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 1065
+Plane: 0
+Modified: Fri Nov 25 23:33:09 1994
+Parents: TRCS System(#38914h)
+Attribute definitions:
+  rcscheck(): inherit function
+  rcsfake: inherit
+  RCS: inherit
+  MaxA: inherit
+Attribute list:
+MaxA:30
+RCS:$rcs *=*:/[v(Nav_man)]/@swi rcscheck(v(0),v(1))=0,{@pemit %#=The RCS for
+this ship cannot handle that quick of a turn.},!,{@pemit %#=Not a valid
+RCS.},X,{@emit Firing Theta RCS.;@angaccx v(us)=v(1)},Y,{@emit Firing Phi
+RCS.;@angaccy v(us)=v(1)},Z,{@emit Firing Psi RCS.;@angaccz v(us)=v(1)}
+rcscheck():[ifelse(truth(fadd(fcomp(get(s(me/MaxA)),fabs(v(1))),1)),ifelse(matc
+h(v(0),X),X,ifelse(match(v(0),Y),Y,ifelse(match(v(0),Z),Z,!))),0)]
+rcsfake:@swi truth(fadd(fcomp(get(s(me/MaxA)),fabs(v(1))),1))=0,{@pemit
+v(nav_man)=The RCS for this ship cannot handle that quick of a
+turn.},1,{[switch(v(0),x,{@emit Firing Theta RCS.;@AngaccX
+get(me/us)=v(1)},y,{@emit Firing Phi RCS.;@AngaccY get(me/us)=v(1)},z,{@emit
+Firing Psi RCS.;@AngaccZ get(me/us)=v(1)},{@pemit v(nav_man)=Not a valid
+RCS.})]}
+Location: Helm Equipment Room(#11848R)
+Home: Helm Equipment Room(#11848R)
+
+OMS(#33251h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 589
+Plane: 0
+Modified: Fri Nov 25 23:33:15 1994
+Attribute definitions:
+  OMS: inherit
+  MaxL: inherit
+Attribute list:
+OMS:$oms *=*:/[get(s(me/Nav_man))]/@swi
+truth(fadd(fcomp(get(s(me/MaxL)),fabs(v(1))),1)) = 0,{@pemit %#=The OMS for
+this ship cannot manage that much velocity.},1,{[switch(v(0),x,{@emit Firing
+Chi OMS.;@LinaccX get(me/us)=v(1)},y,{@emit Firing Upsilon OMS.;@LinaccY
+get(me/us)=v(1)},z,{@emit Firing Zeta OMS.;@LinaccZ get(me/us)=v(1)},{@pemit
+%#=Not a valid OMS.})]}
+MaxL:1
+Location: Helm Equipment Room(#11848R)
+Home: Helm Equipment Room(#11848R)
+
+ENG(#31236h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 12135
+Plane: 0
+Modified: Wed May 29 00:56:37 1996
+Attribute definitions:
+  initfuel_cmd: inherit
+  fuel_start
+  fuel_date
+  DrnSense: inherit
+  MaxSense: inherit
+  AllSense: inherit
+  PwrSense
+  PwrRead2: inherit
+  wormjump2(): inherit function
+  wormjump(): inherit function
+  worm_cmd: inherit
+  airlockstatus: inherit
+  unlockairlock: inherit
+  lockairlock: inherit
+  Hyper_cmd: inherit
+  fueltotal(): inherit function
+  Generate_Cmd: inherit
+  AllScrn: inherit
+  DrnComm: inherit
+  DrnBatt: inherit
+  DrnWeap: inherit
+  DrnShld: inherit
+  DrnBeac: inherit
+  DrnScrn: inherit
+  DrnRep: inherit
+  DrnScan: inherit
+  AllComm: inherit
+  MaxComm: inherit
+  pwrcomm
+  shield_cmd: inherit
+  Engine_cmd: inherit
+  evalfuel(): inherit function
+  fuelcon(): inherit function
+  Fuel_Cmd: inherit
+  MaxThr
+  MinThr
+  Engine
+  DrnAux: inherit
+  MaxAux: inherit
+  AllAux: inherit
+  PwrAux
+  MaxShld: inherit
+  Allocate: inherit
+  PwrScan
+  AllScan: inherit
+  MaxScan: inherit
+  AllBatt: inherit
+  PwrBatt
+  AllWeap: inherit
+  PwrWeap
+  MaxBatt: inherit
+  MaxWeap: inherit
+  AllRep: inherit
+  PwrRep
+  MaxRep: inherit
+  AllShld: inherit
+  PwrShld
+  AllBeac: inherit
+  PwrBeac
+  MaxBeac: inherit
+  PwrRead: inherit
+  Drain: inherit
+Attribute list:
+Engine_cmd:$engine:/[get(me/eng_man)]/@swi truth(get(me/engine))=1,{@pemit
+%#;@pemit %#=Type: [name(get(me/engine))];@pemit %#=Rated at:
+[get(s(%/us//rating))]:1;@npemit %#=Operating at:
+[add(get(s(%/us//efficiency)),1)]%%%% max eff.;@pemit %#=Thrust Range:
+[get(me/MinThr)]-[get(me/MaxThr)];@pemit %#},{@pemit %#=Engine is disengaged.}
+worm_cmd:$wormjump:/[v(nav_man)]/@swi
+is_a(v(engine),#24225)=1,{[wormjump(first(foreach(indist(v(us),50000),[if(is_a(
+v(0),#23318),v(0))])))]},{@pe %#=How do you expect to use a worm hole without a
+worm drive engaged?}
+AllBatt:@swi get(me/PwrBatt)=*Damaged*,{@pemit %0=Batteries are
+damaged.},*Destroyed*,{@pemit %0=Batteries are destroyed.},{@swi
+%[comp(sub(get(me/MaxBatt),1),add(get(me/PwrBatt),abs(%1)))%]=-1,{@pemit
+%0=Batteries cannot be charged to that potential.},{@pwrbatt
+me=add(get(me/pwrbatt),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Batteries.}
+AllScrn:@swi get(me/PwrScrn)=*Damaged*,{@pemit %0=Screens is
+damaged.},*Destroyed*,{@pemit %0=Screens is destroyed.},{@swi
+%[comp(sub(get(me/MaxScrn),1),add(get(me/PwrScrn),abs(%1)))%]=-1,{@pemit
+%0=Screens cannot be charged to that potential.},{@pwrScrn
+me=add(get(me/pwrScrn),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Screens.}
+DrnComm:@pwrgen
+[get(me/us)]=add(get(me/PwrComm),get(s([get(me/us)]/PwrGen)));@pwrComm
+me=0;@pemit %0=Power drained from Communications.
+DrnWeap:@pwrgen
+[get(me/us)]=add(get(me/PwrWeap),get(s([get(me/us)]/PwrGen)));@pwrWeap
+me=0;@pemit %0=Power drained from Weapons.
+DrnShld:@pwrgen
+[get(me/us)]=add(get(me/PwrAux),get(s([get(me/us)]/PwrGen)));@pwrShld
+me=0;@pemit %0=Power drained from Shields.
+DrnScrn:@pwrgen
+[get(me/us)]=add(get(me/PwrScrn),get(s([get(me/us)]/PwrGen)));@pwrScrn
+me=0;@pemit %0=Power drained from Screens.
+DrnRep:@pwrgen
+[get(me/us)]=add(get(me/PwrRep),get(s([get(me/us)]/PwrGen)));@pwrRep
+me=0;@pemit %0=Power drained from Repairs.
+DrnBeac:@pwrgen
+[get(me/us)]=add(get(me/PwrBeac),get(s([get(me/us)]/PwrGen)));@pwrBeac
+me=0;@pemit %0=Power drained from Beacon.
+DrnScan:@pwrgen
+[get(me/us)]=add(get(me/PwrScan),get(s([get(me/us)]/PwrGen)));@pwrScan
+me=0;@pemit %0=Power drained from Scanners.
+DrnBatt:@pwrgen
+[get(me/us)]=add(get(me/PwrBatt),get(s([get(me/us)]/PwrGen)));@pwrBatt
+me=0;@pemit %0=Power drained from Batteries.
+evalfuel():[ifelse(gte(5000,v(4)),fadd(fuelcon(v(0),v(1),v(2)),v(3)),fuelcon(v(
+0),v(1),v(2)))]
+fuelcon():[fdiv(abs(v(0)),fmul(v(1),fdiv(v(2),1)))]
+MaxScan:501
+DrnAux:@pwrgen
+[get(me/us)]=add(get(me/PwrAux),get(s([get(me/us)]/PwrGen)));@pwraux
+me=0;@pemit %0=Power drained from Auxillary.
+MaxAux:201
+AllAux:@swi get(me/PwrAux)=*Damaged*,{@pemit %0=Auxillary is
+damaged.},*Destroyed*,{@pemit %0=Auxillary is destroyed.},{@swi
+%[comp(sub(get(me/MaxAux),1),add(get(me/PwrAux),abs(%1)))%]=-1,{@pemit
+%0=Auxillary cannot be charged to that potential.},{@pwrAux
+me=add(get(me/pwrAux),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Auxillary.}
+MaxBeac:51
+MaxWeap:0
+PwrWeap:0
+MaxShld:801
+PwrBatt:1000
+MaxBatt:2001
+MaxRep:101
+AllBeac:@swi get(me/PwrBeac)=*Damaged*,{@pemit %0=Beacon Emitter are
+damaged.},*Destroyed*,{@pemit %0=Beacon Emitter are destroyed.},{@swi
+%[comp(sub(get(me/MaxBeac),1),add(get(me/PwrBeac),abs(%1)))%]=-1,{@pemit
+%0=Beacon Emitter cannot be charged to that potential.},{@pwrBeac
+me=add(get(me/pwrBeac),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Beacon Emitter.}
+AllRep:@swi get(me/PwrRep)=*Damaged*,{@pemit %0=Repairs are
+damaged.},*Destroyed*,{@pemit %0=Repairs are destroyed.},{@swi
+%[comp(sub(get(me/MaxRep),1),add(get(me/PwrRep),abs(%1)))%]=-1,{@pemit
+%0=Repairs cannot be charged to that potential.},{@pwrRep
+me=add(get(me/pwrRep),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Repairs.}
+AllWeap:@swi get(me/PwrWeap)=*Damaged*,{@pemit %0=Weapons Grid are
+damaged.},*Destroyed*,{@pemit %0=Weapons Grid are destroyed.},{@swi
+%[comp(sub(get(me/MaxWeap),1),add(get(me/PwrWeap),abs(%1)))%]=-1,{@pemit
+%0=Weapons Grid cannot be charged to that potential.},{@pwrWeap
+me=add(get(me/pwrWeap),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Weapons Grid.}
+AllShld:@swi get(me/PwrShld)=*Damaged*,{@pemit %0=Shield Array are
+damaged.},*Destroyed*,{@pemit %0=Shield Array are destroyed.},{@swi
+%[comp(sub(get(me/MaxShld),1),add(get(me/PwrShld),abs(%1)))%]=-1,{@pemit
+%0=Shield Array cannot be charged to that potential.},{@pwrShld
+me=add(get(me/pwrShld),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Shield Array.}
+AllScan:@swi get(me/PwrScan)=*Damaged*,{@pemit %0=Scanners are
+damaged.},*Destroyed*,{@pemit %0=Scanners are destroyed.},{@swi
+%[comp(sub(get(me/MaxScan),1),add(get(me/PwrScan),abs(%1)))%]=-1,{@pemit
+%0=Scanners cannot be charged to that potential.},{@pwrscan
+me=add(get(me/pwrscan),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Scanners.}
+MaxComm:1001
+AllComm:@swi get(me/PwrComm)=*Damaged*,{@pemit %0=Communications are
+damaged.},*Destroyed*,{@pemit %0=Communications are destroyed.},{@swi
+%[comp(sub(get(me/MaxComm),1),add(get(me/PwrComm),abs(%1)))%]=-1,{@pemit
+%0=Communications cannot be charged to that potential.},{@pwrcomm
+me=add(get(me/pwrcomm),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Communications.}
+Generate_Cmd:$generate *:/[get(me/eng_man)]/@swi
+comp(add(0,abs(v(0))),500)=1,{@pemit %#=Generators are unable to convert more
+than 500 kiloliters per update into energy.},{@pwrfuel
+v(us)=add(0,abs(v(0)));@pemit %#=Generators now converting [add(0,abs(v(0)))]
+kiloliters of fuel per update into energy.}
+fueltotal():[simp(ifelse(hs(),fadd(evalfuel(v(0),v(1),v(2),v(3),v(4)),2000),eva
+lfuel(v(0),v(1),v(2),v(3),v(4))))]
+Hyper_cmd:$hyperjump:/[get(me/nav_man)]/@swi [HS()]=1,{@tr
+%/Engine//Hyperoff;@pemit %#=Disengaging hyperspace envelope.},{@tr
+%/Engine//Hypertest}
+unlockairlock:$unlock airlock:/[v(eng_man)]/@swi get([v(us)]/airlock)=,{@pemit
+%#=This ship has no airlock.},#-1*,{@swi get([v(us)]/lairlock=,{@pemit %#=The
+airlock is already unlocked.},{@lairlock v(us);@pemit %#=The airlock is now
+unlocked for use.}}
+lockairlock:$lock airlock:/[v(eng_man)]/@swi get([v(us)]/airlock)=,{@pemit
+%#=This ship has no airlock.},#-1*,{@swi get([v(us)]/lairlock)=1,{@pemit
+%#=Airlock is already locked.},{@lairlock v(us)=1;@pemit %#=Airlock is now
+locked in position.}}
+wormjump2():!worm
+[v(us)]=[fsub(get(v(1),linposx),fsub(get(v(0),linposx),get(v(us),linposx)))],[f
+sub(get(v(1),linposy),fsub(get(v(0),linposy),get(v(us),linposy)))],[fsub(get(v(
+1),linposz),fsub(get(v(0),linposz),get(v(us),linposz)))];@zemit
+get([v(us)]/zone)=The ship shudders once more as it re-enters at the other end
+of the worm hole.
+wormjump():@zemit get([v(us)]/zone)=A shudder runs through the ship as the worm
+drive is engaged. A flash of green light is
+seen.;[ifelse(v(0),wormjump2(v(0),get(v(0),otherside)),s({[owner(me)] @fore
+zwho(get([v(us)]/zone))=@limbo %%%%%%%%0=%%%%%%%%0;@pe %#=There is no wormhole
+present!;!exit [v(us)];@tel [v(us)]=#12135;@zemit get([v(us)]/zone)=The ship is
+ripped apart and scattered across time and space.}))]
+PwrRead:$power:/[v(eng_man)]/@pemit %#=System Power Readout:;@pemit
+%#=--------------------;@pemit %#;@pemit %#=Generator Status--;@pemit %#=Power
+Avail: [get(s([v(us)]/pwrgen))] Max: <5000.00>;@pemit %#=Fuel Use:
+[get(s([get(me/us)]/pwrfuel))] Max: <500>;@pemit %#;@pemit %#=Systems
+Status--;@pemit %#=Batteries: [get(me/PwrBatt)]
+<[sub(get(me/MaxBatt),1)]>;@pemit %#=Sensors: [get(me/PwrSense)]
+<[sub(get(me/MaxSense),1)]>];@pemit %#=Scanners: [get(me/PwrScan)]
+<[sub(get(me/MaxScan),1)]>;@tr me/PwrRead2=%#
+MaxSense:101
+DrnSense:@pwrgen
+[get(me/us)]=add(get(me/PwrSense),get(s([get(me/us)]/PwrGen)));@pwrSense
+me=0;@pemit %0=Power drained from Sensors.
+AllSense:@swi get(me/PwrSense)=*Damaged*,{@pemit %0=Sensors are
+damaged.},*Destroyed*,{@pemit %0=Sensors are destroyed.},{@swi
+%[comp(sub(get(me/MaxSense),1),add(get(me/PwrSense),abs(%1)))%]=-1,{@pemit
+%0=Sensors cannot be charged to that potential.},{@pwrSense
+me=add(get(me/pwrSense),abs(%1));@pwrgen
+[get(me/us)]=sub(get(s([get(me/us)]/pwrgen)),abs(%1));@pemit %0=Power Allocated
+to Sensors.}
+PwrRead2:@pemit %0=Repairs: [get(me/PwrRep)] <[sub(get(me/MaxRep),1)]>;@pemit
+%0=Beacon: [get(me/PwrBeac)] <[sub(get(me/MaxBeac),1)]>;@pemit
+%0=Communications: [get(me/PwrComm)] <[sub(get(me/MaxComm),1)]>;@pemit
+%0=Shield Array: [get(me/PwrShld)] <[sub(get(me/MaxShld),1)]>;@pemit
+%0=Auxillary: [get(me/PwrAux)] <[sub(get(me/MaxAux),1)]>;@swi
+get(me/maxweap)=0,{@pemit %0},{@pemit %0=Weapons Grid: [get(me/pwrweap)]
+<[sub(get(me/maxweap),1)]>;@pemit %0}
+Drain:$Drain *:/[get(s(me/Eng_man))]/@swi %0=*Batter*,{@tr
+me/DrnBatt=%#},*Comm*,{@tr me/DrnComm=%#},*Sensor*,{@tr
+me/DrnSense=%#},*Scanner*,{@tr me/DrnScan=%#},*Weapon*,{@tr
+me/DrnWeap=%#},*Repair*,{@tr me/DrnRep=%#},*Shield*,{@tr
+me/DrnShld=%#},*Screen*,{@tr me/DrnScrn=%#},*Beacon*,{@tr
+me/DrnBeac=%#},*Aux*,{@tr me/DrnAux=%#},{@pemit %#=Invalid System.}
+Allocate:$allocate *=*:/[get(s(me/Eng_man))]/@swi %0=*Batter*,{@tr
+me/AllBatt=%#,%1},*Comm*,{@tr me/AllComm=%#,%1},*Sensor*,{@tr
+me/AllSense=%#,%1},*Scanner*,{@tr me/AllScan=%#,%1},*Weapon*,{@tr
+me/AllWeap=%#,%1},*Repair*,{@tr me/AllRep=%#,%1},*Shield*,{@tr
+me/AllShld=%#,%1},*Screen*,{@tr me/AllScrn=%#,%1},*Beacon*,{@tr
+me/AllBeac=%#,%1},*Aux*,{@tr me/AllAux=%#,%1},{@pemit %#=Invalid System.}
+initfuel_cmd:$init fuel:/[get(me/eng_man)]/@fuel_start
+me=get(s(%/us//fuel));@fuel_date me=date();@pemit %#=Fuel Report Initialized.
+Fuel_Cmd:$fuel:/[get(me/eng_man)]/@pemit %#;@pemit %#=Fuel Status --;@pemit
+%#=Supply: [get(s(%/us//fuel))];@swi [inspace(get(me/us))]=1,{@pemit %#=Usage:
+[fueltotal(get(s(%/us//thrust)),get(s(%/us//Rating)),get(s(%/us//Efficiency)),g
+et(s(%/us//PwrFuel)),get(s(%/us//PwrGen)))]},{@pemit %#=Usage: None};@wait
+1={@pemit %#;@pemit %#=Fuel Report --;@swi [get(me/fuel_date)]=,{@pemit
+%#=Start Date: Not Initialized;@pemit %#=Consumption: Not Initialized},{@pemit
+%#=Start Date: [get(me/fuel_date)];@pemit %#=Consumption:
+[sub(get(me/fuel_start),get(s(%/us//fuel)))]};@pemit %#
+airlockstatus:$airlock status:/[v(eng_man)]/@swi
+[get([v(us)]/airlock)]=,{@pemit %#=This ship has no airlock.},{@pemit %#=The
+airlock is %[ifelse(eq(wcount(get([v(us)]/airlock)),1),unsealed,sealed)],
+%[ifelse(get([v(us)]/lairlock),locked,unlocked)], and
+%[ifelse(get([v(us)]/airlock_pres),pressurized,depressurized)].}
+Location: Helm Equipment Room(#11848R)
+Home: Helm Equipment Room(#11848R)
+
+------------------------------------------
+
+
+NAV(#30412h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	3228
+Children:	1
+Modified:	Fri Nov 25 23:32:45 1994
+Attribute definitions:
+navdist(): inherit function
+navapproach(): inherit function
+diff(): inherit function
+relative_math: inherit program
+relative_cmd: inherit program
+helm: program
+nav_memory: program
+ecc(): inherit function
+relvel(): inherit function
+grav(): inherit function
+relang(): inherit function
+orbitenergy(): inherit function
+_attrdef12(): inherit function
+Attribute list:
+orbitenergy():	[fsub(fdiv(pow(relvel(v(0),v(1)),2),2),fdiv(grav(v(1)),3d(v(0),v(1))))]
+_attrdef12():	[first(dist3d(get(s(%0/linposx)),get(s(%0/linposy)),get(s(%0/linposz)),get(s(%1/linposx)),get(s(%1/linposy)),get(s(%1/linposz))))]
+relang():	[relphi(fsub(get(s(%1/linposx)),get(s(%0/linposx))),fsub(get(s(%1/linposy)),get(s(%0/linposy))),fsub(get(s(%1/linposz)),get(s(%0/linposz))),fsub(get(s(%1/linvelx)),get(s(%0/linvelx))),fsub(get(s(%1/linvely)),get(s(%0/linvely))),fsub(get(s(%1/linvelz)),get(s(%0/linvelz))))]
+relvel():	[pow(fadd(fadd(pow(fsub(get(s(%0/linvelx)),get(s(%1/linvelx))),2),pow(fsub(get(s(%0/linvely)),get(s(%1/linvely))),2)),pow(fsub(get(s(%0/linvelz)),get(s(%1/linvelz))),2)),.5)]
+grav():	[fmul(get(s(%0/mass)),6.67e-18)]
+ecc():	[pow(fadd(1,fdiv(fmul(2,fmul(orbitenergy(v(0),v(1)),pow(fmul(fmul(3d(v(0),v(1)),relvel(v(0),v(1))),cos(fmul(3.1415926,fdiv(fsub(relang(v(0),v(1)),90),180)))),2)),pow(grav(v(1)),2)))),.5)]
+relative_math:	@swi NO MEMORY=%1,{@pemit %3=Memory '%4' does not exist},%2,{@pemit %3=Memory '%5' does not exist},{@swi %0=Null,{@pemit %3=Name '%6' is invalid. Must begin with 'nav'.},{@tr me/write_memory=%0,[word(v(1),1)] [navdist(v(1),v(2))] [diff(v(1),v(2),3)] [diff(v(1),v(2),4)] [diff(v(1),v(2),5)] [diff(v(1),v(2),6)] [diff(v(1),v(2),7)] [diff(v(1),v(2),8)] [navapproach(v(1),v(2))] [velhdg(diff(v(2),v(1),3),diff(v(2),v(1),4),diff(v(2),v(1),5))] [word(v(1),12)] [word(v(1),13)],nav,[get(me/helm)]
+diff():	[simp(fsub(word(v(0),v(2)),word(v(1),v(2))))]
+navapproach():	[relphi(diff(v(0),v(1),3),diff(v(0),v(1),4),diff(v(0),v(1),5),diff(v(0),v(1),6),diff(v(0),v(1),7),diff(v(0),v(1),8))]
+navdist():	[simp(velmag(diff(v(0),v(1)),diff(v(0),v(1)),diff(v(0),v(1))))]
+relative_cmd:	$relative * to * > *:@tr me/relative_math=[ifelse(match(v(2),nav*),v(2),Null)],[ifelse(scomp(read_memory(v(0),nav,get(me/helm)),NO MEMORY),read_memory(v(0),nav,get(me/helm)),read_memory(v(0),sensor,get(me/helm)))],[ifelse(scomp(read_memory(v(1),nav,get(me/helm)),NO MEMORY),read_memory(v(1),nav,get(me/helm)),read_memory(v(1),sensor,get(me/helm)))],%#,%0,%1,%2
+Lock:	Ripley(#51537P)|Ptah(#5745P)|Gemini(#40510P)
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+
+
+------------------------------------------
+

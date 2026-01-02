@@ -1,0 +1,114 @@
+Space Exit Parent(#25980h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	1420
+Parents:	Space Projection Functions(#46101)
+Modified:	Tue Dec 30 00:23:51 2025
+Attribute list:
+OSucc:	fires up %p engines and blasts out into the void with a tremendous roar.
+OFail:	contemplates suicide by stepping into the void, but then %s decides not to.
+Fail:	You would die if you stepped out there, you decide not to.
+Desc:	You see a hangar door that leads out into Space.
+OnSucc:	@thrust %#=0;@linposx %#=xpos([link(me)],%#,5);@linposy %#=ypos([link(me)],%#,5);@linposz %#=zpos([link(me)],%#,5);@linvelx %#=xvel([link(me)],1);@linvely %#=yvel([link(me)],1);@linvelz %#=zvel([link(me)],1);@angposx %#=get(s([link(me)]/angposx));@angposy %#=get(s([link(me)]/angposy));@angposz %#=get(s([link(me)]/angposz));@angvelz %#=get(s([link(me)]/angvelz));!enter %#;@tel %#=loc(link(me));@zlink %#=zone(loc(link(me)));@zemit get(s(%#/#44444.Zone))=The ship engines roar and the ship lurches forward into space.;@remit loc(get(s(%#/#44444.Helm)))=The all-encompasing darkness engulfs your ship as you leave [name(link(me))] behind.;@remit loc(get([link(me)]/helm))=Ship '%n' has just departed the Ship Bay.;@tr here/del_docked_ship=v(#)
+Location:	Door Equipment Room(#28607R)
+Home:	Cyberion City Spaceport(#13034R)
+------------------------------------------
+
+Space Projection Functions(#46101)
+Type:	Thing
+Owner:	Ptah
+Bytes:	1584
+Children:	2
+Attribute definitions:
+is_valid_space_exit(): inherit function
+isship(): inherit function
+zvel(): inherit function
+yvel(): inherit function
+xvel(): inherit function
+zpos(): inherit function
+ypos(): inherit function
+xpos(): inherit function
+Attribute list:
+is_valid_space_exit():	[1
+isship():	[land(lnot(scomp(owner(v(0)),owner(me))),lnot(scomp(get(s(%0/type)),SS)))]
+zvel():	[fadd(get(s(%0/linvelz)),distz(v(1),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+yvel():	[fadd(get(s(%0/linvely)),disty(v(1),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+xvel():	[fadd(get(s(%0/linvelx)),distx(v(1),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+xpos():	[fadd(get(s(%0/linposx)),distx(fadd(v(2),fadd(get(s(%0/radius)),get(s(%1/radius)))),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+ypos():	[fadd(get(s(%0/linposy)),disty(fadd(v(2),fadd(get(s(%0/radius)),get(s(%1/radius)))),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+zpos():	[fadd(get(s(%0/linposz)),distz(fadd(v(2),fadd(get(s(%0/radius)),get(s(%1/radius)))),s([get(s(%0/angposx))] [get(s(%0/angposy))])))]
+Location:	Door Equipment Room(#28607R)
+Home:	Door Equipment Room(#28607R)
+------------------------------------------
+
+Airlock Interior Hatch Parent(#9124h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	6140
+Children:	1
+Modified:	Tue Nov 9 19:03:43 2004
+Attribute definitions:
+islocked: program
+lastfun(): inherit function
+pressurize: inherit program
+depressurize: inherit program
+int_open: inherit program
+int_close: inherit program
+ext_open: inherit program
+ext_close: inherit program
+disaster: inherit program
+dualemit: inherit program
+mirror(): inherit function
+whereisit(): inherit function
+whatisit(): inherit function
+findairlock(): inherit function
+Attribute list:
+OnFail:	@swi [get(me/islocked)]=1,{@pemit %#=The door is still sealed.},{@pemit %#=You walk through.;@oemit %#=[name(v(#))] walks through the interior airlock door.;@fo [mirror()]={@emit [name(v(#))] walks through the interior airlock door.;@tel [v(#)]=here}}
+OFail:	presses the open patch on the external airlock hatch.
+Fail:	You press the open patch on the internal airlock hatch.
+lastfun():	[extract(whatisit(),wcount(whatisit()),1)]
+depressurize:	$depressurize:@swi [whereisit()]=0,{@pemit %#=*Duh* the airlock is already depressurized.},{@emit [name(v(#))] presses the 'depressurize' button.;@swi [hasflag(loc(findairlock()),Z)]=0,{@emit Nothing seems to be happening...},{@swi [get(me/islocked)]=1,{@tr me/dualemit=The airlock starts to depressurize.;@wait 4={@tr me/dualemit=The airlock has completed depressurization.;@airlock_pres [findairlock()]=0;@tr [findairlock()]/check_airlock;@slock [findairlock()]=[owner(me)]}},{@tr me/dualemit=The airlock cannot depressurize because the interior hatch is open.}}
+dualemit:	@fo me={@emit [v(0)]};@fo [mirror()]={@emit [v(0)]}
+mirror():	[extract(entrances(here),wmatch(foreach(entrances(here),[loc(v(0))]),link(me)),1)
+whereisit():	[ifelse(stringeq(NO MATCH,get(here/airlock_pres)),get(s([link(me)]/airlock_pres)),get(here/airlock_pres))]
+whatisit():	[ifelse(stringeq(NO MATCH,get(here/airlock)),get(s([link(me)]/airlock)),get(here/airlock))]
+findairlock():	[ifelse(hasflag(here,R),link(me),num(here))]
+pressurize:	$pressurize:@swi [whereisit()]=1,{@pemit %#=*Bonk* it is already pressurized.},{@emit [name(v(#))] presses the 'pressurize' button.;@swi [whatisit()]=#-1*,{@tr me/dualemit=The airlock starts to pressurize.;@wait 4={@tr me/dualemit=The airlock is now fully pressurized.;@airlock_pres [findairlock()]=1;@slock [findairlock()]}},{@tr me/dualemit=The airlock cannot pressurize as the air is just escaping out the open exterior hatch!}}
+OnLook:	@pemit %#=Airlock Commands:;@pemit %#=+---------------+;@pemit %#=Unseal Interior;@pemit %#=Seal Interior;@pemit %#=Pressurize;@pemit %#=Depressurize;@pemit %#=Unseal Exterior;@pemit %#=Seal Exterior;@pemit %#
+Desc:	This is a heavy duty internal airlock hatch designed to keep the vacuum of space outside the ship. The light above the hatch is [ifelse(get(me/islocked),red,green)]. Next to the airlock hatch is a small pannel:
+disaster:	@remit [link(me)]=The airlock has blown and the interior hatch is still open, the room is depressurizing!!!;@foreach objlist(con(link(me)))]=@swi %[get(s(%%0/type))]=*SS*,{@fo %[v(0)]={f;f}},{@pemit %[v(0)]=You are blown through the airlock and out into space!;@oemit %[v(0)]=%[name(v(0))] is sucked into the airlock.;@tel %[v(0)]=[loc(here)]};@wait 4={@remit [link(me)]=The airlock emergency shutout is activated and the hatch locks.;@lock me=[owner(me)];@lock [mirror()]=[owner(me)];@remit here=The interior hatch slams shut!}
+OLook:	looks over the airlock controls.
+ext_open:	$unseal ext*:@swi [get(s([findairlock()]/lairlock))]=1,{ @pemit %#=The exterior hatch controls are frozen from the bridge.},{@swi [whatisit()]=#-1*,{@emit [name(v(#))] presses the 'unseal exterior' button.;@swi [ifelse(lxor(whereisit(),hasflag(loc(findairlock()),Z)),1,0)]=1,{@wait 2={@tr me/dualemit=The light on the exterior airlock hatch lights green.;@airlock [findairlock()]=[lastfun(whatisit())];@elock [findairlock()];@fo [findairlock()]=@emit The airlock hatch on the [name(findairlock())] swings open.}},{@wait 2={@tr me/dualemit=The airlock blows open!;@elock [findairlock()];@airlock [findairlock()]=[lastfun(whatisit())];@tr [findairlock()]/blownairlock;@swi [get(me/islocked)]=1,{},{@tr me/disaster}}}},{@pemit %#=It is already unsealed.}}
+ext_close:	$seal ext*:@swi [get(s([findairlock()]/lairlock))]=1,{@pemit %#=The exterior hatch controls are frozen from the bridge.},{@swi [whatisit()]=#-1*,{@pemit %#=It is already sealed.},{@emit [name(v(#))] pushes the 'seal exterior' button.;@wait 2={@tr me/dualemit=The light on the exterior airlock hatch lights red.;@airlock [findairlock()]=#-1 [whatisit()];@elock [findairlock()]=[owner(me)];@fo [findairlock()]=@emit The airlock hatch on the [name(findairlock())] swings shut.}}}
+int_close:	$seal int*:@swi [get(me/islocked)]=1,{@pemit %#=It is already sealed.},{@emit [name(v(#))] pushes the 'seal interior' button.;@tr me/dualemit=The light on the interior airlock hatch lights red.;@islocked me=1;@islocked [mirror()]=1}
+int_open:	$unseal int*:@swi [get(me/islocked)]=1,{@emit [name(v(#))] pushes the 'unseal interior' button.;@swi [whereisit()]=0,{@tr me/dualemit=The interior airlock hatch tries to open but is held shut by the vacuum in the room.},{@tr me/dualemit=The light on the interior airlock hatch lights green.;@islocked me;@islocked [mirror()]}},{@pemit %#=The hatch is already unsealed.}
+Location:	Door Equipment Room(#28607R)
+Home:	Ptah's Chambers(#10586R)
+
+------------------------------------------
+
+Airlock Exterior Hatch Parent(#52044h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Halted[0]
+Bytes:	2160
+Parents:	Space Projection Functions(#46101)
+Children:	1
+Attribute definitions:
+ejectobject: inherit program
+launchsuit: inherit program
+Attribute list:
+OLook:	looks out the exterior airlock hatch porthole.
+OnFail:	@swi get([link(me)]/airlock)=#-1*,{@fo get([link(me)]/helm)=@emit {The [name(get(s([link(me)]/helm)))] reports the attempted egress of '%N' through the sealed airlock.};@pemit %#=The exterior airlock door is sealed.},{@tr me/ejectobject=%#;@tr me/[if(land(isship(v(#)),hasflag(loc(link(me)),Z)),launchsuit)]=%#}
+launchsuit:	@thrust %0=0;@linposx %0=xpos([link(me)],%0,1.0);@linposy %0=ypos([link(me)],%0,1.0);@linposz %0=zpos([link(me)],%0,1.0);@linvelx %0=xvel([link(me)],0.0);@linvely %0=yvel([link(me)],0.0);@linvelz %0=zvel([link(me)],0.0);@angposx %0=get(s([link(me)]/angposx));@angposy %0=get(s([link(me)]/angposy));@angposz %0=get(s([link(me)]/angposz));@angvelz %0=get(s([link(me)]/angvelz));!enter %0;@pemit %0=The all-encompasing darkness engulfs you as you leave [name(link(me))] behind.
+ejectobject:	@pemit %0=You cycle out through the external airlock hatch.;@oemit %0={%[name(v(0))] cycles out through the external airlock hatch.};@fo link(me)=@emit {%%%[name(v(0))] cycles out from the airlock of the [name(link(me))].};@fo get([link(me)]/helm)=@emit {The [name(get(s([link(me)]/helm)))] reports the egress of '%%%[name(v(0))]' through the airlock.};@fo me=@tel %0=loc(link(me))
+Fail:	You press the open patch on the external airlock hatch.
+OFail:	presses the open patch on the external airlock hatch.
+Desc:	This is a heavy duty exterior hatch designed to protect the ship from the vacuum of space. The light above the hatch is [ifelse(lnot(first(get(s([link(me)]/airlock)))),red,green)]. Looking through the hatch's porthole you see '[name(loc(link(me)))]'.
+Location:	Door Equipment Room(#28607R)
+Home:	Door Equipment Room(#28607R)
+
+------------------------------------------
+

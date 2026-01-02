@@ -1,0 +1,170 @@
+
+------------------------------------------
+
+Downloader(#459)
+Owner: Ptah
+Type: Thing
+Bytes: 1554
+Plane: 0
+Created: Mon Dec  5 03:57:57 1994
+Modified: Mon Dec  5 19:38:23 1994
+Attribute definitions:
+  divby: inherit
+  see_if(): inherit function
+  get_obj_size(): inherit function
+  get_obj_type(): inherit function
+  flte(): inherit function
+  get_obj_color(): inherit function
+  spit_data(): inherit function
+  DownLoad: inherit
+Attribute list:
+flte():[lnot(match(fcomp(v(1),v(0)),-1))]
+get_obj_color():[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0)
+,2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),8,7),9),2),4),14)]
+get_obj_type():[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),
+2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),Ship,Station),Moon),Terran),
+Jovian),Star)]
+get_obj_size():[ifelse(flte(v(0),3E28),ifelse(flte(v(0),8E24),ifelse(flte(v(0),
+2E23),ifelse(flte(v(0),5E16),ifelse(flte(v(0),1E8),1,2),4),8),16),32)]
+see_if():@swi [scomp(get(v(sensor_memory),strcat(memory,v(0))),NO
+MATCH)]=1,{},{@pem [v(2)]=[spit_data(v(0),v(1))]}
+spit_data():[histname(v(!),v(0))]|[fdiv(dx(v(us),v(0)),v(divby))]|[fdiv(dy(v(us
+),v(0)),v(divby))]|[fdiv(dz(v(us),v(0)),v(divby))]|[get_obj_type(get(v(0),mass)
+)]|[get_obj_color(get(v(0),mass))]|[get_obj_size(get(v(0),mass))]|
+divby:1000000
+DownLoad:$download:@foreach [inrange(v(us))] #=@swi v(0)=#,{@pem
+%#=[name(v(us))]|0.00|0.00|0.00|Ship|8|1},{@tr me/see_if=v(0),v(1),v(#)}
+Location: Ptah(#5745PDo)
+Home: Ptah's Chambers(#10586R)
+
+------------------------------------------
+Memory System(#13943h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 1242
+Plane: 0
+Modified: Fri Nov 25 23:33:01 1994
+Attribute definitions:
+  cube_attrnum(): inherit function
+  cube_num(): inherit function
+  detect_cube(): inherit function
+  erase_memory: inherit
+  new_memory: inherit
+  write_memory: inherit
+  read_memory(): inherit function
+Attribute list:
+write_memory:@swi detect_cube(v(3))=0,{@pemit %2=Memory Error: Memory Cube not
+present for recording data.},{@def
+[con(cube_num(v(3)))]/[if(lnot(scomp(get(s([cube_num(v(3))]/memory%0)),NO
+MATCH)),s(memory%0))];@memory%0 cube_num(v(3))=v(1);@swi
+wcount(lattrdef(con(cube_num(v(3)))))=>70,{@tr me/new_memory=%3}}
+cube_attrnum():[first(foreach(parents(cube_num(v(0))),{[if(scomp(get(s(%0/%1)),
+NO MATCH),v(0))]}))]
+erase_memory:@swi cube_num(v(2))=,{@pe %1=memory_error()},{@undefattr
+[cube_attrnum(v(2),v(0))]/%0}
+cube_num():[get(s(me/%0_memory))]
+detect_cube():[wcount(get(s(me/%0_memory)))]
+new_memory:@fo cube_num(v(0))={@create Memory Parent;@add me=con(me)}
+read_memory():[ifelse(cube_num(v(1)),get(s([cube_num(v(1))]/memory%0)),NO
+MEMORY)]
+Location: Helm Equipment Room(#11848R)
+Home: Helm Equipment Room(#11848R)
+
+------------------------------------------
+INFO(#25387h)
+Owner: Ptah
+Type: Thing  Flags: Haven
+Bytes: 1346
+Plane: 0
+Modified: Fri Nov 25 23:32:47 1994
+Attribute definitions:
+  FYI2
+  FYI
+  tac_info: inherit
+  com_info: inherit
+  eng_info: inherit
+  sci_info: inherit
+  gen_info: inherit
+  nav_info: inherit
+Attribute list:
+eng_info:$info:/[get(me/Eng_Man)]/@wait 1=@spittext %#=space=starship console
+eng
+sci_info:$info:/[get(me/Sci_Man)]/@wait 1=@spittext %#=space=starship console
+sci
+com_info:$info:/[get(me/com_man)]/@wait 1=@spittext %#=space=starship console
+com
+nav_info:$info:/[get(me/nav_man)]|[con(me)]/@wait 1=@spittext %#=space=starship
+console nav
+gen_info:$info:@spittext %#=space=starship console general
+FYI:This is the spittext comand on the UZ -> $@spittext
+*=*=*:/[gt(rank(owner(v(#))),1)]/@swi controls(v(#),v(0),spoof)=0,@npe
+v(0)=Spittext from [unparse(v(#))]:;@force v(0)=@text v(1)=v(2)
+FYI2:gen_info needs to wind up before the rest of the *_info, otherwise they
+will be shown first. I don't want to have to add any waits. Usually if you
+enter gen_info first it will wind up at the top.
+tac_info:$info:/[get(me/Tac_Man)]/@pemit %#=NOTE: The tactical station is
+non-functional on MicroMUSE.;@wait 1=@spittext %#=space=starship console tac
+Location: Helm Equipment Room(#11848R)
+Home: Helm Equipment Room(#11848R)
+
+------------------------------------------
+
+Probe Launcher(#46410)
+Type:	Thing
+Owner:	Ptah
+Bytes:	972
+Children:	1
+Attribute definitions:
+launchprobe: inherit program
+addprobe: inherit program
+Attribute list:
+addprobe:	@create ProbeHelm;@add con(me)=#26878;@fo owner(me)=@set [con(me)]=inherit;@set con(me)=!v;@helm v(0)=con(me);@set con(me)=us:%0;@tel con(me)=v(0);@aship v(0)=
+launchprobe:	$launch probe at *:@swi histnum(v(!),v(0))=,{@pemit %#=That name does not exist in the sensor logs.},{@swi 3d(v(us),histnum(v(!),v(0)))=<200000,{@swi get([histnum(v(!),v(0))]/type)=SB,{@emit Probe Launched! Impact on [histname(v(!),histnum(v(!),v(0)))] in 2 minutes.;@wait 120={@tr me/addprobe={[histnum(v(!),v(0))]};@emit Probe Impacted!}},{@pemit %#=That is not a planet.}},{@pemit %#=You need to be within 200000km's of the target to launch a probe.}}}
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+
+------------------------------------------
+
+
+Master Starship Controls(#31212h)
+Type:	Thing
+Owner:	Ptah
+Flags:	Opaque[0] Halted[0]
+Bytes:	2524
+Parents:	Downloader(#459h), SCI2(#520h), SCI1(#469h), Variables(#43778h), TAC(#15511h), Star Chart(#9382h), View Screen(#3490hV), INFO(#25387h), Probe Launcher(#46410), Internal Space Functions(#52323), COM(#2409h), Memory System(#13943h), NAV(#30412h), ENG(#31236h), OMS(#33251h), RCS(#33976h), SRP(#33502h)
+Children:	20
+Modified:	Thu Jun 20 00:46:51 1996
+Attribute definitions:
+mag: inherit program
+maxrange: inherit program
+Vt: inherit program
+_Listen: inherit
+_IDesc: inherit
+Attribute list:
+Vt:	$history list:@pemit %#=Temporarily not available.
+#43778.history:	#35832 Neptune #36802 Uranus #35725 Saturn #37478 Mars #37515 Venus #37141 Mercury #36855 Jupiter #37635 Luna #49127 Terra #36610 Pluto #44086 CCII #51991 Sol
+mag:	1
+maxrange:	50000000
+Lock:	Ptah(#5745P)
+#33502.MaxRet:	50000
+#31236.MaxAux:	201
+Desc:	This is comprised of the various stations used to control the ship. They are all seemingly complex stations. There is 'info' for each station.
+Fail:	That is part of the room.
+OLook:	looks over the starship controls.
+_Listen:	* has *.
+_IDesc:	You are inside the ships control station. There are various types of curcuitry around you.
+OEnter:	removes an access panel on the controls and squeezes inside.
+OFail:	tries to remove the ship controls and fails.
+Succ:	You pick up the controls.
+OSucc:	removes the ship's controls!
+Enter:	You remove an access panel and squeeze inside.
+Leave:	You squeeze out of the controls.
+OLeave:	squeezes out of a small access panel in the ship controls.
+OEnterFail:	can't seem to find the access panel on the starship controls.
+EnterFail:	You can't seem to find the access panel.
+#33502._attrdef16():	[ifelse(wmatch(v(man_list),v(0)),abs(-1),ifelse(match(man_sname(v(1)),xxx),x,ifelse(truth(v(s([man_sname(v(1))]_man))),0,1)))]
+Location:	Helm Equipment Room(#11848R)
+Home:	Helm Equipment Room(#11848R)
+
+------------------------------------------
+
