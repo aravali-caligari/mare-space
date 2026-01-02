@@ -3,6 +3,8 @@
 SpaceMare was re-created from the ground up as compared to the SpaceMuse 1.0 used in MicroMUSE in the 90s.
 There was a large body of MUSE 'softcode' written to work with Space 1.0 that did things like display read-outs, work controls, and perform space actions and certain calculations.
 
+For a shorter version of this guide, see `README.AI.Space.legacy.conversions.md`.
+
 Given that SpaceMare was re-created, many things that the MicroMUSE space-related softcode relied on do not work and requires changes. This doc gives a guide on how to modify MUSE softcode to work with the new SpaceMARE code. Some of the conversions are not only because Space was completely changed but because the new Space is going into a MARE software instead of MUSE. There are similiarities between those two but not completely.
 
 ## Terminology changes from SpaceMUSE to SpaceMARE

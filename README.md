@@ -44,8 +44,10 @@ For legacy softcode analysis/conversion guidelines, see `.github/copilot-instruc
 - `README.TinyMARE.II.Helptext.Programming.html` - Authoritative MARE2/TinyMARE programming syntax.
 - `README.TinyMARE.II.Helptext.html` - General TinyMARE II helptext including commands and functions.
 - `README.Space.softcode.manual.md` - SpaceMARE-specific `@` commands, functions, and datatypes.
+- `README.AI.Space.softcode.manual.md` - Short SpaceMARE2 `@` commands/functions/datatypes quick reference for conversions.
 - `README.legacy_MARE_helptext.html` - Legacy MARE I command/function help.
 - `README.Space.legacy.conversions.md` - SpaceMUSE → SpaceMARE naming/function conversions and data model changes.
+- `README.AI.Space.legacy.conversions.md` - Short conversion cheat sheet for SpaceMUSE → SpaceMARE2.
 - `README.Space.features.list.md` - List of SpaceMARE features and softcode components.
 - `README.Space.terminology.md` - Glossary of SpaceMARE-specific terms and definitions.
 - `README.Template.Folder.File.Structure.md` - Recommended folder + file structure for the repo. Describes where to parse legacy code from, what folders to create, for the parsed objects, and where to place english analysis and converted code files.

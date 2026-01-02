@@ -12,6 +12,8 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
 - Raw legacy dumps: `legacy_examine_dumps/incoming/` (may contain multiple objects per file).
 - After *all requested steps* are complete: move dumps to `legacy_examine_dumps/processed/`.
 - Per-object artifacts live in `object_artifacts/dbobj.<object_name>.<id>/` (see `README.Template.Folder.File.Structure.md`).
+- Space conversion quick reference: `README.AI.Space.legacy.conversions.md`.
+- SpaceMARE2 commands/datatypes quick reference: `README.AI.Space.softcode.manual.md`.
 
 ## Workflow (always in order)
 
@@ -42,7 +44,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
   - Respect any manual edits/clarifications in `3-analysis...md`.
   - Built-in attributes: if present in the `### Attribute list` section but missing from `### Attribute definitions`, do not `@defattr` them.
   - You may add helper attributes for dispatch/state; `@defattr #<id>/<newattr>=inherit program` before use.
-  - For SpaceMARE-specific code, consult `README.Space.legacy.conversions.md` and `README.Space.softcode.manual.md`.
+  - For SpaceMARE-specific code, consult `README.AI.Space.legacy.conversions.md` and `README.AI.Space.softcode.manual.md`.
 
 ### Review
 

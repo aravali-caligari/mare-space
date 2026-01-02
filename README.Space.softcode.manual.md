@@ -1,5 +1,7 @@
 # Softcode Manual
 
+Short version for conversions: `README.AI.Space.softcode.manual.md`.
+
 This has a summary of @commands and functions and general notes to help MARE softcoders to use the SpaceMARE features. Most of these commands display usage info if they are run without parameters
 
 ## Datatypes
@@ -300,11 +302,11 @@ Each one is expressed as a single argument and sometimes space-delimited
 
 ### Sensor functions
 
-  | function name        | Purpose                                                 |
-  | -------------------- | ------------------------------------------------------- |
-  | s = sensorlist(d)    | List of DB obj #'s a space object detects               |
+  | function name        | Purpose                                                                  |
+  | -------------------- | ------------------------------------------------------------------------ |
+  | s = sensorlist(d)    | List of DB obj #'s a space object detects                                |
   | s = sensorinfo(d,d)  | Key-value pair list of sensor info for an object (see below for details) |
-  | s = issensed(d,d)    | return 1 or 0 if an obj is detected by another          |
+  | s = issensed(d,d)    | return 1 or 0 if an obj is detected by another                           |
 
 ### In-distance function
 
@@ -316,9 +318,9 @@ Each one is expressed as a single argument and sometimes space-delimited
 
 ### Charted functions
 
-  | function name        | Purpose                                                 |
-  | -------------------- | ------------------------------------------------------- |
-  | s = chartedlist(d)   | List of DB obj #'s a space object knows about           |
+  | function name        | Purpose                                                                   |
+  | -------------------- | ------------------------------------------------------------------------- |
+  | s = chartedlist(d)   | List of DB obj #'s a space object knows about                             |
   | s = chartedinfo(d,d) | Key-value pair list of charted info for an object (see below for details) |
 
 ### Navigational functions
@@ -338,13 +340,13 @@ Each one is expressed as a single argument and sometimes space-delimited
 
 For converting celestial (Right-Ascension, Declination) or land coordinates (Longitude, Latitude)
 
-  | function name           | Purpose                                                |
-  | ----------------------- | ------------------------------------------------------ |
-  | n = coord2deg(s)        | Convert a text coordinate to degrees                   |
-  | s = coords2deg(s,s)     | Convert a pair of coordinates to a pair of degrees     |
-  | s = deg2coord(n,n,n)    | Convert degrees to a coordinate with symbolset and an optional decimal position |
-  | s = deg2latlong(n,n,n)  | Convert 2 degrees to Lat/Long with optional symbol set |
-  | s = deg2radec(n,n,n,n)  | Convert 2 degrees to RA/DEC with optional symbol sets  |
+  | function name           | Purpose                                                                          |
+  | ----------------------- | -------------------------------------------------------------------------------- |
+  | n = coord2deg(s)        | Convert a text coordinate to degrees                                             |
+  | s = coords2deg(s,s)     | Convert a pair of coordinates to a pair of degrees                               |
+  | s = deg2coord(n,n,n)    | Convert degrees to a coordinate with symbolset and an optional decimal position  |
+  | s = deg2latlong(n,n,n)  | Convert 2 degrees to Lat/Long with optional symbol set                           |
+  | s = deg2radec(n,n,n,n)  | Convert 2 degrees to RA/DEC with optional symbol sets                            |
 
 See @list CoordSymbols for a list of symbol set names that can be used for the 'deg2*' functions.
 
