@@ -45,6 +45,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
   - Built-in attributes: if present in the `### Attribute list` section but missing from `### Attribute definitions`, do not `@defattr` them.
   - You may add helper attributes for dispatch/state; `@defattr #<id>/<newattr>=inherit program` before use.
   - For SpaceMARE-specific code, consult `README.AI.Space.legacy.conversions.md` and `README.AI.Space.softcode.manual.md`.
+  - For `@swi` commands, prefer structured `switch`/`case`/`default`/`break`/`endswitch` over inline forms.
 
 ### Review
 
