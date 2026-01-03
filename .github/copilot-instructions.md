@@ -62,6 +62,10 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
 - `@wait N=...` → `sleep N` ... body.
 - `@foreach v(list)=...` → `for i__=v(list)` ... `set 0=v(i__)` ... `done`.
+- `get(obj/attr)` → `get(obj,attr)`.
+- `get([func()]/attr)` → `get(func(),attr)`.
+- `get(s([func()]/attr))` → `get(s(func()),attr)`.
+
 
 ### `$command` definitions
 
@@ -71,10 +75,15 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 ## Formatting expectations (converted snippets)
 
 - Use indentation for blocks; use `else`/`endif` (do not use `{}` for `if` blocks).
-- No spaces around `=` in code; no spaces after commas in argument lists.
+- No spaces around `=` in code unless its part of a message; no spaces after commas in argument lists.
+- Inside `{ ... }`, preserve original spacing and keep as single line.
 - If attribute flags are known: `@defattr #<id>/<attr>=<flags>` then `&<attr> #<id>=...`.
   - Use numeric dbref (no `R`/`h` suffix).
 - If metadata has `Location: ...(#<id>R)`, start conversion with:
   - `@@ Teleport to object location as a convenience`
   - `@teleport me=#<id>`
 - Preserve comments starting with `@@` and `---cut---` separators.
+- Comments cannot have `;` (conflicts with command separator); use separate lines.
+- If an attribute body looks like code and is not a simple message, then insert `@@ Converted by AI` directly after the `&<attr> #<id>=` on the same line.
+
+
