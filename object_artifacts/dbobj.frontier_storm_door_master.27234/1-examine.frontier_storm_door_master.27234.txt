@@ -1,0 +1,58 @@
+Frontier Storm Door Master(#27234h)
+Type:	Thing
+Owner:	Carrie_Gram
+Flags:	Dark halted
+Bytes:	6680
+Parents:	Security Computer(#25819V)
+Children:	39
+Attribute definitions:
+AutoClose: inherit program
+AutoOpen: inherit program
+Godoor: inherit program
+Opendoor: inherit program
+Passthrough: inherit program
+Closedoor: inherit program
+Override: inherit program
+Otherside: program
+XORList: program
+doorsucc: inherit program
+doorosucc: inherit program
+doorodrop: inherit program
+Locked: inherit program
+Nonactive: inherit program
+flags: program
+semaphore: program
+sp: inherit program
+ID: program
+leading: program
+lookthrough: inherit program
+lockup: inherit program
+unlock: inherit program
+level: program
+noentry: inherit program
+Attribute list:
+Passthrough:	@wait 1={@pemit %0=v(succ);@oemit %0=You see [name(v(0))] go through the open door %%%[v(leading)].;@fo v(otherside)=@emit You see [name(v(0))] come in through the open door [get(s([v(otherside)]/leading))].;@fo me=@tel %0=link(me)}
+OnFail:	@swi wmatch(v(flags),OPEN)=0,{@oemit %#=You see %n press the open button on the door %[v(leading)].;@tr me/[ifelse(wmatch(v(flags),ACTIVE),ifelse(wmatch(v(flags),LOCKED),locked,ifelse(scomp(sgn(add(v(level),extract(v(roster),add(wmatch(v(roster),owner(v(#))),1),1))),-1),autoopen,noentry)),nonactive)]=%#,%o},{@tr me/passthrough=%#,%o}
+AutoOpen:	@flags me=ifelse(wmatch(v(flags),OPEN),v(flags),strcat(strcat(OPEN,spc(1)),v(flags)));@flags v(otherside)=ifelse(wmatch(get([v(otherside)]/flags),OPEN),get([v(otherside)]/flags),strcat(strcat(OPEN,spc(1)),get([v(otherside)]/flags)));@semaphore me=strcat(strcat(v(0),spc(1)),v(semaphore));@swi extract(v(semaphore),wcount(v(semaphore)),1)=%0,@tr me/godoor=%0,@tr me/passthrough=%0;@wait 3=@fo me=@fo me=@semaphore me
+OnLook:	@pemit %#=[ifelse(wmatch(get(me/flags),ACTIVE),ifelse(wmatch(get(me/flags),LOCKED),On the door panel you see a red triangle lit.,On the door panel you see a green circle lit.),The lights on the door panel seem to be turned off.)] The door panel has the ID #[get(me/id)]. [ifelse(wmatch(get(me/flags),OPEN),The door is currently open and you can see into the next room.,ifelse(wmatch(get(me/flags),WINDOW),The door is closed but there is a window on the door that allows you to see into the next room.,The door is closed tight and has no window on it.))];@tr me/[if(lor(wmatch(get(me/flags),OPEN),wmatch(get(me/flags),WINDOW)),lookthrough)]=%#
+Godoor:	@pemit %0=s(v(doorsucc)));@oemit %0=s(v(doorosucc)));@fo v(otherside)=@emit {[s(v(doorodrop))]};@fo me=@tel %0=link(me);@tr me/[if(wmatch(v(flags),AUTOCLOSE),autoclose)];@foreach v(XORList)=@foreach children(parents(me))=@tr %%%%0/%%%[if(match(get(s(%%%%0/ID)),%%0*),lockup)]
+AutoClose:	@wait 15={@tr me/%[if(wmatch(get(me/flags),OPEN),closedoor)];@tr [get(me/otherside)]/%[if(wmatch(get(me/flags),OPEN),closedoor)]}
+Closedoor:	@flags me=ifelse(wmatch(get(me/flags),OPEN),remove(get(me/flags),wmatch(get(me/flags),OPEN),1),get(me/flags));@emit The door %[get(me/leading)%] slides shut.;@foreach get(me/XORList)=@foreach children(parents(me))=@tr %%%%0/%%%[if(match(get(s(%%%%0/ID)),%%0*),unlock)]
+Opendoor:	@flags me=ifelse(wmatch(get(me/flags),OPEN),get(me/flags),strcat(strcat(OPEN,get(me/sp)),get(me/flags)));@emit The door %[get(me/leading)%] slides open.;@foreach get(me/XORList)=@foreach children(parents(me))=@tr %%%%0/%%%[if(match(get(s(%%%%0/ID)),%%0*),lockup)]
+doorodrop:	The door [get(s([get(me/otherside)]/leading))] slides open and [name(v(0))] comes in.
+doorosucc:	The door [get(me/leading)] slides open and [name(v(0))] goes through.
+Locked:	@pemit %0=The door refuses to open and you notice that the door panel has a red light on instead of a green light.;@oemit %0=The door refuses to open and [name(v(0))] notices that there is a red light on the door panel instead of a green light.
+Nonactive:	@pemit %0=The door doesn't open and you notice that the lights on the door panel are turned off.;@oemit %0=The door doesn't open and [name(v(0))] notices that the lights on the door panel are turned off.
+Desc:	You see a large metal sliding door in the shape of an elongated octagon.
+doorsucc:	The door [get(me/leading)] slides open and you go through.
+Fail:	You walk up to the door.
+sp:	
+lookthrough:	@pemit %0=name(link(me));@pemit %0=get(s([link(me)]/desc));[if(wcount(get(s([link(me)]/succ))),@pemit s(%0)=get(s([link(me)]/succ)))];@fo me={[if(con(link(me)),s({@pemit %0=Contents:;@foreach objlist(con(link(me)))=@swi flags(v(0))=*D*,,@pemit %0=name(v(0))}))]}
+lockup:	@swi v(flags)=*LOCKED*,,{@emit The door %[get(me/leading)%] goes *click* and the green circle on the door panel changes to a red triangle.};@flags me=ifelse(wmatch(v(flags),LOCKED),v(flags),strcat(strcat(LOCKED,spc(1)),v(flags)))
+noentry:	@pemit %0=The door refuses to open and just buzzes at you.;@oemit %0=The door refuses to open for [name(v(0))] and just buzzes at %1.
+unlock:	@swi v(flags)=*LOCKED*,{@emit The door %[get(me/leading)%] goes *click* and the red triangle on the door panel changes to a green circle.};@flags me=ifelse(wmatch(v(flags),LOCKED),remove(v(flags),wmatch(v(flags),LOCKED),1),v(flags))
+Succ:	You go through the open door.
+OnSucc:	@fo get(me/otherside)=@oemit %#=You see %n come in through the open door [get(s([get(me/otherside)]/leading))].;@emit You see %n go through the open door [get(me/leading)].
+Location:	Captain's Safe(#43072)
+Home:	Recovery Room - Genentech(#50729R)
+

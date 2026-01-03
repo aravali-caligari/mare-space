@@ -63,7 +63,6 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - If a display command starts with a function call, wrap that call in `[...]`.
 - `@defattr #<id>/<attr>=<flags>` → `&<attr> #<id>=<flags>`.
 - `@if cond=...` → `if cond` ... `endif`.
-- `@tr <obj>/<attr>[=<args>]` → `call <obj>/<attr>[=<args>]`.
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
 - `@wait N=...` → `sleep N` ... body.
 - `@foreach v(list)=...` → `for 0=v(list)` ... `done`.
@@ -71,7 +70,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - `get([func()]/attr)` → `get(func(),attr)`.
 - `get(s([func()]/attr))` → `get(s(func()),attr)`.
 - `get(s(me/attr))` → `get(me,attr)`.
-
+- `con(obj)` → `first(lcon(obj))`.
 
 ### `$command` definitions
 
