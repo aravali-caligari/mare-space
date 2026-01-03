@@ -39,13 +39,15 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 
 - For each `3-analysis...md` missing `4-converted...md`:
   - Create `4-converted.<object_name>.<id>.md` using `README.Format.Converted.Code.md`.
-  - Reference the legacy softcode documentation in `README.legacy_MARE_helptext.html` for how to understand legacy constructs, functions, and commands.
-  - Preserve behavior; use TinyMARE II syntax (see `README.TinyMARE.II.Helptext.Programming.html` and `README.TinyMARE.II.Helptext.html`).
+  - Reference the legacy softcode documentation in `README.AI.legacy_MARE_helptext.html` for how to understand legacy constructs, functions, and commands.
+  - Preserve behavior; use TinyMARE II syntax (see `README.AI.TinyMARE.II.Helptext.Programming.html` and `README.AI.TinyMARE.II.Helptext.html`).
   - Respect any manual edits/clarifications in `3-analysis...md`.
   - Built-in attributes: if present in the `### Attribute list` section but missing from `### Attribute definitions`, do not `@defattr` them.
   - You may add helper attributes for dispatch/state; `@defattr #<id>/<newattr>=inherit program` before use.
   - For SpaceMARE-specific code, consult `README.AI.Space.legacy.conversions.md` and `README.AI.Space.softcode.manual.md`.
   - For `@swi` commands, prefer structured `switch`/`case`/`default`/`break`/`endswitch` over inline forms.
+  - `v(name)` returns local 'name' variable if set; otherwise it reads the 'name' attribute on the current object.
+  - `for 0=list` loops over list items, setting `v(0)`/`%0` to each item in turn.
 
 ### Review
 
@@ -56,15 +58,19 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 - Substitutions: `[ ... ]`, variables `%0-%9` / `v(0)-v(9)`.
 - Locks: `:/[ ... ]/` (lock failure prevents execution).
 - Multi-command lines: `;` splits commands (unless inside `{ ... }`).
-- `@pemit %#=...` → `print ...` (only when target is `%#`; other forms of `@pemit` must be preserved).
+- `@pemit %#=...` → `print ...` 
+- `@pemit obj=...` (non-`%#`) → preserve as-is.
+- If a display command starts with a function call, wrap that call in `[...]`.
+- `@defattr #<id>/<attr>=<flags>` → `&<attr> #<id>=<flags>`.
 - `@if cond=...` → `if cond` ... `endif`.
 - `@tr <obj>/<attr>[=<args>]` → `call <obj>/<attr>[=<args>]`.
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
 - `@wait N=...` → `sleep N` ... body.
-- `@foreach v(list)=...` → `for i__=v(list)` ... `set 0=v(i__)` ... `done`.
+- `@foreach v(list)=...` → `for 0=v(list)` ... `done`.
 - `get(obj/attr)` → `get(obj,attr)`.
 - `get([func()]/attr)` → `get(func(),attr)`.
 - `get(s([func()]/attr))` → `get(s(func()),attr)`.
+- `get(s(me/attr))` → `get(me,attr)`.
 
 
 ### `$command` definitions
@@ -74,7 +80,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
 
 ## Formatting expectations (converted snippets)
 
-- Use indentation for blocks; use `else`/`endif` (do not use `{}` for `if` blocks).
+- Use indentation for blocks (2-spaces) ; use `else`/`endif` (do not use `{}` for `if` blocks).
 - No spaces around `=` in code unless its part of a message; no spaces after commas in argument lists.
 - Inside `{ ... }`, preserve original spacing and keep as single line.
 - If attribute flags are known: `@defattr #<id>/<attr>=<flags>` then `&<attr> #<id>=...`.
@@ -83,7 +89,10 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
   - `@@ Teleport to object location as a convenience`
   - `@teleport me=#<id>`
 - Preserve comments starting with `@@` and `---cut---` separators.
-- Comments cannot have `;` (conflicts with command separator); use separate lines.
-- If an attribute body looks like code and is not a simple message, then insert `@@ Converted by AI` directly after the `&<attr> #<id>=` on the same line.
+- Generated Comments cannot have `;` (conflicts with command separator).
+- If an attribute body looks like code, then insert `@@ Converted by AI` directly at the end of the `&<attr> #<id>=` line.
+- If an attribute body is just a message (e.g. `You see ...`) without any beginning command, do not insert `@@ Converted by AI` (to reduce clutter).
+- If a user-defined attribute is just a message (no commands), remove `program` flag from its `@defattr` line.
+
 
 
