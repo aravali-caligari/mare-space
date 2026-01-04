@@ -17,7 +17,7 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
 
 ## Workflow (always in order)
 
-When asked to do multiple steps, do: **parse → analyze → convert → review**. Do not move a dump to `processed/` until the requested steps are done.
+When asked to do multiple steps, do: **parse → analyze → convert → explain -> review**. Do not move a dump to `processed/` until the requested steps are done.
 
 ### Parse
 
@@ -49,9 +49,16 @@ When asked to do multiple steps, do: **parse → analyze → convert → review*
   - `v(name)` returns local 'name' variable if set; otherwise it reads the 'name' attribute on the current object.
   - `for 0=list` loops over list items, setting `v(0)`/`%0` to each item in turn.
 
+### Explain
+
+- For each `4-converted...md` that is missing a `5-explained...md`:
+  - Create `5-explained.<object_name>.<id>.md`.
+  - For every attribute/program in the `### Attribute definitions` section from the `2-metadata...md` file, write an explanation of why the converted code works and how it preserves behavior. Explain any non-obvious parts. Explain any helper attributes added. Explain what TinyMARE II constructs were used to replace legacy constructs in `2-metadata...md`.
+  - Include an `original` fenced block containing the original converted code for that attribute near the top of each attribute section.
+
 ### Review
 
-- Create `5-review.<object_name>.<id>.md` reviewing correctness, formatting expectations, and behavior preservation.
+- Create `6-review.<object_name>.<id>.md` reviewing correctness, formatting expectations, and behavior preservation.
 
 ## Common mechanical conversions
 
