@@ -9,8 +9,8 @@ This repo is documentation + softcode source control for the SpaceMARE simulatio
 ## Inputs and outputs
 
 - Ignore `.backup of legacy softcode/` (reference only).
-- Raw legacy dumps: `legacy_examine_dumps/incoming/` (may contain multiple objects per file).
-- After *all requested steps* are complete: move dumps to `legacy_examine_dumps/processed/`.
+- Raw legacy dumps: `source_dumps/incoming/` (may contain multiple objects per file).
+- After *all requested steps* are complete: move dumps to `source_dumps/processed/`.
 - Per-object artifacts live in `object_artifacts/dbobj.<object_name>.<id>/` (see `README.Template.Folder.File.Structure.md`).
 - Space conversion quick reference: `README.AI.Space.legacy.conversions.md`.
 - SpaceMARE2 commands/datatypes quick reference: `README.AI.Space.softcode.manual.md`.
@@ -21,7 +21,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
 
 ### Parse
 
-- For each object found in each dump in `legacy_examine_dumps/incoming/`:
+- For each object found in each dump in `source_dumps/incoming/`:
   - Create `object_artifacts/dbobj.<object_name>.<id>/`.
   - Normalize `<object_name>` for filenames: lower-case, underscores, no spaces/punct.
   - Write `1-examine.<object_name>.<id>.txt` using `README.Format.Examine.md`.
