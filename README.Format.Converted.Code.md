@@ -17,36 +17,46 @@
 @@ -----------------------------
 
 ---cut---
+
 @teleport me=<location dbref>
+
 ---cut---
 
 @@ ATTRIBUTE: <Object Name>/<attribute name>
 @@ -----------------------------
 
 ---cut---
+
 ( @defattr <Object dbref>/<attribute name>=<flags> )
 or
 ( @defattr <Object dbref>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
 ( @@ Built-in attribute, no need to define ) if the attribute is built-in.
+
 ---cut---
+
 ( &<attribute name> <Object dbref>=<converted attribute value> )
 ( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
+
 ---cut---
 
 @@ ATTRIBUTE: <Object Name>/<next attribute name>
 @@ -----------------------------
 
 ---cut---
+
 ( @defattr <Object dbref>/<next attribute name>=<flags> )
 or
 ( @defattr <Object dbref>/<attribute name> ) if there are no flags and its a user-defined attribute listed in the attribute definitions section.
 or 
 ( @@ Built-in attribute, no need to define ) if the attribute is built-in.
+
 ---cut---
+
 ( &<next attribute name> <Object dbref>=<converted attribute value> )
 or
-( @@ No value to convert, skip this attribute ) if there is no value to convert for this attribute.
+( @@ No value to convert ) if there is no value to convert for this attribute.
+
 ---cut---
 
 ... additional converted attributes ...
@@ -69,6 +79,7 @@ or
 @@ -----------------------------
 
 ---cut---
+
 @teleport me=#28607
 
 ---cut---
@@ -77,18 +88,26 @@ or
 @@ ----------------------------------
 
 ---cut---
+
 @@ Built-in attribute, no need to @defattr
+
 ---cut---
+
 &OSucc #25980=fires up %p engines and blasts out into the void with a tremendous roar.
+
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/eject
 @@ ----------------------------------
 
 ---cut---
+
 @defattr #25980/eject=inherit program
+
 ---cut---
+
 &eject #25980=call me/OnSucc
+
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/OFail
@@ -96,36 +115,50 @@ or
 
 ---cut---
 @@ Built-in attribute, no need to @defattr
+
 ---cut---
+
 &OFail #25980=contemplates suicide by stepping into the void,but then %s decides not to.
+
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/Fail 
 @@ ---------------------------------
 
 ---cut---
+
 @@ Built-in attribute, no need to @defattr
+
 ---cut---
+
 &Fail #25980=You would die if you stepped out there,you decide not to.
+
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/desc
 @@ ---------------------------------
 
 ---cut---
+
 @@ Built-in attribute, no need to @defattr
+
 ---cut---
+
 &Desc #25980=You see a hangar door that leads out into Space.
+
 ---cut---
 
 @@ ATTRIBUTE: Space Exit Parent/OnSucc
 @@ -----------------------------------
 
 ---cut---
+
 @@ Built-in attribute, no need to @defattr
+
 ---cut---
-&OnSucc #25980=
-@@ SpaceMARE2: thrust/pos/vel/attitude are consolidated datatypes.
+
+&OnSucc #25980=@@ Converted by AI
+@@ MARE:Space2: thrust/pos/vel/attitude are consolidated datatypes.
 @spunpark get(link(me),us)
 @tel %#=loc(link(me))
 @zlink %#=zone(loc(link(me)))
@@ -133,6 +166,7 @@ or
 @remit loc(get(%#,#44444.Helm))=The all-encompasing darkness engulfs your ship as you leave [name(link(me))] behind.
 @remit loc(get(link(me),helm))=Ship '%n' has just departed the Ship Bay.
 call here/del_docked_ship=v(#)
+
 ---cut---
 
 ... additional converted attributes ...

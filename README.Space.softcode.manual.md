@@ -2,7 +2,7 @@
 
 Short version for conversions: `README.AI.Space.softcode.manual.md`.
 
-This has a summary of @commands and functions and general notes to help MARE softcoders to use the SpaceMARE features. Most of these commands display usage info if they are run without parameters
+This has a summary of @commands and functions and general notes to help MARE softcoders to use the MARE:Space features. Most of these commands display usage info if they are run without parameters
 
 ## Datatypes
 

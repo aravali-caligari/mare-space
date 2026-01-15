@@ -1,14 +1,14 @@
-# SpaceMUSE → SpaceMARE2 conversion cheat sheet (AI-short)
+# SpaceMUSE → MARE:Space2 conversion cheat sheet (AI-short)
 
-SpaceMARE (aka SpaceMARE2 softcode) was rebuilt vs the SpaceMUSE 1.0 used in MicroMUSE. Legacy space softcode will often **not** work unchanged.
+MARE:Space (aka MARE:Space2 softcode) was rebuilt vs the SpaceMUSE 1.0 used in MicroMUSE. Legacy space softcode will often **not** work unchanged.
 
 This doc is the short list of what usually needs to change.
-For authoritative SpaceMARE commands/functions/datatypes, see `README.Space.softcode.manual.md`.
+For authoritative MARE:Space commands/functions/datatypes, see `README.Space.softcode.manual.md`.
 
 ## Quick mindset
 
-- Expect both **syntax changes** (MUSE → TinyMARE II/MARE2 softcode) and **space-model changes** (SpaceMUSE → SpaceMARE).
-- Prefer migrating to **vector/euler attributes** and SpaceMARE’s **new `@` commands** rather than preserving per-axis legacy patterns.
+- Expect both **syntax changes** (MUSE → TinyMARE II/MARE2 softcode) and **space-model changes** (SpaceMUSE → MARE:Space).
+- Prefer migrating to **vector/euler attributes** and MARE:Space’s **new `@` commands** rather than preserving per-axis legacy patterns.
 
 ## Terminology mapping
 
@@ -36,11 +36,11 @@ See `README.Space.terminology.md` for the extended glossary.
 - Angles are presented as degrees; radians can still be used by prefixing values with `rad` (followed by a space).
 - Some functions return **key/value** strings like `key=value:key2=value2:...`.
 
-## Attribute renames (SpaceMUSE → SpaceMARE)
+## Attribute renames (SpaceMUSE → MARE:Space)
 
 Most of these collapse X/Y/Z into a single vector/euler attribute.
 
-| SpaceMUSE | SpaceMARE |
+| SpaceMUSE | MARE:Space |
 | --- | --- |
 | `LinposX/Y/Z` | `Pos` |
 | `LinvelX/Y/Z` | `Vel` |
@@ -93,7 +93,7 @@ TBD / not available / N/A (as of this doc): `face`, `acctime`, `relacc`, `swait`
 
 ## Other notable behavioral differences
 
-- SpaceMUSE `ROOM_ZEROG` flag is not present in SpaceMARE.
+- SpaceMUSE `ROOM_ZEROG` flag is not present in MARE:Space.
 - Docking/Landing:
   - Uses Station Inside/Land concepts.
   - Typically requires a lock attribute and a Station attribute indicating destination.
@@ -104,7 +104,7 @@ TBD / not available / N/A (as of this doc): `face`, `acctime`, `relacc`, `swait`
   - Usually have no location (they are “inside themselves” conceptually) and are not meant to be regular player-owned objects.
   - Spacecraft often reference a normal Mare object via `@body`/`Body` for descriptions/standard attributes.
 
-## New SpaceMARE attributes (high-level)
+## New MARE:Space attributes (high-level)
 
 These are the kinds of attributes you’ll see/need to integrate with when converting.
 
@@ -132,6 +132,6 @@ These are the kinds of attributes you’ll see/need to integrate with when conve
 ## Practical conversion checklist
 
 - Convert any `Lin*X/Y/Z` and `Ang*X/Y/Z` logic to vector/euler equivalents.
-- Replace legacy thrust/accel control with SpaceMARE’s burn/control commands from `README.Space.softcode.manual.md`.
+- Replace legacy thrust/accel control with MARE:Space’s burn/control commands from `README.Space.softcode.manual.md`.
 - Replace legacy “distance/heading/orbit” helpers with `vdist`, `vlookat`, `relstate()`, and `orbitstate()` patterns.
-- If a legacy attribute/function has no SpaceMARE equivalent, treat it as a redesign point (don’t fake it).
+- If a legacy attribute/function has no MARE:Space equivalent, treat it as a redesign point (don’t fake it).

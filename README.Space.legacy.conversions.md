@@ -1,13 +1,13 @@
 # Legacy Space to new Space conversions
 
-SpaceMare was re-created from the ground up as compared to the SpaceMuse 1.0 used in MicroMUSE in the 90s.
+MARE:Space was re-created from the ground up as compared to the SpaceMuse 1.0 used in MicroMUSE in the 90s.
 There was a large body of MUSE 'softcode' written to work with Space 1.0 that did things like display read-outs, work controls, and perform space actions and certain calculations.
 
 For a shorter version of this guide, see `README.AI.Space.legacy.conversions.md`.
 
-Given that SpaceMare was re-created, many things that the MicroMUSE space-related softcode relied on do not work and requires changes. This doc gives a guide on how to modify MUSE softcode to work with the new SpaceMARE code. Some of the conversions are not only because Space was completely changed but because the new Space is going into a MARE software instead of MUSE. There are similiarities between those two but not completely.
+Given that MARE:Space was re-created, many things that the MicroMUSE space-related softcode relied on do not work and requires changes. This doc gives a guide on how to modify MUSE softcode to work with the new MARE:Space code. Some of the conversions are not only because Space was completely changed but because the new Space is going into a MARE software instead of MUSE. There are similiarities between those two but not completely.
 
-## Terminology changes from SpaceMUSE to SpaceMARE
+## Terminology changes from SpaceMUSE to MARE:Space
 
 * Linear Position -> Pos
 * Linear Velocity -> Vel
@@ -35,7 +35,7 @@ See README named 'README.terminology.md' for more info.
   * A softcode function helps parse this. Soon to be a hardcode one.
 * Space Objects have space obj types (Star, Planet, Moon, Smallbody, Spacecraft, ordnance, debris, marker)
 
-## Soft-code Attribute renaming from SpaceMUSE to SpaceMARE
+## Soft-code Attribute renaming from SpaceMUSE to MARE:Space
 
 * Most of these were slimmed down from 3 separate attributes to 1 attribute with 3 space-delimited values (example: "@pos #365=1.5 2.0 0.37")
 * LinposX/Y/Z -> Pos
@@ -103,7 +103,7 @@ See 'README.softcode.manual.md' for more info.
 
 ## Other notable thing not handled yet
 
-* The ROOM_ZEROG flag from SpaceMUSE is not in SpaceMare
+* The ROOM_ZEROG flag from SpaceMUSE is not in MARE:Space
   * There is however the Mare 2.0 idea of Sectors that list Space as a choice.
   * Perhaps a suitable replacement
 
@@ -118,7 +118,7 @@ See 'README.softcode.manual.md' for more info.
 * Space Objs have no location (inside themselves) and not meant to be owned by regular players and not used as spacecraft rooms / items.
 * spacecraft have a '@body' attribute to point to its equivilant Mare object that has a real description and regular attributes / softcode (Type: Thing or Room)
 
-## New softcode attributes in SpaceMARE
+## New softcode attributes in MARE:Space
 
 * Space_ID (closely mirrors NASA JPL NAIF ID's. Every object gets a unique ID)
 * Grav (acceleration due to gravity)

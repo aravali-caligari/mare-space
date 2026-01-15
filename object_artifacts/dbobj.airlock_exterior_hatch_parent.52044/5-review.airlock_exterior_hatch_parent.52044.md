@@ -9,7 +9,7 @@
 ## Conversion notes
 
 - Converted legacy `@swi` into structured `switch`/`case`/`default`/`endswitch` and removed the legacy “call attribute name possibly empty” pattern by rewriting it as an explicit `if` guarding `launchsuit`.
-- Converted legacy SpaceMUSE per-axis state updates (`@linposx/@linvelx/@angposx/...`) into SpaceMARE2 vector/euler forms using `@pos`, `@vel`, `@attpos`, `@attvel` per the SpaceMUSE→SpaceMARE2 guidance.
+- Converted legacy SpaceMUSE per-axis state updates (`@linposx/@linvelx/@angposx/...`) into MARE:Space2 vector/euler forms using `@pos`, `@vel`, `@attpos`, `@attvel` per the SpaceMUSE→MARE:Space2 guidance.
 - Replaced legacy `@fo` with `@force` for clarity; if TinyMARE II retains `@fo` alias only, this is the one place that might need reverting.
 
 ## Potential follow-ups / risks

@@ -104,8 +104,11 @@
 @@ --------------------------------
 
 ---cut---
+
 @defattr #54808/cloak_off=inherit program
+
 ---cut---
+
 &cloak_off #54808=
   if get(s(v(us)/vismult))=1
     print Cloaking device already off.
@@ -113,6 +116,7 @@
     @vismult [v(us)]=1
     @emit Cloaking device disengaged.
   endif
+  
 ---cut---
 
 @@ ATTRIBUTE: Cloak Parent/set_passkey1

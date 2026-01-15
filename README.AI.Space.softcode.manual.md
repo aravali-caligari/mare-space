@@ -1,7 +1,7 @@
-# SpaceMARE2 softcode manual (AI-short)
+# MARE:Space2 softcode manual (AI-short)
 
 This is the **short, conversion-focused** version of `README.Space.softcode.manual.md`.
-Use it as the “what do I call / what do I rename / what shape is the data” guide when porting SpaceMUSE softcode to SpaceMARE2.
+Use it as the “what do I call / what do I rename / what shape is the data” guide when porting SpaceMUSE softcode to MARE:Space2.
 
 For full details and long reference tables, see `README.Space.softcode.manual.md`.
 

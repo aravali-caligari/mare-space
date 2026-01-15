@@ -50,7 +50,7 @@
 @defattr #52044/launchsuit=inherit program
 ---cut---
 &launchsuit #52044=
-  @@ SpaceMARE2: collapse per-axis position/velocity into vector/euler forms
+  @@ MARE:Space2: collapse per-axis position/velocity into vector/euler forms
   @mainburn %0=0
   @pos %0=vadd(get(link(me)/@pos),vmul(e2v(get(link(me)/@attpos)),1.0))
   @vel %0=get(link(me)/@vel)

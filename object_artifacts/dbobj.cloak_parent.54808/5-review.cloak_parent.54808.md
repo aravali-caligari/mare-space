@@ -24,6 +24,6 @@
 - Dispatcher parsing relies on `first()` and `rest()` for `cloak passkey <old>=<new>`.
   - If `rest()` is not available or behaves differently in TinyMARE II, this dispatch branch may need adjustment (e.g., use a different string/list split helper).
 - This keeps legacy `vismult` / `@vismult` behavior intact.
-  - The SpaceMARE2 conversion cheat sheet notes `VisMult` may not have a modern equivalent; if `@vismult` is removed in your current SpaceMARE2 build, this will need redesign.
+  - The MARE:Space2 conversion cheat sheet notes `VisMult` may not have a modern equivalent; if `@vismult` is removed in your current MARE:Space2 build, this will need redesign.
 - `@passkey me=...` is preserved as a legacy setter for the passkey attribute.
   - If `@passkey` is not a valid command in TinyMARE II, replace it with the appropriate attribute-setter syntax used in your codebase.

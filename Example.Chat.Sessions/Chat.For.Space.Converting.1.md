@@ -172,9 +172,9 @@ I shortened and refocused the doc into a “rules-first” cheat sheet while kee
 
 Made changes.
 
-User: Convert this section to SpaceMARE2 code using the READMEs name `README.Space.*.md`
+User: Convert this section to MARE:Space2 code using the READMEs name `README.Space.*.md`
 
-GitHub Copilot: I’m going to open the SpaceMARE conversion READMEs, then rewrite the selected `&OnSucc` example in README.Format.Converted.Code.md to the SpaceMARE2 equivalents (keeping behavior, just updating commands/functions/datatypes as required).
+GitHub Copilot: I’m going to open the MARE:Space conversion READMEs, then rewrite the selected `&OnSucc` example in README.Format.Converted.Code.md to the MARE:Space2 equivalents (keeping behavior, just updating commands/functions/datatypes as required).
 
 Read [](file:///home/bivansc/spacesim/github.com/aravali-caligari/mare-space/README.Space.legacy.conversions.md)
 
@@ -190,7 +190,7 @@ Read [](file:///home/bivansc/spacesim/github.com/aravali-caligari/mare-space/REA
 
 Read [](file:///home/bivansc/spacesim/github.com/aravali-caligari/mare-space/README.Space.softcode.manual.md#560-560), lines 560 to 630
 
-Next I’ll patch the Space Exit Parent `OnSucc` example in README.Format.Converted.Code.md, replacing legacy `@linpos*`/`@linvel*`/`@angpos*` commands with SpaceMARE vector/euler commands (`@posvel`, `@attpos`, `@attvel`, `@mainburn`) per README.Space.legacy.conversions.md and README.Space.softcode.manual.md.
+Next I’ll patch the Space Exit Parent `OnSucc` example in README.Format.Converted.Code.md, replacing legacy `@linpos*`/`@linvel*`/`@angpos*` commands with MARE:Space vector/euler commands (`@posvel`, `@attpos`, `@attvel`, `@mainburn`) per README.Space.legacy.conversions.md and README.Space.softcode.manual.md.
 
 Using "Apply Patch"
 
@@ -202,12 +202,12 @@ Using "Apply Patch"
 
 Checked [](file:///home/bivansc/spacesim/github.com/aravali-caligari/mare-space/README.Format.Converted.Code.md), 41 problems found
 
-Updated the example `&OnSucc` block in README.Format.Converted.Code.md to SpaceMARE2 conventions from the `README.Space.*.md` docs:
+Updated the example `&OnSucc` block in README.Format.Converted.Code.md to MARE:Space2 conventions from the `README.Space.*.md` docs:
 
-- Replaced legacy per-axis state setters (`@linposx/@linvelx/@angposx/...`) with consolidated SpaceMARE datatypes:
+- Replaced legacy per-axis state setters (`@linposx/@linvelx/@angposx/...`) with consolidated MARE:Space datatypes:
   - `@mainburn` (replaces legacy `@thrust`)
   - `@posvel` using `pos` + `vel` vectors
   - `@attpos` / `@attvel` using Euler triplets
-- Left the non-space MARE room/zone movement and emits (`!enter`, `@tel`, `@zlink`, `@zemit`, `@remit`) as-is, since those aren’t part of the SpaceMARE state-vector rename.
+- Left the non-space MARE room/zone movement and emits (`!enter`, `@tel`, `@zlink`, `@zemit`, `@remit`) as-is, since those aren’t part of the MARE:Space state-vector rename.
 
 Made changes.
