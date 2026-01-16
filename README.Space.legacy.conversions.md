@@ -44,7 +44,7 @@ See README named 'README.terminology.md' for more info.
 * AngposX/Y/Z -> Att_Pos
 * AngvelX/Y/Z -> Att_Vel
 * AngaccX/Y/Z -> Att_Acc
-* Thrust -> Main_Burn (X,Y,Z)
+* Thrust -> Main_Burn (N)
 * Acceleration -> Acc_Forward (X,Y,Z)
 * Sector -> Region
 See 'README.softcode.manual.md' for more info.

@@ -48,6 +48,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
   - For `@swi` commands, prefer structured `switch`/`case`/`default`/`break`/`endswitch` over inline forms.
   - `v(name)` returns local 'name' variable if set; otherwise it reads the 'name' attribute on the current object.
   - `for 0=list` loops over list items, setting `v(0)`/`%0` to each item in turn.
+  - `@mainburn
 
 ### Explain
 
@@ -64,7 +65,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
 
 - Substitutions: `[ ... ]`, variables `%0-%9` / `v(0)-v(9)`.
 - Locks: `:/[ ... ]/` (lock failure prevents execution).
-- Multi-command lines: `;` splits commands (unless inside `{ ... }`).
+- Multi-command lines: `;` splits commands (unless inside `{ ... }`) and remove the `;`.
 - `@pemit %#=...` → `print ...` 
 - `@pemit obj=...` (non-`%#`) → preserve as-is.
 - If a display command starts with a function call, wrap that call in `[...]`.
@@ -73,15 +74,17 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
 - `@swi/@switch cond,{...},{...}` → structured `switch cond` / `case` / `default` / `break` / `endswitch`.
 - `@wait N=...` → `sleep N` ... body.
 - `@foreach v(list)=...` → `for 0=v(list)` ... `done`.
+- `get(s(me/attr))` and `get(me/attr)` → `v(attr)`.
 - `get(obj/attr)` → `get(obj,attr)`.
 - `get([func()]/attr)` → `get(func(),attr)`.
 - `get(s([func()]/attr))` → `get(s(func()),attr)`.
-- `get(s(me/attr))` → `get(me,attr)`.
 - `con(obj)` → `first(lcon(obj))`.
+- `@trigger` → `@tr`.
 
 ### `$command` definitions
 
 - Converted `$command` names are a single word; legacy multi-word subcommands usually require a `3$<cmd>` dispatcher.
+- `$command` and locks go on the same line as `&<attr> #<id>=`.
 - Follow `README.How.Command.Args.Work.md` for `1$`/`2$`/`3$` patterns, locks, player-locks (`P`), and ignore-unhandled (`~`).
 
 ## Formatting expectations (converted snippets)
@@ -95,10 +98,22 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
   - `@@ Teleport to object location as a convenience`
   - `@teleport me=#<id>`
 - Preserve comments starting with `@@` and `---cut---` separators.
-- Generated Comments cannot have `;` (conflicts with command separator).
-- If an attribute body looks like code, then insert `@@ Converted by AI` directly at the end of the `&<attr> #<id>=` line.
-- If an attribute body is just a message (e.g. `You see ...`) without any beginning command, do not insert `@@ Converted by AI` (to reduce clutter).
+- Converted Comments cannot include `;` (conflicts with command separator).
 - If a user-defined attribute is just a message (no commands), remove `program` flag from its `@defattr` line.
+- Insert `@@ Converted by AI` at the start of each converted attribute/program, unless the attribute/program is just a message (no commands).
+- Example inserted `@@ Converted by AI` usages:
+
+```mud
+&<attr> #<id>=:/[ ... ]/1$cmd:
+@@ Converted by AI
+...code...
+
+or: &<attr> #<id>=@@ Converted by AI
+...code...
+
+or: &<attr> #<id>=... some message ...
+```
+    
 
 
 

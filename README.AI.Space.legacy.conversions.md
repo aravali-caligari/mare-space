@@ -48,7 +48,7 @@ Most of these collapse X/Y/Z into a single vector/euler attribute.
 | `AngposX/Y/Z` | `Att_Pos` |
 | `AngvelX/Y/Z` | `Att_Vel` |
 | `AngaccX/Y/Z` | `Att_Acc` |
-| `Thrust` | `Main_Burn` (vector X,Y,Z) |
+| `Thrust` | `Main_Burn` (single value)|
 | `Acceleration` | `Acc_Forward` (vector X,Y,Z) |
 | `Sector` | `Region` |
 
