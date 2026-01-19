@@ -100,19 +100,7 @@ When asked to do multiple steps, do: **parse → analyze → convert → explain
 - Preserve comments starting with `@@` and `---cut---` separators.
 - Converted Comments cannot include `;` (conflicts with command separator).
 - If a user-defined attribute is just a message (no commands), remove `program` flag from its `@defattr` line.
-- Insert `@@ Converted by AI` at the start of each converted attribute/program, unless the attribute/program is just a message (no commands).
-- Example inserted `@@ Converted by AI` usages:
 
-```mud
-&<attr> #<id>=:/[ ... ]/1$cmd:
-@@ Converted by AI
-...code...
-
-or: &<attr> #<id>=@@ Converted by AI
-...code...
-
-or: &<attr> #<id>=... some message ...
-```
     
 
 

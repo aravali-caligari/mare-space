@@ -37,7 +37,7 @@ Most of these show usage if run with no parameters.
 
 ### Thrust / navigation control
 
-- `@mainburn`: main engines (forward direction only).
+- `@mainburn`: main engines (forward direction only, single value).
 - `@linburn`: small thrusters (vector burn for fine maneuvering; X is “forward”).
 - `@burntimer`: timed burn that ramps down to 0 at timer end.
 - Targets for timers:
@@ -66,7 +66,7 @@ Most of these show usage if run with no parameters.
 
 ## Key config knobs (often relevant when debugging)
 
-- `SPACE_LORD`, `SPACE_DEBUG`, `SPACE_RUNNING`.
+- `SPACE_OWNER`, `SPACE_DEBUG`, `SPACE_RUNNING`.
 - Bulk fast-forward: `SPACE_BULK_REMAINING`, `SPACE_BULK_MAX`.
 - Ephemeris tracking: `EPHEMERIS_LOADED_JD`, `EPHEMERIS_LOADED_UPDATE`.
 - Sensors retention: `SENSOR_RECENT_THRESHOLD`, `SENSOR_LOST_RETENTION`.

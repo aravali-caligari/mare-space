@@ -76,7 +76,7 @@ This is showing Space Sim 'time' which is the date of the object positions, not 
 
 ## @config values
 
-SPACE_LORD = Name of player that owns all Space Objects
+SPACE_OWNER = Name of player that owns all Space Objects
 SPACE_DEBUG = Enable/disable output of Space debugging info into LOG_SPACE
 SPACE_RUNNING = enable/disable automatic space updates each second
 SPACE_BULK_REMAINING = Set number of space updates to fast-forward to (it takes some time because updates are done in batches and not a large jump)
